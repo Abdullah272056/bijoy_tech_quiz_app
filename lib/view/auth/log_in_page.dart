@@ -9,7 +9,7 @@ import '../common/toast.dart';
 
 
 
-class LogInScreen12 extends StatelessWidget {
+class LogInScreen  extends StatelessWidget {
 
   final logInPageController = Get.put(LogInPageController());
   var width;
@@ -52,7 +52,7 @@ class LogInScreen12 extends StatelessWidget {
 
   Widget _buildBodyDesign() {
     return Container(
-      color: message_send_box_bg_color_for_dark.withOpacity(.95),
+      color: bg_top_color,
       child: Flex(
         direction: Axis.vertical,
         children: [
@@ -80,7 +80,7 @@ class LogInScreen12 extends StatelessWidget {
     return Container(
         width: Get.size.width,
         decoration:  BoxDecoration(
-          color: intello_bottom_bg_color_for_dark,
+          color: bottom_bg_color,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30.0),
             topRight: Radius.circular(30.0),
@@ -98,7 +98,7 @@ class LogInScreen12 extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text("Login",
                         style: TextStyle(
-                            color: intello_level_color,
+                            color: levelTextColorWhite,
                             fontSize: 25,
                             fontWeight: FontWeight.w900)),
                   ),
@@ -107,7 +107,7 @@ class LogInScreen12 extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text("Login with your email and password!",
                         style: TextStyle(
-                            color: intello_level_color,
+                            color: levelTextColorWhite,
                             fontSize: 16,
                             fontWeight: FontWeight.w500)),
                   ),
@@ -120,7 +120,7 @@ class LogInScreen12 extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     child: Text("Email",
                         style: TextStyle(
-                            color: intello_level_color,
+                            color: levelTextColor,
                             fontSize: 15,
                             fontWeight: FontWeight.w400)),
                   ),
@@ -139,7 +139,7 @@ class LogInScreen12 extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     child: Text("Password",
                         style: TextStyle(
-                            color: intello_level_color,
+                            color: levelTextColor,
                             fontSize: 15,
                             fontWeight: FontWeight.w400)),
                   ),
@@ -262,7 +262,7 @@ class LogInScreen12 extends StatelessWidget {
       alignment: Alignment.center,
       margin: const EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
-          color: ig_inputBoxBackGroundColor_for_dark,
+          color: input_box_back_ground_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding:
@@ -284,7 +284,7 @@ class LogInScreen12 extends StatelessWidget {
               minWidth: 15,
             ),
             suffixIcon: Icon(Icons.email_outlined,
-              color:  icon_color_for_dark,
+              color:  levelTextColorWhite,
               size: 20,
             ),
 
@@ -311,7 +311,7 @@ class LogInScreen12 extends StatelessWidget {
       alignment: Alignment.center,
       margin: const EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
-          color: ig_inputBoxBackGroundColor_for_dark,
+          color: input_box_back_ground_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding:
@@ -330,7 +330,7 @@ class LogInScreen12 extends StatelessWidget {
           decoration: InputDecoration(
             border: InputBorder.none,
             suffixIcon: IconButton(
-                color:  icon_color_for_dark,
+                color:  levelTextColorWhite,
                 icon:
                 Icon(logInPageController.isObscure.value ? Icons.visibility : Icons.visibility_off),
                 onPressed: () {

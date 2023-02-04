@@ -16,8 +16,8 @@ class LogInPageController extends GetxController {
   final  passwordControllerFocusNode = FocusNode().obs;
 
   ///input box color and operation
-  var userEmailLevelTextColor = hint_color.obs;
-  var passwordLevelTextColor = hint_color.obs;
+  var userEmailLevelTextColor = levelTextColorWhite.obs;
+  var passwordLevelTextColor = levelTextColorWhite.obs;
   var emailFocusNode = FocusNode().obs;
   var isObscure = true.obs;
 
