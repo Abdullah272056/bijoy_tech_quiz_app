@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'auth/fotget_password_page.dart';
 import 'auth/log_in_page.dart';
+import 'auth/registration_page.dart';
 
 void main() {
   GetStorage.init();
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
 
-        home: ForgetPasswordScreen()
+        home: RegistrationScreen()
 
       // home: VendorLogInScreen()
       // VendorSignUpScreen(),

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../common/toast.dart';
+import 'fotget_password_page.dart';
 
 
 
@@ -156,6 +157,8 @@ class LogInScreen  extends StatelessWidget {
                     child: InkResponse(
                       onTap: () {
 
+                        Get.to(ForgetPasswordScreen());
+
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(
@@ -184,7 +187,7 @@ class LogInScreen  extends StatelessWidget {
                       child: Wrap(
                         direction: Axis.horizontal,
                         children: [
-                          Text("Don't have an account?",
+                          Text("Don't have an account?  ",
                               style: TextStyle(
                                   color: textColorWhiteLogin,
                                   fontSize: 16,
