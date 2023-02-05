@@ -203,6 +203,7 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
                             fit: BoxFit.fill,
                             color: forgottenPasswordTextColor,
                           ),
+
                           Container(
                             margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
                             child: const Align(alignment: Alignment.center,
@@ -218,7 +219,6 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
                           ),
 
                           Container(
-
                             margin:const EdgeInsets.only(right: 20.0,top: 00,left: 10,bottom: 0),
                             child: const Align(alignment: Alignment.topCenter,
                               child: Text(
@@ -267,7 +267,6 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
                           //   ),
                           // ],
 
-
                           Container(
                             margin:const EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
                             child: Align(alignment: Alignment.topCenter,
@@ -288,16 +287,14 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
                               ),),
                           ),
 
-
                           const SizedBox(
                             height: 30,
                           ),
-                          Container(
+
+                          SizedBox(
                             width: otpBoxLength,
                             child:_buildTextFieldOTPView1(),
                           )
-
-
 
                         ],
                       )),
