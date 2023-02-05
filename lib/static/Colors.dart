@@ -7,10 +7,12 @@ import 'dart:ui';
 ///login page
 const Color forgottenPasswordTextColor = Color(0xFF0069D9);
 const Color textColorWhiteLogin = Color(0xFFFFFFFF);
+const Color textColor= Color(0xFFFFFFFF);
 const Color smallTextColorWhite = Color(0xFFC4C4C4);
+const Color smallTextColor  = Color(0xFFC4C4C4);
 const Color levelTextColorWhite = Color(0xFFBEBEBE);
 const Color levelTextColor  = Color(0xFFBEBEBE);
-const Color hint_color = Color(0xFFBEBEBE);
+const Color hint_color = Color(0xFF606060);
 
 const  Color bg_top_color = Color(0xFF2A2A2A);
 const  Color bottom_bg_color = Color(0xFF20242A);

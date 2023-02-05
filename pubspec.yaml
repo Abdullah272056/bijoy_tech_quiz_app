@@ -42,6 +42,7 @@ dependencies:
   get_storage: ^2.0.3
   #date
   intl: ^0.17.0
+  dropdown_button2: ^1.9.2
 
 dev_dependencies:
   flutter_test:

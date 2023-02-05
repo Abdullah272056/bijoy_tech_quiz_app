@@ -1,4 +1,5 @@
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -13,11 +14,9 @@ import 'fotget_password_page.dart';
 class RegistrationScreen2  extends StatelessWidget {
 
   final signUpPageController = Get.put(SignUpPageController2());
-
   var width;
   var height;
   late BuildContext _context;
-
 
   // String _particularBirthDate="Enter Birthday";
   // String select_your_country="Enter Birthday";
@@ -49,7 +48,6 @@ class RegistrationScreen2  extends StatelessWidget {
     );
   }
 
-
   Widget _buildBodyDesign() {
     return Container(
       color: bg_top_color,
@@ -60,7 +58,7 @@ class RegistrationScreen2  extends StatelessWidget {
             margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: Image.asset(
               "assets/images/app_logo.png",
-              width: 50,
+              //width: 50,
               height: 50,
               fit: BoxFit.fill,
             ),
@@ -74,7 +72,6 @@ class RegistrationScreen2  extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildBottomDesign() {
     return Container(
@@ -163,8 +160,22 @@ class RegistrationScreen2  extends StatelessWidget {
                   ),
                   userInput( signUpPageController.zipCodeController.value, 'Zip', TextInputType.text),
 
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Text("Country",
+                        style: TextStyle(
+                            color: levelTextColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400)),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  userCountrySelect(),
 
-
+                  const SizedBox(
+                    height: 15,
+                  ),
                   const Align(
                     alignment: Alignment.topLeft,
                     child: Text("Guardian Name",
@@ -264,7 +275,6 @@ class RegistrationScreen2  extends StatelessWidget {
 
         ));
   }
-
 
   Widget userInput(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
@@ -410,7 +420,6 @@ class RegistrationScreen2  extends StatelessWidget {
     );
   }
 
-
   Widget userInputPassword(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
     return Container(
@@ -452,8 +461,6 @@ class RegistrationScreen2  extends StatelessWidget {
       ),
     );
   }
-
-
 
   Widget userInputConfirmPassword(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
@@ -497,98 +504,125 @@ class RegistrationScreen2  extends StatelessWidget {
     );
   }
 
+  Widget userCountrySelect() {
+    return Column(
+      children: [
+        Container(
+          // height: 50,
+            alignment: Alignment.center,
+            // margin: const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20,),
+            decoration: BoxDecoration(
+                color:input_box_back_ground_color,
 
-  ///user input birth date select box
-  Widget userInputBirthDay( ) {
-    return InkResponse(
-      onTap: () async {
-        _myDate = (await showDatePicker(
-          context: _context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(1900),
-          lastDate: DateTime.now(),
-        ))!;
+                borderRadius: BorderRadius.circular(5)),
+            child: Obx(()=>DropdownButton2(
+              //  buttonHeight: 40,
+              //   menuMaxHeight:55,
+              itemPadding: EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 0),
+              dropdownDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(2),
+                color: bg_top_color,
 
-        signUpPageController.particularBirthDate(_myDate.toString());
-        // _particularBirthDate = DateFormat('yyyy-MM-dd').format(_myDate);
-        signUpPageController.particularBirthDate((DateFormat('MM/dd/yyyy').format(_myDate)).toString());
-
-      },
-      child:Container(
-        height: 50,
-        alignment: Alignment.center,
-        margin: const EdgeInsets.only(bottom: 15),
-        decoration: BoxDecoration(
-            color: input_box_back_ground_color,
-            borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-            padding:
-            const EdgeInsets.only(left: 15.0, top: 0, bottom: 0, right: 10),
-            child: SizedBox(
-              height: 50,
-
-              child: Padding(
-                padding:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
-                child:Obx(() => Flex(direction: Axis.horizontal,
-                  children: [
-                    if(signUpPageController.particularBirthDate==signUpPageController.select_your_country)...{
-                      Expanded(child: Obx(() => Text(signUpPageController.particularBirthDate.value,
-                          style: const TextStyle(
-                              color: hint_color,
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal)
-                      ))),
-                    }
-                    else...{
-                      Expanded(child: Obx(() => Text(signUpPageController.particularBirthDate.value,
-                          style: const TextStyle(
-                              color: textColorWhiteLogin,
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal)
-                      ))),
-                    },
-
-                    const Icon(
-                      Icons.date_range,
-                      size: 22,
-                      color: hint_color,
-                    ),
-
-
-
-                    // Image.asset(
-                    //   "assets/images/icon_birthday.png",
-                    //   width: 18,
-                    //   height: 18,
-                    //   fit: BoxFit.fill,
-                    // ),
-                    // Flag.fromCode(FlagsCode.BD, height: 18, width: 22, fit: BoxFit.fill)
-                  ],
-                )),
 
               ),
-            ),
+              iconSize: 30,
+              icon:Padding(padding: EdgeInsets.only(right: 10),
+                child:  Icon(Icons.keyboard_arrow_down_outlined,color: levelTextColor,),),
+              value: signUpPageController.selectCountryId.value != null &&
+                  signUpPageController.selectCountryId.value.isNotEmpty ?
+              signUpPageController.selectCountryId.value : null,
+              underline:const SizedBox.shrink(),
+              hint:Row(
+                children: const [
+
+                  Expanded(child: Padding(padding: EdgeInsets.only(left: 25),
+                      child:  Text("Select Country",
+                          style: TextStyle(
+                              color: hint_color,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal))
+                  ))
+                ],
+              ),
+              isExpanded: true,
+              /// icon: SizedBox.shrink(),
+              buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+
+
+              items: signUpPageController.countryList.map((list) {
+                return DropdownMenuItem(
+                  alignment: Alignment.centerLeft,
+
+
+
+                  // value: list["id"].toString(),
+                  value: list.countryName.toString(),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(child:Padding(
+                        padding: EdgeInsets.only(left: 25),
+                        child:Text(
+                            list.countryName,
+                            textAlign: TextAlign.left,
+                            style:  const TextStyle(
+                                color: textColorWhiteLogin,
+
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal)),
+
+                      ),),
+
+
+
+
+                    ],
+                  ),
+                );
+
+              },
+              ).toList(),
+              onChanged:(String? value){
+                String data= signUpPageController.selectCountryId(value.toString());
+                //  _showToast("Id ="+checkoutPageController.selectStateId(value.toString()));
+              },
+
+            ))
         ),
-      )
-
-    );
+      ],
+    )
+    ;
   }
-
-
 
   Widget _buildSignUpButton() {
     return Container(
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-          // String userEmailTxt = signUpPageController.userEmailController.value.text;
-          // String passwordTxt = signUpPageController.passwordController.value.text;
 
-          // if (signUpPageController.inputValid(userEmailTxt, passwordTxt)== false) {
-          //
-          // //  LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
-          //
-          // }
+          String userAddressTxt = signUpPageController.userAddressController.value.text;
+          String userCityTxt = signUpPageController.userCityController.value.text;
+          String userStateTxt = signUpPageController.userStateController.value.text;
+
+          String zipCodeTxt = signUpPageController.zipCodeController.value.text;
+          String guardianNameTxt = signUpPageController.guardianNameController.value.text;
+          String guardianPhoneTxt = signUpPageController.guardianPhoneController.value.text;
+          String guardianEmailTxt = signUpPageController.guardianEmailController.value.text;
+          String relationWithGuardianTxt = signUpPageController.relationWithGuardianNameController.value.text;
+
+          if ( signUpPageController.inputValid(
+              addressTxt: userAddressTxt, cityTxt: userCityTxt,
+              stateTxt: userStateTxt, zipCodeTxt: zipCodeTxt,
+              guardianNameTxt:guardianNameTxt, relationWithGuardianTxt: guardianPhoneTxt,
+              guardianPhoneTxt: guardianEmailTxt, guardianEmailTxt: relationWithGuardianTxt,
+              selectedCountryTxt: signUpPageController.selectCountryId.value
+          )== false) {
+
+          //  LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
+
+          }
+
+
         },
         style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
@@ -616,9 +650,6 @@ class RegistrationScreen2  extends StatelessWidget {
       ),
     );
   }
- 
-
-
 
 }
 

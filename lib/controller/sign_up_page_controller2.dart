@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
+import '../view/common/toast.dart';
 
 class SignUpPageController2 extends GetxController {
 
@@ -40,44 +42,111 @@ class SignUpPageController2 extends GetxController {
   var isObscurePassword = true.obs;
   var isObscureConfirmPassword = true.obs;
 
-  var particularBirthDate="Enter Birthday".obs;
-  var select_your_country="Enter Birthday".obs;
-
-  // String t;
-  // var selectedDate = DateTime.now().obs;
-  // var selectedTime = TimeOfDay.now().obs;
-
-  // void selectDate() async {
-  //   final DateTime? pickedDate = await showDatePicker(
-  //     context: Get.context,
-  //     initialDate: selectedDate.value,
-  //     firstDate: DateTime(2018),
-  //     lastDate: DateTime(2025),
-  //   );
-  //   if (pickedDate != null && pickedDate != selectedDate.value) {
-  //     // selectedDate.value = pickedDate;
-  //     // textEditingController.text=DateFormat('DD-MM-
-  //     //     yyyy').format(selectedDate.value).toString();
-  //     }
-  //     }
 
 
-  updateUserNameLevelTextColor(Color value) {
-    userEmailLevelTextColor(value);
-  }
+  var selectCountryId="".obs;
+  var countryList = [
+    CountryData("Bangladesh","1"),
+    CountryData("Pakistan","2"),
+    CountryData("India","3"),
+    CountryData("Dubai","4"),
+
+  ].obs;
+
+
 
   updateIsObscureConfirmPassword(var value) {
     isObscureConfirmPassword(value);
   }
-
-
   updateIsObscurePassword(var value) {
     isObscurePassword(value);
   }
-  updatePasswordLevelTextColor(Color value) {
-    passwordLevelTextColor(value);
+
+//input text validation check
+  inputValid(
+      {
+        required String addressTxt, required String cityTxt,
+        required String stateTxt, required String zipCodeTxt,
+        required String guardianNameTxt, required String relationWithGuardianTxt,
+        required String guardianPhoneTxt,
+        required String guardianEmailTxt,
+        required String selectedCountryTxt,
+      }
+      ) {
+
+    if (addressTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Address can't empty!");
+      return;
+    }
+
+    if (cityTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("City can't empty!");
+      return;
+    }
+    if (stateTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("State can't empty!");
+      return;
+    }
+    if (zipCodeTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Zip code can't empty!");
+      return;
+    }
+
+    if (selectedCountryTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Country can't empty!");
+      return;
+    }
+
+    if (guardianNameTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Guardian name can't empty!");
+      return;
+    }
+
+    if (relationWithGuardianTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Guardian phone can't empty!");
+      return;
+    }
+
+
+
+
+    if (guardianPhoneTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Guardian phone can't empty!");
+      return;
+    }
+    if (guardianEmailTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Guardian email can't empty!");
+      return;
+    }
+
+    if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
+      //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
+    ).hasMatch(guardianEmailTxt)) {
+      Fluttertoast.cancel();
+      showToastLong("Enter valid email!");
+      return;
+    }
+
+
+
+
+    return false;
   }
 
 
+}
 
+class CountryData{
+  String countryName;
+  String countryId;
+  CountryData(this.countryName, this.countryId);
 }

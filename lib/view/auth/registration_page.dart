@@ -1,4 +1,6 @@
 
+import 'package:bijoy_tech_quiz_app/view/auth/registration_page2.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -51,10 +53,6 @@ class RegistrationScreen  extends StatelessWidget {
     );
   }
 
-
-
-
-
   Widget _buildBodyDesign() {
     return Container(
       color: bg_top_color,
@@ -65,7 +63,7 @@ class RegistrationScreen  extends StatelessWidget {
             margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: Image.asset(
               "assets/images/app_logo.png",
-              width: 50,
+             // width: 50,
               height: 50,
               fit: BoxFit.fill,
             ),
@@ -79,7 +77,6 @@ class RegistrationScreen  extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildBottomDesign() {
     return Container(
@@ -171,8 +168,21 @@ class RegistrationScreen  extends StatelessWidget {
                     height: 10,
                   ),
                   userInputBirthDay( ),
-
-
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Text("Grade",
+                        style: TextStyle(
+                            color: levelTextColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400)),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  userGradeSelect(),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   //password input
                   const Align(
                     alignment: Alignment.topLeft,
@@ -246,7 +256,6 @@ class RegistrationScreen  extends StatelessWidget {
 
         ));
   }
-
 
   Widget userInputFullName(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
@@ -392,7 +401,6 @@ class RegistrationScreen  extends StatelessWidget {
     );
   }
 
-
   Widget userInputPassword(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
     return Container(
@@ -435,8 +443,6 @@ class RegistrationScreen  extends StatelessWidget {
     );
   }
 
-
-
   Widget userInputConfirmPassword(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
     return Container(
@@ -477,6 +483,96 @@ class RegistrationScreen  extends StatelessWidget {
         ),)
       ),
     );
+  }
+
+
+  Widget userGradeSelect() {
+    return Column(
+      children: [
+        Container(
+          // height: 50,
+            alignment: Alignment.center,
+            // margin: const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20,),
+            decoration: BoxDecoration(
+                color:input_box_back_ground_color,
+
+                borderRadius: BorderRadius.circular(5)),
+            child: Obx(()=>DropdownButton2(
+              //  buttonHeight: 40,
+              //   menuMaxHeight:55,
+              itemPadding: EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 0),
+              dropdownDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(2),
+                color: bg_top_color,
+
+
+              ),
+              iconSize: 30,
+              icon:Padding(padding: EdgeInsets.only(right: 10),child:  Icon(Icons.keyboard_arrow_down_outlined,color: Colors.white,),),
+              value: signUpPageController.selectGradeId.value != null &&
+                  signUpPageController.selectGradeId.value.isNotEmpty ?
+              signUpPageController.selectGradeId.value : null,
+              underline:const SizedBox.shrink(),
+              hint:Row(
+                children: const [
+
+                  Expanded(child: Padding(padding: EdgeInsets.only(left: 25),
+                    child:  Text("Selected State",
+                          style: TextStyle(
+                              color: hint_color,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal))
+                  ))
+                ],
+              ),
+              isExpanded: true,
+              /// icon: SizedBox.shrink(),
+              buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+
+
+              items: signUpPageController.ageGradeList.map((list) {
+                return DropdownMenuItem(
+                  alignment: Alignment.centerLeft,
+
+
+
+                  // value: list["id"].toString(),
+                  value: list.gradeName.toString(),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(child:Padding(
+                        padding: EdgeInsets.only(left: 25),
+                        child:Text(
+                            list.gradeName,
+                            textAlign: TextAlign.left,
+                            style:  const TextStyle(
+                                color: textColorWhiteLogin,
+
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal)),
+
+                      ),),
+
+
+
+
+                    ],
+                  ),
+                );
+
+              },
+              ).toList(),
+              onChanged:(String? value){
+                String data= signUpPageController.selectGradeId(value.toString());
+                //  _showToast("Id ="+checkoutPageController.selectStateId(value.toString()));
+              },
+
+            ))
+        ),
+      ],
+    )
+    ;
   }
 
 
@@ -533,7 +629,7 @@ class RegistrationScreen  extends StatelessWidget {
                     const Icon(
                       Icons.date_range,
                       size: 22,
-                      color: hint_color,
+                      color: levelTextColor,
                     ),
 
 
@@ -556,21 +652,33 @@ class RegistrationScreen  extends StatelessWidget {
     );
   }
 
-
-
   Widget _buildSignUpButton() {
     return Container(
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-          String userEmailTxt = signUpPageController.userEmailController.value.text;
-          String passwordTxt = signUpPageController.passwordController.value.text;
 
-          // if (signUpPageController.inputValid(userEmailTxt, passwordTxt)== false) {
-          //
-          // //  LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
-          //
-          // }
+          String userNameTxt = signUpPageController.userNameController.value.text;
+          String userEmailTxt = signUpPageController.userEmailController.value.text;
+          String userPhoneTxt = signUpPageController.userPhoneController.value.text;
+          String passwordTxt = signUpPageController.passwordController.value.text;
+          String confirmPasswordTxt = signUpPageController.confirmPasswordController.value.text;
+
+
+
+
+          if ( signUpPageController.inputValid(
+                  userNameTxt: userNameTxt,
+                  userEmailTxt: userEmailTxt,
+                  userPhoneTxt: userPhoneTxt,
+                  passwordTxt: passwordTxt,
+                  confirmPasswordTxt: confirmPasswordTxt,
+                  userDateOfBirthTxt: signUpPageController.particularBirthDate.value,
+                  userAgeGradeTxt: signUpPageController.selectGradeId.value
+               )== false){
+            // LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
+            Get.to(RegistrationScreen2());
+          }
         },
         style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
@@ -599,8 +707,6 @@ class RegistrationScreen  extends StatelessWidget {
     );
   }
  
-
-
 
 }
 

@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
 
+import 'auth/email_verification.dart';
 import 'auth/fotget_password_page.dart';
 import 'auth/log_in_page.dart';
 import 'auth/registration_page.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
 
-        home: RegistrationScreen2()
+        home: EmailVerificationScreen()
 
       // home: VendorLogInScreen()
       // VendorSignUpScreen(),
