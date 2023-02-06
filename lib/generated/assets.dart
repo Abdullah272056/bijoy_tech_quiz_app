@@ -8,8 +8,10 @@ class Assets {
   static const String imagesChangePassword = 'assets/images/change_password.png';
   static const String imagesClose1 = 'assets/images/close1.png';
   static const String imagesEmail = 'assets/images/email.png';
+  static const String imagesEmpty = 'assets/images/empty.png';
   static const String imagesFax = 'assets/images/fax.png';
   static const String imagesFnfLogo = 'assets/images/fnf_logo.png';
+  static const String imagesGeneralQuiz = 'assets/images/general_quiz.jpg';
   static const String imagesIconAccount = 'assets/images/icon_account.png';
   static const String imagesIconAddPass = 'assets/images/icon_add_pass.png';
   static const String imagesIconAddress = 'assets/images/icon_address.png';
@@ -25,7 +27,11 @@ class Assets {
   static const String imagesPasswordReset = 'assets/images/password_reset.png';
   static const String imagesPhoneNumber = 'assets/images/phone_number.png';
   static const String imagesPrivacy = 'assets/images/privacy.png';
+  static const String imagesReadingQuiz = 'assets/images/reading_quiz.jpg';
+  static const String imagesSliderImage = 'assets/images/slider_image.jpg';
+  static const String imagesSpelling = 'assets/images/spelling.png';
   static const String imagesSubmitIcon = 'assets/images/submit_icon.png';
   static const String imagesVerified = 'assets/images/verified.png';
+  static const String imagesVideoQuiz = 'assets/images/video_quiz.png';
 
 }

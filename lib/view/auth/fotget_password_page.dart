@@ -10,6 +10,7 @@ import '../../../static/Colors.dart';
 import '../../controller/forget_password_page_controller.dart';
 import '../common/loading_dialog.dart';
 import '../common/toast.dart';
+import 'email_verification.dart';
 import 'log_in_page.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -221,6 +222,8 @@ class ForgetPasswordScreen extends StatelessWidget {
           String emailTxt = forgetPasswordPageController.emailController.value.text;
           if (_inputValid(emailTxt) == false) {
             _sendEmailForOtp(email: emailTxt);
+
+            Get.to(EmailVerificationScreen());
           }
         },
         style: ElevatedButton.styleFrom(

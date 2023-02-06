@@ -10,6 +10,7 @@ import '../../controller/log_in_page_controller.dart';
 import '../../controller/sign_up_page_controller.dart';
 import '../common/toast.dart';
 import 'fotget_password_page.dart';
+import 'log_in_page.dart';
 
 
 
@@ -235,10 +236,7 @@ class RegistrationScreen  extends StatelessWidget {
                                   fontWeight: FontWeight.w500)),
                           InkResponse(
                             onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => const SignUpScreen()));
+                              Get.off(LogInScreen());
                             },
                             child: const Text("Sign In",
                                 style: TextStyle(

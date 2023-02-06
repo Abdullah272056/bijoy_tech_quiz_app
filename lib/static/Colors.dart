@@ -14,12 +14,14 @@ const Color levelTextColorWhite = Color(0xFFBEBEBE);
 const Color levelTextColor  = Color(0xFFBEBEBE);
 const Color hint_color = Color(0xFF606060);
 
-const  Color bg_top_color = Color(0xFF2A2A2A);
+
+const  Color bg_top_color = Color(0xFF2B3038);
 const  Color bottom_bg_color = Color(0xFF20242A);
 const Color input_box_back_ground_color = Color(0xFF2B3038);
+const Color otp_box_bg_color = Color(0xFF1A1824);
 
-
-
+const  Color home_item_bg_color  = Color(0xFF2B3038);
+const Color buttonBgColor = Color(0xFF0069D9);
 
 
 

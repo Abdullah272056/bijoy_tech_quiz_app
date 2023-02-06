@@ -1,4 +1,5 @@
 
+import 'package:bijoy_tech_quiz_app/view/auth/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -61,7 +62,7 @@ class LogInScreen  extends StatelessWidget {
             margin: const EdgeInsets.only(top: 25.0, bottom: 25.0),
             child: Image.asset(
               "assets/images/app_logo.png",
-              width: 80,
+              //width: 80,
               height: 80,
               fit: BoxFit.fill,
             ),
@@ -194,6 +195,9 @@ class LogInScreen  extends StatelessWidget {
                                   fontWeight: FontWeight.w500)),
                           InkResponse(
                             onTap: () {
+
+                              Get.to(RegistrationScreen());
+
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(
