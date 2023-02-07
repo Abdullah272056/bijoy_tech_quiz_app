@@ -1,4 +1,5 @@
 
+import 'package:bijoy_tech_quiz_app/view/payment_request_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
 
-        home: ForgetPasswordSetScreen()
+        home: PaymentRequestScreen()
 
       // home: VendorLogInScreen()
       // VendorSignUpScreen(),
