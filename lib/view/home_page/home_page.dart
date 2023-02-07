@@ -56,8 +56,6 @@ class HomepageScreen  extends StatelessWidget{
         direction: Axis.vertical,
         children: [
 
-
-
           Container(
             margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: Flex(direction: Axis.horizontal,
@@ -96,8 +94,8 @@ class HomepageScreen  extends StatelessWidget{
 
           Expanded(
             child: _buildBottomDesign(),
-
           ),
+
         ],
       ),
     );
@@ -116,7 +114,7 @@ class HomepageScreen  extends StatelessWidget{
         ),
         child: Padding(
             padding:
-            const EdgeInsets.only(left: 10, top: 15, right: 10, bottom: 20),
+            const EdgeInsets.only(left: 10, top: 15, right: 10, bottom: 10),
             child:SingleChildScrollView(
               child: Column(
                 children:  [
@@ -146,11 +144,11 @@ class HomepageScreen  extends StatelessWidget{
                   ),
                   SizedBox(height: 10,),
 
-
                   Row(children: [
                     Expanded(child: _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg')),
                     Expanded(child: _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,   nameText: 'Reading Quiz', imageLink: 'assets/images/reading_quiz.jpg')),
                   ],),
+
                   Row(children: [
                     Expanded(child: _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,  nameText: 'Video Quiz', imageLink: 'assets/images/video_quiz.png')),
                     Expanded(child: _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,   nameText: 'Spelling Quiz', imageLink: 'assets/images/spelling.png')),

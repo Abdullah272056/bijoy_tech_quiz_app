@@ -6,6 +6,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'package:get_storage/get_storage.dart';
 
+import 'auth/change_password_page.dart';
 import 'home_page/home_page.dart';
 
 void main() {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
 
-        home: HomepageScreen()
+        home: ChangePasswordScreen()
 
       // home: VendorLogInScreen()
       // VendorSignUpScreen(),

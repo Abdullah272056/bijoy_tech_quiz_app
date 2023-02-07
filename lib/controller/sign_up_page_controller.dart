@@ -99,6 +99,10 @@ class SignUpPageController extends GetxController {
       Fluttertoast.cancel();
       showToastLong("Password must be 8 character!");
       return;
+    } if (passwordTxt!=confirmPasswordTxt) {
+      Fluttertoast.cancel();
+      showToastLong("Confirm Password not match!");
+      return;
     }
 
     if (userDateOfBirthTxt.isEmpty) {
