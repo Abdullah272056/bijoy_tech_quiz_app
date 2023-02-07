@@ -46,8 +46,7 @@ class GeneralQuizDetailsPageScreen  extends StatelessWidget {
         direction: Axis.vertical,
         children: [
 
-         
-          Container(
+         Container(
             margin: const EdgeInsets.only(top: 15.0, bottom: 15.0),
 
             child: Flex(
@@ -124,10 +123,10 @@ class GeneralQuizDetailsPageScreen  extends StatelessWidget {
             
           ),
 
-          Expanded(
+         Expanded(
             child: _buildBottomDesign(),
-
           ),
+
         ],
       ),
     );

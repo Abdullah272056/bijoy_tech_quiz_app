@@ -17,6 +17,7 @@ const Color hint_color = Color(0xFF606060);
 
 const  Color bg_top_color = Color(0xFF2B3038);
 const  Color bottom_bg_color = Color(0xFF20242A);
+
 const Color input_box_back_ground_color = Color(0xFF2B3038);
 const Color otp_box_bg_color = Color(0xFF1A1824);
 

@@ -27,6 +27,7 @@ class Assets {
   static const String imagesPasswordReset = 'assets/images/password_reset.png';
   static const String imagesPhoneNumber = 'assets/images/phone_number.png';
   static const String imagesPrivacy = 'assets/images/privacy.png';
+  static const String imagesProfileImageAvater = 'assets/images/profile_image_avater.png';
   static const String imagesReadingQuiz = 'assets/images/reading_quiz.jpg';
   static const String imagesSliderImage = 'assets/images/slider_image.jpg';
   static const String imagesSpelling = 'assets/images/spelling.png';

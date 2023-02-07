@@ -12,6 +12,7 @@ import 'auth/fotget_password_page.dart';
 import 'auth/log_in_page.dart';
 import 'auth/registration_page.dart';
 import 'auth/registration_page2.dart';
+import 'custom_drawer.dart';
 import 'home_page/dash_board_page.dart';
 import 'home_page/general_quiz_details.dart';
 import 'home_page/home_page.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
 
-        home: GeneralQuizDetailsPageScreen()
+        home: CustomDrawer()
 
       // home: VendorLogInScreen()
       // VendorSignUpScreen(),
