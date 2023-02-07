@@ -27,6 +27,7 @@ class CustomDrawer extends StatelessWidget {
                     decoration: const BoxDecoration(color: bg_top_color),
                     child: Column(
                       children: [
+                        const SizedBox(height: 20,),
 
                         ClipRRect(
                           borderRadius: BorderRadius.circular(35.0),
@@ -59,7 +60,7 @@ class CustomDrawer extends StatelessWidget {
                          Text(
                           "Balance: \$0.00",
                           style: TextStyle(color: textColor,
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500
                           ),
                         ),

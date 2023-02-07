@@ -1,23 +1,23 @@
 
-import 'package:bijoy_tech_quiz_app/view/auth/registration_page.dart';
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
+import '../../controller/home_controller.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../common/toast.dart';
+import '../custom_drawer.dart';
 
 
 
+class HomepageScreen  extends StatelessWidget{
 
-
-class HomepageScreen  extends StatelessWidget {
-
-  final logInPageController = Get.put(LogInPageController());
+  final homeController = Get.put(HomeController());
   var width;
   var height;
-
+  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
   @override
   Widget build(BuildContext context) {
      width =MediaQuery.of(context).size.width;
@@ -25,6 +25,8 @@ class HomepageScreen  extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor:  backGroundColor,
+          key: _drawerKey,
+          drawer: CustomDrawer(),
         body: LayoutBuilder(builder: (context,constraints){
           if(constraints.maxWidth<600){
             return _buildBodyDesign();
@@ -53,14 +55,43 @@ class HomepageScreen  extends StatelessWidget {
       child: Flex(
         direction: Axis.vertical,
         children: [
+
+
+
           Container(
-            margin: const EdgeInsets.only(top: 25.0, bottom: 25.0),
-            child: Image.asset(
-              "assets/images/app_logo.png",
-              //width: 80,
-              height: 30,
-              fit: BoxFit.fill,
-            ),
+            margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+            child: Flex(direction: Axis.horizontal,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 25,right: 20),
+                  child: InkResponse(
+                    onTap: () {
+
+                      if (_drawerKey.currentState!.isDrawerOpen) {
+                        homeController.isDrawerOpen(false);
+                        _drawerKey.currentState!.openEndDrawer();
+                        return;
+                      } else
+                        _drawerKey.currentState!.openDrawer();
+                      homeController.isDrawerOpen(true);
+                    },
+                    child: const Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                      size: 30.0,
+                    ),
+                  ),
+                ),
+                Image.asset(
+                  "assets/images/app_logo.png",
+                  //width: 80,
+                  height: 30,
+                  fit: BoxFit.fill,
+                ),
+              ],
+            )
+
+
           ),
 
           Expanded(

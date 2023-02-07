@@ -1,20 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'package:get_storage/get_storage.dart';
 
-
-import 'auth/email_verification.dart';
-import 'auth/fotget_password_page.dart';
-import 'auth/log_in_page.dart';
-import 'auth/registration_page.dart';
-import 'auth/registration_page2.dart';
-import 'custom_drawer.dart';
-import 'home_page/dash_board_page.dart';
-import 'home_page/general_quiz_details.dart';
 import 'home_page/home_page.dart';
 
 void main() {
@@ -36,7 +27,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
 
-        home: CustomDrawer()
+        home: HomepageScreen()
 
       // home: VendorLogInScreen()
       // VendorSignUpScreen(),
