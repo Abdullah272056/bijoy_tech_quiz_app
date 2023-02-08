@@ -1,5 +1,5 @@
 
-import 'package:bijoy_tech_quiz_app/view/payment_request_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,9 +7,11 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'package:get_storage/get_storage.dart';
 
-import 'auth/change_password_page.dart';
-import 'auth/forgotten_password_set_page.dart';
-import 'home_page/home_page.dart';
+
+import 'home_page/dash_board_page.dart';
+import 'home_page/home_page1.dart';
+import 'home_page/home_page2.dart';
+import 'home_page/my_profile_page.dart';
 
 void main() {
   GetStorage.init();
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
 
-        home: PaymentRequestScreen()
+        home: Homepage1Screen()
 
       // home: VendorLogInScreen()
       // VendorSignUpScreen(),
@@ -48,3 +50,4 @@ class MyApp extends StatelessWidget {
   }
 
 }
+

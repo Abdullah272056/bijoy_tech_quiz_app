@@ -2,15 +2,10 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import '../../../static/Colors.dart';
-import '../../controller/log_in_page_controller.dart';
-import '../../controller/sign_up_page_controller.dart';
-import '../../controller/sign_up_page_controller2.dart';
 import '../controller/payment-request_page_controller.dart';
-import 'auth/log_in_page.dart';
+
 
 
 class PaymentRequestScreen  extends StatelessWidget {
@@ -22,6 +17,7 @@ class PaymentRequestScreen  extends StatelessWidget {
 
   // String _particularBirthDate="Enter Birthday";
   // String select_your_country="Enter Birthday";
+
   late DateTime _myDate;
 
   @override
@@ -46,13 +42,36 @@ class PaymentRequestScreen  extends StatelessWidget {
         direction: Axis.vertical,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-            child: Image.asset(
-              "assets/images/app_logo.png",
-              //width: 50,
-              height: 50,
-              fit: BoxFit.fill,
-            ),
+              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: Flex(direction: Axis.horizontal,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 20,right: 20),
+                    child: InkResponse(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 25.0,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "Payment Request",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color:Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500),
+                    softWrap: false,
+                    maxLines:1,
+                  )
+                ],
+              )
+
+
           ),
 
           Expanded(
@@ -160,7 +179,7 @@ class PaymentRequestScreen  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInputNote( signUpPageController.noteController.value, 'Note', TextInputType.number),
+                  userInputNote( signUpPageController.noteController.value, 'Note', TextInputType.text),
 
 
 
@@ -180,8 +199,8 @@ class PaymentRequestScreen  extends StatelessWidget {
         ));
   }
 
-  Widget userInput(TextEditingController userInputController, String hintTitle,
-      TextInputType keyboardType) {
+  Widget userInput(TextEditingController userInputController,
+      String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 50,
       alignment: Alignment.center,
@@ -246,7 +265,7 @@ class PaymentRequestScreen  extends StatelessWidget {
           autocorrect: false,
           enableSuggestions: false,
           cursorColor: Colors.white,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.white
           ),
           autofocus: false,
@@ -301,9 +320,9 @@ class PaymentRequestScreen  extends StatelessWidget {
         child: TextField(
           controller: userInputController,
           textInputAction: TextInputAction.newline,
+          // maxLines: 5,
+          // minLines: 3,
 
-          minLines: 3,
-          maxLines: 5,
 
           cursorColor: Colors.white,
           style: TextStyle(
@@ -316,6 +335,7 @@ class PaymentRequestScreen  extends StatelessWidget {
               minHeight: 15,
               minWidth: 15,
             ),
+
             // suffixIcon: Icon(Icons.person,
             //   color:  levelTextColorWhite,
             //   size: 18,
@@ -335,9 +355,6 @@ class PaymentRequestScreen  extends StatelessWidget {
       ),
     );
   }
-
-
-
 
   Widget userPaymentMethodSelect() {
     return Column(

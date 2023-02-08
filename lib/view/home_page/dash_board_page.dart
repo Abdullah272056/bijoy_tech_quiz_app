@@ -7,7 +7,10 @@ import 'package:get_storage/get_storage.dart';
 import '../../controller/dash_board_page_controller.dart';
 import '../../static/Colors.dart';
 
+import '../custom_drawer.dart';
 import 'home_page.dart';
+import 'home_page2.dart';
+import 'my_profile_page.dart';
 
 class DashBoardPageScreen extends StatelessWidget {
 
@@ -33,7 +36,7 @@ class DashBoardPageScreen extends StatelessWidget {
         onTap: (int index){
           dashBoardPageController.selectedTabIndex(index);
           if(index==0){
-            dashBoardPageController.updateSelectedPage([HomepageScreen()]);
+            dashBoardPageController.updateSelectedPage([Homepage2Screen()]);
             // selectedPage(HomePage( ));
             return;
           }
@@ -46,15 +49,15 @@ class DashBoardPageScreen extends StatelessWidget {
           }
 
           if(index==2){
-            dashBoardPageController.updateSelectedPage([HomepageScreen()]);
+            dashBoardPageController.updateSelectedPage([MyProfileScreen()]);
             // selectedPage= AccountPage( );
             return;
           }
 
 
 
-          if(index==4){
-            dashBoardPageController.updateSelectedPage([HomepageScreen()]);
+          if(index==3){
+            dashBoardPageController.updateSelectedPage([CustomDrawer()]);
             // selectedPage= SearchPage( );
             return;
           }

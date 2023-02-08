@@ -6,12 +6,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../view/home_page/home_page.dart';
+import '../view/home_page/home_page2.dart';
 
 class DashBoardPageController extends GetxController {
   var selectedTabIndex = 0.obs;
   var selectedPageIndex = 1.obs;
 
-  var selectedPage = <Widget>[HomepageScreen()].obs;
+  var selectedPage = <Widget>[Homepage2Screen()].obs;
 
   var userName="".obs;
   var userToken="".obs;

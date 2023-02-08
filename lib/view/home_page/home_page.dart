@@ -119,30 +119,8 @@ class HomepageScreen  extends StatelessWidget{
               child: Column(
                 children:  [
 
-                  SizedBox(
-                    height: Get.size.height * 0.22,
-                    child: Swiper(
-                      itemCount: 3,
-                      itemBuilder: (ctx, index) {
-                        return InkWell(
-                          onTap: (){
-                            showToastShort(index.toString());
-                          },
-                          child: _sliderCardDesign(),
-                        ) ;
-                      },
-                      autoplay: true,
-                      pagination: const SwiperPagination(
 
-                          alignment: Alignment.bottomCenter,
 
-                          builder: DotSwiperPaginationBuilder(
-                              color: Colors.white,
-                              activeColor: Colors.green)),
-                      // control: const SwiperControl(),
-                    ),
-                  ),
-                  SizedBox(height: 10,),
 
                   Row(children: [
                     Expanded(child: _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg')),

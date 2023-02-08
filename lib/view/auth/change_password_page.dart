@@ -42,7 +42,7 @@ class ChangePasswordScreen  extends StatelessWidget {
             return Center(child:
             Container(
               // height: 100,
-            width: 500,
+
             child: _buildBodyDesign(),
             // color: Colors.amber,
             ),);
@@ -59,13 +59,36 @@ class ChangePasswordScreen  extends StatelessWidget {
         direction: Axis.vertical,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-            child: Image.asset(
-              "assets/images/app_logo.png",
-             // width: 50,
-              height: 50,
-              fit: BoxFit.fill,
-            ),
+              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: Flex(direction: Axis.horizontal,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 20,right: 20),
+                    child: InkResponse(
+                      onTap: () {
+                          Get.back();
+                      },
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 25.0,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "Change Password",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color:Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500),
+                    softWrap: false,
+                    maxLines:1,
+                  )
+                ],
+              )
+
+
           ),
 
           Expanded(

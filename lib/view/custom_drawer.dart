@@ -1,10 +1,13 @@
 
+import 'package:bijoy_tech_quiz_app/view/payment_request_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../static/Colors.dart';
 import '../controller/custom_drawer_controller.dart';
+import 'auth/change_password_page.dart';
+import 'home_page/MyQuizScorePage.dart';
 
 
 
@@ -28,7 +31,7 @@ class CustomDrawer extends StatelessWidget {
                     child: Column(
                       children: [
 
-                        const SizedBox(height: 20,),
+                        const SizedBox(height: 40,),
 
                         ClipRRect(
                           borderRadius: BorderRadius.circular(35.0),
@@ -102,6 +105,8 @@ class CustomDrawer extends StatelessWidget {
                           title: drawerItemDesign("General Quiz"),
                           onTap: (){
 
+
+
                             Navigator.pop(context);
                           },
 
@@ -138,7 +143,7 @@ class CustomDrawer extends StatelessWidget {
                           title: drawerItemDesign("My Quiz Scores"),
                           onTap: (){
 
-                            Navigator.pop(context);
+                            Get.to(MyQuizScorePageScreen());
                           },
 
                         ),
@@ -147,7 +152,7 @@ class CustomDrawer extends StatelessWidget {
                           title: drawerItemDesign("Payment Request"),
                           onTap: (){
 
-                            Navigator.pop(context);
+                            Get.to(PaymentRequestScreen());
                           },
 
                         ),
@@ -156,7 +161,7 @@ class CustomDrawer extends StatelessWidget {
                           title: drawerItemDesign("Change Password"),
                           onTap: (){
 
-                            Navigator.pop(context);
+                            Get.to(ChangePasswordScreen());
                           },
 
                         ),

@@ -23,6 +23,8 @@ const Color otp_box_bg_color = Color(0xFF1A1824);
 
 const  Color home_item_bg_color  = Color(0xFF2B3038);
 const Color buttonBgColor = Color(0xFF0069D9);
+const Color recentTextColor = Color(0xFF9ACD32);
+const Color greenColor = Color(0xFF289504);
 
 
 
