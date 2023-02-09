@@ -1,17 +1,17 @@
 
-
+import 'package:bijoy_tech_quiz_app/view/pdf_view_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-
 import 'package:get_storage/get_storage.dart';
-
-
+import 'auth/log_in_page.dart';
+import 'auth/registration_page2.dart';
+import 'custom_drawer.dart';
+import 'home_page/categories_wise_quiz_list_page.dart';
 import 'home_page/dash_board_page.dart';
-import 'home_page/home_page1.dart';
-import 'home_page/home_page2.dart';
-import 'home_page/my_profile_page.dart';
+import 'home_page/recently_finished_quiz_list_page.dart';
+import 'home_page/home_page.dart';
+import 'individual_quiz_about_more.dart';
 
 void main() {
   GetStorage.init();
@@ -31,17 +31,12 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
+        home: RegistrationScreen2()
 
-        home: Homepage1Screen()
-
-      // home: VendorLogInScreen()
-      // VendorSignUpScreen(),
-      // CartPage(),
     );
 
   }
 
-  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("AppLifecycleState changed: $state");
     if (state == AppLifecycleState.resumed) {

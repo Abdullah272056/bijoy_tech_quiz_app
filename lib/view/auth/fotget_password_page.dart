@@ -59,8 +59,8 @@ class ForgetPasswordScreen extends StatelessWidget {
             margin: const EdgeInsets.only(top: 25.0, bottom: 25.0),
             child: Image.asset(
               "assets/images/app_logo.png",
-              width: 66,
-              height: 66,
+              //width: 80,
+              height: 80,
               fit: BoxFit.fill,
             ),
           ),

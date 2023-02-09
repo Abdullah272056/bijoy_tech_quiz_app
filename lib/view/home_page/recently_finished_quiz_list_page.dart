@@ -13,12 +13,12 @@ import '../custom_drawer.dart';
 
 
 
-class Homepage1Screen  extends StatelessWidget{
+class RecentlyFinishedQuizScreen  extends StatelessWidget{
 
   final homeController = Get.put(HomeController1());
   var width;
   var height;
-  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
      width =MediaQuery.of(context).size.width;

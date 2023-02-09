@@ -60,11 +60,11 @@ class ForgetPasswordSetScreen  extends StatelessWidget {
         direction: Axis.vertical,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+            margin: const EdgeInsets.only(top: 25.0, bottom: 25.0),
             child: Image.asset(
               "assets/images/app_logo.png",
-             // width: 50,
-              height: 50,
+              //width: 80,
+              height: 80,
               fit: BoxFit.fill,
             ),
           ),

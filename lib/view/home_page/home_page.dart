@@ -6,48 +6,34 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../../controller/home_controller.dart';
+import '../../controller/home_controller1.dart';
+import '../../controller/home_controller2.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../common/toast.dart';
 import '../custom_drawer.dart';
-
-
+import '../individual_quiz_about_more.dart';
 
 class HomepageScreen  extends StatelessWidget{
 
-  final homeController = Get.put(HomeController());
+  final homeController = Get.put(HomeController2());
   var width;
   var height;
-  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-     width =MediaQuery.of(context).size.width;
-     height =MediaQuery.of(context).size.height;
+    width =MediaQuery.of(context).size.width;
+    height =MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor:  backGroundColor,
+          backgroundColor:  backGroundColor,
           key: _drawerKey,
           drawer: CustomDrawer(),
-        body: LayoutBuilder(builder: (context,constraints){
-          if(constraints.maxWidth<600){
+          body: LayoutBuilder(builder: (context,constraints){
             return _buildBodyDesign();
-          }
-          else{
-            return Center(child:
-            Container(
-              // height: 100,
-            width: Get.size.width,
-            child: _buildBodyDesign(),
-            // color: Colors.amber,
-            ),);
-          }
-        },)
+          },)
       ),
     );
   }
-
-
-
-
 
   Widget _buildBodyDesign() {
     return Container(
@@ -57,37 +43,37 @@ class HomepageScreen  extends StatelessWidget{
         children: [
 
           Container(
-            margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-            child: Flex(direction: Axis.horizontal,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 25,right: 20),
-                  child: InkResponse(
-                    onTap: () {
+              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: Flex(direction: Axis.horizontal,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 25,right: 20),
+                    child: InkResponse(
+                      onTap: () {
 
-                      if (_drawerKey.currentState!.isDrawerOpen) {
-                        homeController.isDrawerOpen(false);
-                        _drawerKey.currentState!.openEndDrawer();
-                        return;
-                      } else
-                        _drawerKey.currentState!.openDrawer();
-                      homeController.isDrawerOpen(true);
-                    },
-                    child: const Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                      size: 30.0,
+                        if (_drawerKey.currentState!.isDrawerOpen) {
+                          homeController.isDrawerOpen(false);
+                          _drawerKey.currentState!.openEndDrawer();
+                          return;
+                        } else
+                          _drawerKey.currentState!.openDrawer();
+                        homeController.isDrawerOpen(true);
+                      },
+                      child: const Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: 30.0,
+                      ),
                     ),
                   ),
-                ),
-                Image.asset(
-                  "assets/images/app_logo.png",
-                  //width: 80,
-                  height: 30,
-                  fit: BoxFit.fill,
-                ),
-              ],
-            )
+                  Image.asset(
+                    "assets/images/app_logo.png",
+                    //width: 80,
+                    height: 30,
+                    fit: BoxFit.fill,
+                  ),
+                ],
+              )
 
 
           ),
@@ -100,7 +86,6 @@ class HomepageScreen  extends StatelessWidget{
       ),
     );
   }
-
 
   Widget _buildBottomDesign() {
     return Container(
@@ -118,19 +103,67 @@ class HomepageScreen  extends StatelessWidget{
             child:SingleChildScrollView(
               child: Column(
                 children:  [
+                  const SizedBox(height: 10,),
+
+                  SizedBox(
+                    height: Get.size.height * 0.22,
+                    child: Swiper(
+                      itemCount: 3,
+                      itemBuilder: (ctx, index) {
+                        return InkWell(
+                          onTap: (){
+                            showToastShort(index.toString());
+                          },
+                          child: _sliderCardDesign(),
+                        ) ;
+                      },
+                      autoplay: true,
+                      pagination: const SwiperPagination(
+
+                          alignment: Alignment.bottomCenter,
+
+                          builder: DotSwiperPaginationBuilder(
+                              color: Colors.white,
+                              activeColor: Colors.green)),
+                      // control: const SwiperControl(),
+                    ),
+                  ),
+                  // SizedBox(height: 10,),
+                  // Padding(padding: EdgeInsets.only(left: 10),
+                  //   child:  Row(
+                  //     children: [
+                  //       Text(
+                  //         'All QUIZ',
+                  //         overflow: TextOverflow.ellipsis,
+                  //         style: TextStyle(
+                  //             color:recentTextColor,
+                  //             fontSize: 18,
+                  //             fontWeight: FontWeight.w600),
+                  //         softWrap: false,
+                  //         maxLines:1,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  const SizedBox(height: 10,),
+                  ListView.builder(
+                      itemCount:4,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+
+                      // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                      //     crossAxisCount:2,
+                      //     // crossAxisCount:Get.size.width>550? 2:1,
+                      //     crossAxisSpacing: 0.0,
+                      //
+                      //     mainAxisSpacing: 10.0,
+                      //    mainAxisExtent:Get.size.width>550? 350:260
+                      // ),
 
 
-
-
-                  Row(children: [
-                    Expanded(child: _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg')),
-                    Expanded(child: _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,   nameText: 'Reading Quiz', imageLink: 'assets/images/reading_quiz.jpg')),
-                  ],),
-
-                  Row(children: [
-                    Expanded(child: _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,  nameText: 'Video Quiz', imageLink: 'assets/images/video_quiz.png')),
-                    Expanded(child: _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,   nameText: 'Spelling Quiz', imageLink: 'assets/images/spelling.png')),
-                  ],)
+                      itemBuilder: (BuildContext context, int index) {
+                        return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg');
+                      })
 
                 ],
               ),
@@ -139,12 +172,218 @@ class HomepageScreen  extends StatelessWidget{
         ));
   }
 
+  Widget _buildHomeCardItem({required double item_marginLeft,required double item_marginRight, required String nameText, required String imageLink, }) {
+    return InkResponse(
+      onTap: (){
+        // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
+
+      },
+      child: Container(
+        margin:  EdgeInsets.only(left: item_marginLeft, right: item_marginRight,bottom: 20,top: 10),
+        // width: 180,
+        decoration: BoxDecoration(
+          color:home_item_bg_color,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [BoxShadow(
+
+            color:bg_top_color,
+            //  blurRadius: 20.0, // soften the shadow
+            blurRadius:0, // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset:
+            Offset(
+              0.0, // Move to right 10  horizontally
+              0.0, // Move to bottom 10 Vertically
+            ),
+          )],
+        ),
+        //   height: 150,
+        child: Container(
+          margin: const EdgeInsets.only(right: 00.0,top: 0,bottom: 0,left: 00),
+          // height: double.infinity,
+          // width: double.infinity,
+
+          child: Center(
+            child: Column(
+              children: [
+
+                Stack(children: [
+                  Row(
+                    children: [
+                      Expanded(child:   ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Container(
+                            height:Get.size.width<550?Get.size.width/3.2 :Get.size.width/3.2 ,
+                            color:Colors.white,
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.cover,
+                              placeholder: 'assets/images/general_quiz.jpg',
+                              image:"image".toString(),
+                              imageErrorBuilder: (context, url, error) =>
+                                  Image.asset(
+                                    imageLink.toString()
+                                    ,
+                                    fit: BoxFit.fill,
+                                  ),
+                            )),
+
+                      )
+
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(child:Align(alignment: Alignment.topRight,
+                        child: InkWell(
+                          onTap: (){
+                            showToastShort("more details");
+
+                          },
+                          child: Container(
+
+                            decoration:  BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(5.0),
+                                ),
+                                color: Colors.black.withOpacity(.25)
+                              //    color: buttonBgColor,
+                              //    color: buttonBgColor,
+                            ),
+                            padding: const EdgeInsets.only(left: 3,right: 3,top: 3,bottom: 3),
+                            child: Icon(
+                              Icons.info_outline,
+                              color: Colors.white,
+                              size: sizeReturn(40),
+                            ),
+
+
+                          ),
+                        ),
+                      )   )
+                    ],
+                  ),
+                ],),
+                SizedBox(height: 10,),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    nameText.toString(),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color:Colors.white,
+                        fontSize: sizeReturn(40),
+                        fontWeight: FontWeight.bold),
+                    softWrap: false,
+                    maxLines:1,
+                  ),
+                ),
+                const SizedBox(height: 15,),
+
+
+                Padding(padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+                  child: Column(
+                    children: [
+
+
+                      _buildQuizItemBottomText(name: 'Total Question:', value: '10'),
+                      _buildQuizItemBottomText(name: 'Every Question Mark:', value: '1'),
+                      _buildQuizItemBottomText(name: 'Price Money:', value: '\$20.00'),
+                      _buildQuizItemBottomText(name: 'Price Money Will Get:', value: '1 Top Scorer'),
+                      _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$20.00'),
+
+
+                    ],
+                  ),
+                ),
+
+                _buildJoinQuizButton()
+
+
+              ],
+            ),
+          ),
+        ) ,
+      ),
+
+    );
+  }
+
+  Widget _buildQuizItemBottomText({required String name,required String value}) {
+    return  Row(
+      children:  [
+        Text(
+          name,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+              color:smallTextColor,
+              fontSize:Get.size.width<320?12: 16,
+              fontWeight: FontWeight.w500),
+          softWrap: false,
+          maxLines:1,
+        ),
+        SizedBox(width: 5,),
+        Text(
+          value,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+              color:greenColor,
+              fontSize: 16,
+              fontWeight: FontWeight.w500),
+          softWrap: false,
+          maxLines:1,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildJoinQuizButton() {
+    return Container(
+      margin: const EdgeInsets.only(left: 0.0, right: 0.0),
+      child: InkResponse(
+        onTap: () {
+          Get.to(IndividualQuizAboutPageScreen());
+          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+        },
+
+        child:Container(
+          decoration: BoxDecoration(
+              color: buttonBgColor,
+
+              borderRadius: BorderRadius.circular(10.0)
+          ),
+          height:Get.size.height/18,
+          // width: 100,
+          alignment: Alignment.center,
+          child:  Wrap(
+            children:  [
+              Text(
+                "Join Quiz",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'PT-Sans',
+                  fontSize:16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  double sizeReturn(int divide){
+    return Get.size.height/divide;
+  }
 
   Widget _sliderCardDesign() {
     // Size size = MediaQuery.of(context).size;
     double sizeHeight = Get.height;
     return Container(
-      margin: EdgeInsets.only(left: 10,right: 10),
+      margin: EdgeInsets.only(left: 00,right: 00),
       width: double.infinity,
       height: sizeHeight * 0.2,
       // decoration: BoxDecoration(
@@ -166,7 +405,7 @@ class HomepageScreen  extends StatelessWidget{
           image: new AssetImage("assets/images/slider_image.jpg"),
           fit: BoxFit.fill,
         ),
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         children: [
@@ -239,7 +478,6 @@ class HomepageScreen  extends StatelessWidget{
       ),
     );
   }
-
 
   Widget _sliderCardDesign1() {
     // Size size = MediaQuery.of(context).size;
@@ -341,377 +579,6 @@ class HomepageScreen  extends StatelessWidget{
     );
   }
 
-
-
-
-
-
-
-  Widget _buildHomeCardItem({required double item_marginLeft,required double item_marginRight, required String nameText, required String imageLink, }) {
-    return InkResponse(
-      onTap: (){
-       // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
-
-      },
-      child: Container(
-        margin:  EdgeInsets.only(left: item_marginLeft, right: item_marginRight,bottom: 20,top: 10),
-       // width: 180,
-        decoration: BoxDecoration(
-          color:home_item_bg_color,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: const [BoxShadow(
-
-            color:bg_top_color,
-            //  blurRadius: 20.0, // soften the shadow
-            blurRadius:0, // soften the shadow
-            spreadRadius: 0.0, //extend the shadow
-            offset:
-            Offset(
-              0.0, // Move to right 10  horizontally
-              0.0, // Move to bottom 10 Vertically
-            ),
-          )],
-        ),
-        //   height: 150,
-        child: Container(
-          margin: const EdgeInsets.only(right: 00.0,top: 0,bottom: 0,left: 00),
-          // height: double.infinity,
-          // width: double.infinity,
-
-          child: Center(
-            child: Column(
-              children: [
-
-               Stack(children: [
-                 Row(
-                   children: [
-                     Expanded(child:   ClipRRect(
-                       borderRadius: BorderRadius.circular(10.0),
-                       child: Container(
-                           height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
-                           color:Colors.white,
-                           child: FadeInImage.assetNetwork(
-                             fit: BoxFit.cover,
-                             placeholder: 'assets/images/general_quiz.jpg',
-                             image:"image".toString(),
-                             imageErrorBuilder: (context, url, error) =>
-                                 Image.asset(
-                                   imageLink.toString()
-                                   ,
-                                   fit: BoxFit.fill,
-                                 ),
-                           )),
-
-                     )
-
-                     )
-                   ],
-                 ),
-                 Row(
-                   children: [
-                     Expanded(child:Align(alignment: Alignment.topRight,
-                     child: InkWell(
-                       onTap: (){
-                         showToastShort("more details");
-
-                       },
-                       child: Container(
-
-                         decoration:  BoxDecoration(
-                           borderRadius: BorderRadius.only(
-                             bottomLeft: Radius.circular(5.0),
-                           ),
-                           color: Colors.black.withOpacity(.25)
-                       //    color: buttonBgColor,
-                       //    color: buttonBgColor,
-                         ),
-                         padding: const EdgeInsets.only(left: 3,right: 3,top: 3,bottom: 3),
-                         child: Icon(
-                           Icons.info_outline,
-                           color: Colors.white,
-                           size: sizeReturn(40),
-                         ),
-
-
-                       ),
-                     ),
-                     )   )
-                   ],
-                 ),
-               ],),
-                 SizedBox(height: 10,),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    nameText.toString(),
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color:Colors.white,
-                        fontSize: sizeReturn(40),
-                        fontWeight: FontWeight.bold),
-                    softWrap: false,
-                    maxLines:1,
-                  ),
-                ),
-                const SizedBox(height: 15,),
-
-                _buildGetStartButton()
-
-
-              ],
-            ),
-          ),
-        ) ,
-      ),
-
-    );
-  }
-
-  Widget _buildReadMoreButton() {
-    return Container(
-      margin: const EdgeInsets.only(left: 0.0, right: 0.0),
-      child: InkResponse(
-        onTap: () {
-
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
-        },
-
-        child:Container(
-          decoration: BoxDecoration(
-            color: buttonBgColor,
-
-              borderRadius: BorderRadius.circular(5.0)
-          ),
-          height: 35,
-         // width: 100,
-          alignment: Alignment.center,
-          child:  Wrap(
-            children: const [
-              Text(
-                "Read More",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'PT-Sans',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-  Widget _buildGetStartButton() {
-    return Container(
-      margin: const EdgeInsets.only(left: 0.0, right: 0.0),
-      child: InkResponse(
-        onTap: () {
-
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
-        },
-
-        child:Container(
-          decoration: BoxDecoration(
-              color: buttonBgColor,
-
-              borderRadius: BorderRadius.circular(10.0)
-          ),
-          height:Get.size.height/18,
-          // width: 100,
-          alignment: Alignment.center,
-          child:  Wrap(
-            children:  [
-              Text(
-                "Get Start",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'PT-Sans',
-                  fontSize:sizeReturn(48),
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  double sizeReturn(int devide){
-
-    return Get.size.height/devide;
-  }
-
-  Widget _buildHomeCardItem1({required double item_marginLeft,required double item_marginRight, required String nameText, required String imageLink, }) {
-    return InkResponse(
-      onTap: (){
-        // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
-
-      },
-      child: Container(
-        margin:  EdgeInsets.only(left: item_marginLeft, right: item_marginRight,bottom: 20,top: 30),
-        // width: 180,
-        decoration: BoxDecoration(
-          color:home_item_bg_color,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: const [BoxShadow(
-
-            color:bg_top_color,
-            //  blurRadius: 20.0, // soften the shadow
-            blurRadius:0, // soften the shadow
-            spreadRadius: 0.0, //extend the shadow
-            offset:
-            Offset(
-              0.0, // Move to right 10  horizontally
-              0.0, // Move to bottom 10 Vertically
-            ),
-          )],
-        ),
-        //   height: 150,
-        child: Container(
-          margin: const EdgeInsets.only(right: 00.0,top: 0,bottom: 15,left: 00),
-          // height: double.infinity,
-          // width: double.infinity,
-
-          child: Center(
-            child: Column(
-              children: [
-
-
-                Row(
-                  children: [
-                    Expanded(child:   ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Container(
-                          height: 100,
-                          color:Colors.white,
-                          child: FadeInImage.assetNetwork(
-                            fit: BoxFit.cover,
-                            placeholder: 'assets/images/general_quiz.jpg',
-                            image:"image".toString(),
-                            imageErrorBuilder: (context, url, error) =>
-                                Image.asset(
-                                  imageLink.toString()
-                                  ,
-                                  fit: BoxFit.fill,
-                                ),
-                          )),
-
-                    )
-
-
-                    )
-                  ],
-                ),
-                SizedBox(height: 10,),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    nameText.toString(),
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color:Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
-                    softWrap: false,
-                    maxLines:1,
-                  ),
-                ),
-                const SizedBox(height: 5,),
-
-                const SizedBox(height: 5,),
-                _buildReadMoreButton1(),
-                const SizedBox(height: 5,),
-                _buildGetStartButton1()
-
-
-              ],
-            ),
-          ),
-        ) ,
-      ),
-
-    );
-  }
-  Widget _buildReadMoreButton1() {
-    return Container(
-      margin: const EdgeInsets.only(left: 0.0, right: 0.0),
-      child: InkResponse(
-        onTap: () {
-
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
-        },
-
-        child:Container(
-          decoration: BoxDecoration(
-              color: buttonBgColor,
-
-              borderRadius: BorderRadius.circular(5.0)
-          ),
-          height: 35,
-          // width: 100,
-          alignment: Alignment.center,
-          child:  Wrap(
-            children: const [
-              Text(
-                "Read More",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'PT-Sans',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-  Widget _buildGetStartButton1() {
-    return Container(
-      margin: const EdgeInsets.only(left: 0.0, right: 0.0),
-      child: InkResponse(
-        onTap: () {
-
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
-        },
-
-        child:Container(
-          decoration: BoxDecoration(
-              color: buttonBgColor,
-
-              borderRadius: BorderRadius.circular(5.0)
-          ),
-          height: 35,
-          // width: 100,
-          alignment: Alignment.center,
-          child:  Wrap(
-            children: const [
-              Text(
-                "Get Start",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'PT-Sans',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
 }
 
