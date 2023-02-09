@@ -18,7 +18,7 @@ class QuizFinishedPageScreen  extends StatelessWidget{
   final quizFinishedPageScreenController = Get.put(QuizFinishedPageScreenController());
   var width;
   var height;
-  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     width =MediaQuery.of(context).size.width;
@@ -26,8 +26,7 @@ class QuizFinishedPageScreen  extends StatelessWidget{
     return SafeArea(
       child: Scaffold(
           backgroundColor:  backGroundColor,
-          key: _drawerKey,
-          drawer: CustomDrawer(),
+
           body:
 
           // Container(

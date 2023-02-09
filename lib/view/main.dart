@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
+import '../quiz_start_page.dart';
 import 'auth/log_in_page.dart';
 import 'auth/registration_page2.dart';
 import 'custom_drawer.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-        home: RegistrationScreen2()
+        home: QuizStartPageScreen()
 
     );
 
