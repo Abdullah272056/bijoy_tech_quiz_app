@@ -1,16 +1,11 @@
 
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:get/get.dart';
-
 import '../../../static/Colors.dart';
-
 import '../../controller/email_verification_page_controller.dart';
 import '../common/toast.dart';
-
 
 class EmailVerificationScreen extends StatelessWidget {
 
@@ -317,9 +312,9 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
     return Container(
         height: 300,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color:bottom_bg_color,
-          borderRadius: const BorderRadius.only(
+          borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
@@ -592,7 +587,7 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
         Expanded(child: Container(
           height: 55,
           decoration: BoxDecoration(
-              color:input_box_back_ground_color,
+              color:otp_box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
           padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
@@ -611,7 +606,7 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
         Expanded(child: Container(
           height: 55,
           decoration: BoxDecoration(
-              color:input_box_back_ground_color,
+              color:otp_box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
           padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
@@ -627,7 +622,7 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
         Expanded(child: Container(
           height: 55,
           decoration: BoxDecoration(
-              color:input_box_back_ground_color,
+              color:otp_box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
           padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
@@ -643,7 +638,7 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
         Expanded(child: Container(
           height: 55,
           decoration: BoxDecoration(
-              color:input_box_back_ground_color,
+              color:otp_box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
           padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
@@ -659,7 +654,7 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
         Expanded(child: Container(
           height: 55,
           decoration: BoxDecoration(
-              color:input_box_back_ground_color,
+              color:otp_box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
           padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
@@ -678,7 +673,7 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
         Expanded(child: Container(
           height: 55,
           decoration: BoxDecoration(
-              color:input_box_back_ground_color,
+              color:otp_box_bg_color,
               borderRadius: BorderRadius.circular(6)),
           margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
           padding:EdgeInsets.only(left: 00, top: emailVerifyPageController.keyboardfontTopPadding, right: 00, bottom: emailVerifyPageController.keyboardfontBottomPadding),
@@ -816,7 +811,6 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
 
   ///input text set in text box
   void setText1(String inputText){
-
     // setState(() {
     //   if(inputText.isEmpty){
     //     emailVerifyPageController.firstDigitPin("-");
@@ -886,7 +880,6 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
     //   }
     //
     // });
-
   }
 
   userVerify({

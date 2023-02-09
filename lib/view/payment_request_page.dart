@@ -1,26 +1,23 @@
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import '../../../static/Colors.dart';
-import '../../controller/log_in_page_controller.dart';
-import '../../controller/sign_up_page_controller.dart';
-import '../../controller/sign_up_page_controller2.dart';
-import '../common/toast.dart';
-import 'fotget_password_page.dart';
-import 'log_in_page.dart';
+import '../controller/payment-request_page_controller.dart';
 
-class RegistrationScreen2  extends StatelessWidget {
 
-  final signUpPageController = Get.put(SignUpPageController2());
+
+class PaymentRequestScreen  extends StatelessWidget {
+
+  final signUpPageController = Get.put(PaymentRequestPageController());
   var width;
   var height;
   late BuildContext _context;
 
   // String _particularBirthDate="Enter Birthday";
   // String select_your_country="Enter Birthday";
+
   late DateTime _myDate;
 
   @override
@@ -32,18 +29,7 @@ class RegistrationScreen2  extends StatelessWidget {
       child: Scaffold(
         backgroundColor:  backGroundColor,
         body: LayoutBuilder(builder: (context,constraints){
-          if(constraints.maxWidth<600){
-            return _buildBodyDesign();
-          }
-          else{
-            return Center(child:
-            Container(
-              // height: 100,
-            width: 500,
-            child: _buildBodyDesign(),
-            // color: Colors.amber,
-            ),);
-          }
+          return _buildBodyDesign();
         },)
       ),
     );
@@ -56,13 +42,36 @@ class RegistrationScreen2  extends StatelessWidget {
         direction: Axis.vertical,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-            child: Image.asset(
-              "assets/images/app_logo.png",
-              //width: 50,
-              height: 50,
-              fit: BoxFit.fill,
-            ),
+              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: Flex(direction: Axis.horizontal,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 20,right: 20),
+                    child: InkResponse(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 25.0,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "Payment Request",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color:Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500),
+                    softWrap: false,
+                    maxLines:1,
+                  )
+                ],
+              )
+
+
           ),
 
           Expanded(
@@ -91,25 +100,13 @@ class RegistrationScreen2  extends StatelessWidget {
               child: Column(
                 children: [
 
-                  SizedBox(height: 10,),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text("Registration",
-                        style: TextStyle(
-                            color: levelTextColorWhite,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w900)),
-                  ),
-
 
                   SizedBox(height: 20,),
 
 
-
-                  //Address
                   const Align(
                     alignment: Alignment.topLeft,
-                    child: Text("Address",
+                    child: Text("Payment Method",
                         style: TextStyle(
                             color: levelTextColor,
                             fontSize: 15,
@@ -118,68 +115,17 @@ class RegistrationScreen2  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInput( signUpPageController.userAddressController.value, 'Address', TextInputType.text),
+                  userPaymentMethodSelect(),
 
 
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("City",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  userInput( signUpPageController.userCityController.value, 'City', TextInputType.text),
 
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("State",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  userInput( signUpPageController.userStateController.value, 'State', TextInputType.text),
-
-
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Zip",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  userInput( signUpPageController.zipCodeController.value, 'Zip', TextInputType.text),
-
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Country",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  userCountrySelect(),
-
+                  //Account Number
                   const SizedBox(
                     height: 15,
                   ),
                   const Align(
                     alignment: Alignment.topLeft,
-                    child: Text("Guardian Name",
+                    child: Text("Account Number",
                         style: TextStyle(
                             color: levelTextColor,
                             fontSize: 15,
@@ -188,13 +134,13 @@ class RegistrationScreen2  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInput( signUpPageController.userStateController.value, 'Guardian Name', TextInputType.text),
+                  userInput( signUpPageController.accountNumberController.value, 'Account Number', TextInputType.text),
 
 
-
+                  //Account Name
                   const Align(
                     alignment: Alignment.topLeft,
-                    child: Text("Relation with Guardian",
+                    child: Text("Account Name",
                         style: TextStyle(
                             color: levelTextColor,
                             fontSize: 15,
@@ -203,13 +149,12 @@ class RegistrationScreen2  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInput( signUpPageController.relationWithGuardianNameController.value, 'Relation with Guardian', TextInputType.text),
+                  userInput( signUpPageController.accountNameController.value, 'Account Name', TextInputType.text),
 
-
-
+                  //Amount
                   const Align(
                     alignment: Alignment.topLeft,
-                    child: Text("Guardian Phone",
+                    child: Text("Amount",
                         style: TextStyle(
                             color: levelTextColor,
                             fontSize: 15,
@@ -218,12 +163,14 @@ class RegistrationScreen2  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInput( signUpPageController.guardianPhoneController.value, 'Guardian Phone', TextInputType.text),
+                  userInputAmount( signUpPageController.amountController.value, 'Amount', TextInputType.number),
 
 
+
+                  //Note
                   const Align(
                     alignment: Alignment.topLeft,
-                    child: Text("Guardian Email",
+                    child: Text("Note",
                         style: TextStyle(
                             color: levelTextColor,
                             fontSize: 15,
@@ -232,41 +179,19 @@ class RegistrationScreen2  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInput( signUpPageController.guardianEmailController.value, 'Guardian Email', TextInputType.text),
+                  userInputNote( signUpPageController.noteController.value, 'Note', TextInputType.text),
+
 
 
                   const SizedBox(
                     height: 10,
                   ),
-                  _buildSignUpButton(),
-
-
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 20, bottom: 10),
-                      child: Wrap(
-                        direction: Axis.horizontal,
-                        children: [
-                          Text("Already have an account? ",
-                              style: TextStyle(
-                                  color: textColorWhiteLogin,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500)),
-                          InkResponse(
-                            onTap: () {
-                              Get.off(LogInScreen());
-                            },
-                            child: const Text("Sign In",
-                                style: TextStyle(
-                                    color: forgottenPasswordTextColor,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600)),
-                          ),
-                        ],
-                      ),
-                    ),
+                  _buildSendButton(),
+                  const SizedBox(
+                    height: 10,
                   ),
+
+
                 ],
               ),
             )
@@ -274,8 +199,8 @@ class RegistrationScreen2  extends StatelessWidget {
         ));
   }
 
-  Widget userInput(TextEditingController userInputController, String hintTitle,
-      TextInputType keyboardType) {
+  Widget userInput(TextEditingController userInputController,
+      String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 50,
       alignment: Alignment.center,
@@ -322,9 +247,116 @@ class RegistrationScreen2  extends StatelessWidget {
     );
   }
 
+  Widget userInputAmount(TextEditingController userInputController, String hintTitle,
+      TextInputType keyboardType) {
+    return Container(
+      height: 50,
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(bottom: 15),
+      decoration: BoxDecoration(
+          color: input_box_back_ground_color,
+          borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding:
+        const EdgeInsets.only(left: 25.0, top: 0, bottom: 0, right: 20),
+        child: TextField(
+          controller: userInputController,
+          textInputAction: TextInputAction.next,
+          autocorrect: false,
+          enableSuggestions: false,
+          cursorColor: Colors.white,
+          style: const TextStyle(
+              color: Colors.white
+          ),
+          autofocus: false,
+          keyboardType: keyboardType,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(
+              RegExp(r'[0-9]'),
+            ),
+            FilteringTextInputFormatter.deny(
+              RegExp(
+                  r'^0+'), //users can't type 0 at 1st position
+            ),
+          ],
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            suffixIconConstraints: const BoxConstraints(
+              minHeight: 15,
+              minWidth: 15,
+            ),
+            // suffixIcon: Icon(Icons.person,
+            //   color:  levelTextColorWhite,
+            //   size: 18,
+            // ),
 
 
-  Widget userCountrySelect() {
+            // suffixIcon: Icon(Icons.email,color: Colors.hint_color,),
+            // color: _darkOrLightStatus==1?intello_text_color:intello_bg_color_for_dark,
+            hintText: hintTitle,
+            hintStyle: const TextStyle(
+                fontSize: 16, color: hint_color, fontStyle: FontStyle.normal),
+
+          ),
+
+
+        ),
+      ),
+    );
+  }
+
+  Widget userInputNote(TextEditingController userInputController, String hintTitle,
+      TextInputType keyboardType) {
+    return Container(
+
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(bottom: 15),
+      decoration: BoxDecoration(
+          color: input_box_back_ground_color,
+          borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding:
+        const EdgeInsets.only(left: 25.0, top: 0, bottom: 0, right: 20),
+        child: TextField(
+          controller: userInputController,
+          textInputAction: TextInputAction.newline,
+          // maxLines: 5,
+          // minLines: 3,
+
+
+          cursorColor: Colors.white,
+          style: TextStyle(
+              color: Colors.white
+          ),
+
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            suffixIconConstraints: const BoxConstraints(
+              minHeight: 15,
+              minWidth: 15,
+            ),
+
+            // suffixIcon: Icon(Icons.person,
+            //   color:  levelTextColorWhite,
+            //   size: 18,
+            // ),
+
+
+            // suffixIcon: Icon(Icons.email,color: Colors.hint_color,),
+            // color: _darkOrLightStatus==1?intello_text_color:intello_bg_color_for_dark,
+            hintText: hintTitle,
+            hintStyle: const TextStyle(
+                fontSize: 16, color: hint_color, fontStyle: FontStyle.normal),
+
+          ),
+
+          keyboardType: keyboardType,
+        ),
+      ),
+    );
+  }
+
+  Widget userPaymentMethodSelect() {
     return Column(
       children: [
         Container(
@@ -348,15 +380,15 @@ class RegistrationScreen2  extends StatelessWidget {
               iconSize: 30,
               icon:Padding(padding: EdgeInsets.only(right: 10),
                 child:  Icon(Icons.keyboard_arrow_down_outlined,color: levelTextColor,),),
-              value: signUpPageController.selectCountryId.value != null &&
-                  signUpPageController.selectCountryId.value.isNotEmpty ?
-              signUpPageController.selectCountryId.value : null,
+              value: signUpPageController.selectPaymentMethodId.value != null &&
+                  signUpPageController.selectPaymentMethodId.value.isNotEmpty ?
+              signUpPageController.selectPaymentMethodId.value : null,
               underline:const SizedBox.shrink(),
               hint:Row(
                 children: const [
 
                   Expanded(child: Padding(padding: EdgeInsets.only(left: 25),
-                      child:  Text("Select Country",
+                      child:  Text("Select Payment Method",
                           style: TextStyle(
                               color: hint_color,
                               fontSize: 16,
@@ -369,21 +401,21 @@ class RegistrationScreen2  extends StatelessWidget {
               buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
 
-              items: signUpPageController.countryList.map((list) {
+              items: signUpPageController.paymentMethodList.map((list) {
                 return DropdownMenuItem(
                   alignment: Alignment.centerLeft,
 
 
 
                   // value: list["id"].toString(),
-                  value: list.countryName.toString(),
+                  value: list.paymentmethodName.toString(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(child:Padding(
                         padding: EdgeInsets.only(left: 25),
                         child:Text(
-                            list.countryName,
+                            list.paymentmethodName,
                             textAlign: TextAlign.left,
                             style:  const TextStyle(
                                 color: textColorWhiteLogin,
@@ -403,7 +435,7 @@ class RegistrationScreen2  extends StatelessWidget {
               },
               ).toList(),
               onChanged:(String? value){
-                String data= signUpPageController.selectCountryId(value.toString());
+                String data= signUpPageController.selectPaymentMethodId(value.toString());
                 //  _showToast("Id ="+checkoutPageController.selectStateId(value.toString()));
               },
 
@@ -414,28 +446,24 @@ class RegistrationScreen2  extends StatelessWidget {
     ;
   }
 
-  Widget _buildSignUpButton() {
+  Widget _buildSendButton() {
     return Container(
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
 
-          String userAddressTxt = signUpPageController.userAddressController.value.text;
-          String userCityTxt = signUpPageController.userCityController.value.text;
-          String userStateTxt = signUpPageController.userStateController.value.text;
 
-          String zipCodeTxt = signUpPageController.zipCodeController.value.text;
-          String guardianNameTxt = signUpPageController.guardianNameController.value.text;
-          String guardianPhoneTxt = signUpPageController.guardianPhoneController.value.text;
-          String guardianEmailTxt = signUpPageController.guardianEmailController.value.text;
-          String relationWithGuardianTxt = signUpPageController.relationWithGuardianNameController.value.text;
+          String accountNumberTxt = signUpPageController.accountNumberController.value.text;
+          String accountNameTxt = signUpPageController.accountNameController.value.text;
+          String amountTxt = signUpPageController.amountController.value.text;
+
 
           if ( signUpPageController.inputValid(
-              addressTxt: userAddressTxt, cityTxt: userCityTxt,
-              stateTxt: userStateTxt, zipCodeTxt: zipCodeTxt,
-              guardianNameTxt:guardianNameTxt, relationWithGuardianTxt: guardianPhoneTxt,
-              guardianPhoneTxt: guardianEmailTxt, guardianEmailTxt: relationWithGuardianTxt,
-              selectedCountryTxt: signUpPageController.selectCountryId.value
+              paymentMethod: signUpPageController.selectPaymentMethodId.value,
+              accountNumber: accountNumberTxt,
+              accountName: accountNameTxt,
+              amount: amountTxt
+
           )== false) {
 
           //  LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
@@ -456,7 +484,7 @@ class RegistrationScreen2  extends StatelessWidget {
             height: 50,
             alignment: Alignment.center,
             child: const Text(
-              "Next",
+              "Send",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'PT-Sans',
@@ -470,8 +498,6 @@ class RegistrationScreen2  extends StatelessWidget {
       ),
     );
   }
-
-
 
 }
 
