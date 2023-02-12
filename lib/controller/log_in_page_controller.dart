@@ -21,8 +21,6 @@ class LogInPageController extends GetxController {
   var emailFocusNode = FocusNode().obs;
   var isObscure = true.obs;
 
-
-
   updateUserNameLevelTextColor(Color value) {
     userEmailLevelTextColor(value);
   }

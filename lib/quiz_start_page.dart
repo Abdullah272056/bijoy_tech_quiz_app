@@ -1,19 +1,9 @@
 
 import 'package:bijoy_tech_quiz_app/view/quiz_finished_page.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../../../static/Colors.dart';
-import '../../controller/categories_wise_quiz_list_page_controller2.dart';
-import '../controller/indevidual_quiz_about_page_controller.dart';
-import '../controller/pdf_view_page_controller.dart';
-import '../controller/quiz_finished_page_controller.dart';
-
 import 'controller/quiz_start_page_controller.dart';
-
-
-
 
 class QuizStartPageScreen  extends StatelessWidget{
 
@@ -28,12 +18,11 @@ class QuizStartPageScreen  extends StatelessWidget{
     return SafeArea(
       child: Scaffold(
           backgroundColor:  backGroundColor,
-
           body: LayoutBuilder(builder: (context,constraints){
+
            return _buildBodyDesign(context);
+
           },)
-
-
       ),
     );
   }
@@ -111,17 +100,17 @@ class QuizStartPageScreen  extends StatelessWidget{
                           children: [
 
                            Padding(padding: EdgeInsets.only(left: 20,top: 20,right: 20),
-                           child:  Row(children: [
+                           child:  Row(children:  [
                             Expanded(child:  Text(("Question No: 1 of 15 "),
                                 style: TextStyle(
                                     color: buttonBgColor,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500)),),
-                             Text("00:59",
-                                 style: TextStyle(
-                                     color: buttonBgColor,
-                                     fontSize: 25,
-                                     fontWeight: FontWeight.w500)),
+                            Obx(() =>  Text(quizStartPageScreenController.startTxt.value,
+                                style: const TextStyle(
+                                    color: buttonBgColor,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w500)),)
                            ],),
                            ),
                             const Padding(
@@ -244,7 +233,9 @@ class QuizStartPageScreen  extends StatelessWidget{
     return Container(
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
-        onTap: () {
+        onTap:(){
+          quizStartPageScreenController.cancelTimer();
+          quizStartPageScreenController.startTimer(19);
 
           // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
         },
