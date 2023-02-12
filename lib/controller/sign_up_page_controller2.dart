@@ -78,13 +78,13 @@ class SignUpPageController2 extends GetxController {
   void onInit() {
 
     //
-    // userNameTxt(argumentData['userNameTxt'].toString());
-    // userEmailTxt(argumentData['userEmailTxt'].toString());
-    // userPhoneTxt(argumentData['userPhoneTxt'].toString());
-    // passwordTxt(argumentData['passwordTxt'].toString());
-    // confirmPasswordTxt(argumentData['confirmPasswordTxt'].toString());
-    // userDateOfBirthTxt(argumentData['userDateOfBirthTxt'].toString());
-    // userAgeGradeTxt(argumentData['userAgeGradeTxt'].toString());
+    userNameTxt(argumentData['userNameTxt'].toString());
+    userEmailTxt(argumentData['userEmailTxt'].toString());
+    userPhoneTxt(argumentData['userPhoneTxt'].toString());
+    passwordTxt(argumentData['passwordTxt'].toString());
+    confirmPasswordTxt(argumentData['confirmPasswordTxt'].toString());
+    userDateOfBirthTxt(argumentData['userDateOfBirthTxt'].toString());
+    userAgeGradeTxt(argumentData['userAgeGradeTxt'].toString());
 
     getCountryDataList();
 
@@ -105,7 +105,7 @@ class SignUpPageController2 extends GetxController {
           var response = await get(
             Uri.parse('$BASE_URL_API$SUB_URL_API_GET_ALL_COUNTRY_LIST'),
           );
-           showToastShort("status = ${response.statusCode}");
+          //showToastShort("status = ${response.statusCode}");
            Get.back();
 
           if (response.statusCode == 200) {
@@ -115,7 +115,7 @@ class SignUpPageController2 extends GetxController {
             // productDetailsDataList(dataResponse);
             countryDataList(dataResponse["data"]);
 
-            showToastShort(countryDataList.length.toString());
+          //  showToastShort(countryDataList.length.toString());
 
           }
           else {
