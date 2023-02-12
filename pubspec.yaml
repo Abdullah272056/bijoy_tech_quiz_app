@@ -44,6 +44,8 @@ dependencies:
   intl: ^0.17.0
   dropdown_button2: ^1.9.2
   card_swiper: ^2.0.4
+  # api
+  http: ^0.13.5
 #  syncfusion_flutter_pdfviewer: ^20.4.49
 
 dev_dependencies:

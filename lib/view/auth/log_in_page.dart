@@ -42,7 +42,6 @@ class LogInScreen  extends StatelessWidget {
     );
   }
 
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("AppLifecycleState changed: $state");
@@ -50,7 +49,6 @@ class LogInScreen  extends StatelessWidget {
       showToastLong("resumed");
     }
   }
-
 
   Widget _buildBodyDesign() {
     return Container(
@@ -76,7 +74,6 @@ class LogInScreen  extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildBottomDesign() {
     return Container(
@@ -220,7 +217,6 @@ class LogInScreen  extends StatelessWidget {
         ));
   }
 
-
   Widget _buildSignInButton() {
     return Container(
       margin: const EdgeInsets.only(left: 20.0, right: 20.0),
@@ -231,7 +227,7 @@ class LogInScreen  extends StatelessWidget {
 
           if (logInPageController.inputValid(userEmailTxt, passwordTxt)== false) {
 
-          //  LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
+            logInPageController.userLogIn(email: userEmailTxt, password: passwordTxt);
 
           }
         },
@@ -310,7 +306,6 @@ class LogInScreen  extends StatelessWidget {
     );
   }
 
-
   Widget userInputPassword(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
     return Container(
@@ -352,13 +347,6 @@ class LogInScreen  extends StatelessWidget {
       ),
     );
   }
-
-
-
-
- 
-
-
 
 }
 

@@ -1,10 +1,19 @@
 
+import 'dart:convert';
+import 'dart:io';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
+import '../api_service/api_service.dart';
+import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
+import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
+import '../view/home_page/dash_board_page.dart';
+import 'dash_board_page_controller.dart';
 
 class LogInPageController extends GetxController {
 
@@ -31,7 +40,6 @@ class LogInPageController extends GetxController {
   updatePasswordLevelTextColor(Color value) {
     passwordLevelTextColor(value);
   }
-
 
   //input text validation check
   inputValid(String userEmail, String password) {
@@ -62,45 +70,80 @@ class LogInPageController extends GetxController {
     return false;
   }
 
-  //loading dialog crete
-  void showLoadingDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 20, bottom: 20),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const CircularProgressIndicator(
-                          backgroundColor: awsStartColor,
-                          color: awsEndColor,
-                          strokeWidth: 5,
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          message,
-                          style: const TextStyle(fontSize: 20),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
+
+
+  userLogIn({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+          showLoadingDialog("Checking...");
+
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_LOG_IN'),
+
+              body: {
+                'email': email,
+                'password': password,
+              }
+          );
+
+          // _showToast(response.statusCode.toString());
+
+          Get.back();
+          if (response.statusCode == 200) {
+            showToastShort("success");
+
+            var data = jsonDecode(response.body);
+            saveUserInfo(
+                userName: data["data"]["name"].toString(),
+                userToken: data["data"]["token"].toString());
+            //
+             Get.deleteAll();
+             Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+
+          }
+          else if (response.statusCode == 401) {
+            showToastShort("User name or password not match!");
+          }
+          else {
+            var data = jsonDecode(response.body);
+            // _showToast(data['message']);
+          }
+          //   Get.back();
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          //   Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+
+      Fluttertoast.cancel();
+      showToastShort("No Internet Connection!");
+    }
   }
+
+
+  ///user info with share pref
+  void saveUserInfo({required String userName,required String userToken,}) async {
+    try {
+      var storage =GetStorage();
+      storage.write(pref_user_name, userName);
+      storage.write(pref_user_token, userToken);
+      storage.write(pref_user_type, "user");
+      // _showToast(userToken.toString());
+    } catch (e) {
+      //code
+    }
+  }
+
 
 }
