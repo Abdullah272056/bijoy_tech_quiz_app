@@ -8,9 +8,11 @@ import '../quiz_start_page.dart';
 import 'auth/log_in_page.dart';
 import 'auth/registration_page.dart';
 import 'auth/registration_page2.dart';
+import 'categories_quiz_details.dart';
 import 'custom_drawer.dart';
 import 'home_page/categories_wise_quiz_list_page.dart';
 import 'home_page/dash_board_page.dart';
+import 'home_page/general_quiz_details.dart';
 import 'home_page/quiz_categories_page.dart';
 import 'home_page/recently_finished_quiz_list_page.dart';
 import 'home_page/home_page.dart';
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-        home: QuizCategoriesScreen()
+        home: CategoriesQuizDetailsPageScreen()
 
     );
 

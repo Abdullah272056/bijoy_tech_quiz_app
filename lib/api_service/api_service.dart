@@ -17,6 +17,7 @@ String SUB_URL_API_GET_ALL_COUNTRY_LIST = "api/country-list";
 
 
 String SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_LIST = "api/home-category";
+String SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_DETAILS = "api/content?id=";
 
 
 
