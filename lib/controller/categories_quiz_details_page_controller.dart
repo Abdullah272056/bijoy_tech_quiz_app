@@ -16,6 +16,7 @@ class CategoriesQuizDetailsPageController extends GetxController {
 
   var categoriesId="3".obs;
 
+  var imageUrl="".obs;
 
   var quizName="".obs;
   var quizAboutText="".obs;
@@ -53,6 +54,9 @@ class CategoriesQuizDetailsPageController extends GetxController {
              //
              onGoingQuizList(dataResponse["data"]["ongoing"]);
             recentlyFinishedQuizList(dataResponse["data"]["quizes"]);
+
+            imageUrl(BASE_URL_HOME_IMAGE+dataResponse["data"]["content"]["img"].toString());
+
              // recentlyFinishedQuizList="".obs;
 
             // productDetailsDataList(dataResponse);

@@ -149,45 +149,65 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
               child: Column(
                 children:  [
 
+
                   Container(
                     margin: EdgeInsets.only(left: 10,right: 10),
                     width: double.infinity,
                     height: Get.size.height * 0.21,
 
-                    decoration: new BoxDecoration(
+                    decoration:  BoxDecoration(
 
                       borderRadius: BorderRadius.circular(18),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(child:
+                    child:  ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Container(
+                          height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
+                          color:Colors.white,
+                          child:  Obx(() => FadeInImage.assetNetwork(
+                            fit: BoxFit.cover,
+                            placeholder: 'assets/images/empty.png',
+                            image:categoriesQuizDetailsPageController.imageUrl.value!=""?"":categoriesQuizDetailsPageController.imageUrl.value,
+                            imageErrorBuilder: (context, url, error) =>
+                                Image.asset(
+                                  "assets/images/empty.png",
 
-                    ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-              child: Container(
-                  height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
-                  color:Colors.white,
-                  child:  FadeInImage.assetNetwork(
-                    fit: BoxFit.cover,
-                    placeholder: 'assets/images/general_quiz.jpg',
-                    image:"image".toString(),
-                    imageErrorBuilder: (context, url, error) =>
-                        Image.asset(
-                          "assets/images/general_quiz.jpg".toString()
-                          ,
+                                  fit: BoxFit.fill,
+                                ),
+                          ))),
 
-                          fit: BoxFit.fill,
-                        ),
-                  )),
-
-            )
-
-                       )
-
-                      ],
                     ),
                   ),
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 10,right: 10),
+                  //   width: double.infinity,
+                  //   height: Get.size.height * 0.21,
+                  //
+                  //   decoration:  BoxDecoration(
+                  //
+                  //     borderRadius: BorderRadius.circular(18),
+                  //   ),
+                  //   child:  ClipRRect(
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //     child: Container(
+                  //         height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
+                  //         color:Colors.white,
+                  //         child:  FadeInImage.assetNetwork(
+                  //           fit: BoxFit.cover,
+                  //           placeholder: 'assets/images/empty.png',
+                  //           image:"https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80",
+                  //           imageErrorBuilder: (context, url, error) =>
+                  //               Image.asset(
+                  //                 "assets/images/empty.png",
+                  //
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //         )),
+                  //
+                  //   ),
+                  // ),
                   SizedBox(height: 10,),
+
 
                   Row(
                     children: [
@@ -206,6 +226,10 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
                      )))
                     ],
                   ),
+
+
+
+
                   SizedBox(height: 10,),
                   Obx(() => Text(
                     categoriesQuizDetailsPageController.quizAboutText.value,
@@ -326,117 +350,7 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
         ));
   }
 
-  Widget _buildRecentlyFinishedQuizItem2({
-    required String imageLink,
-    required double height,
-    required double width,
-    required double marginLeft,
-    required double marginRight,
-  }) {
-    return InkResponse(
-      onTap: (){
-        // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
-
-      },
-      child:
-
-      Container(
-        margin:  EdgeInsets.only(left: marginLeft, right: marginRight,bottom: 0,top: 0),
-         width: width*.7,
-        decoration: BoxDecoration(
-          color:home_item_bg_color,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: const [BoxShadow(
-
-            color:bg_top_color,
-            //  blurRadius: 20.0, // soften the shadow
-            blurRadius:0, // soften the shadow
-            spreadRadius: 0.0, //extend the shadow
-            offset:
-            Offset(
-              0.0, // Move to right 10  horizontally
-              0.0, // Move to bottom 10 Vertically
-            ),
-          )],
-        ),
-        //   height: 150,
-        child: Container(
-          margin: const EdgeInsets.only(right: 00.0,top: 0,bottom: 0,left: 00),
-          height: double.infinity,
-          width: double.infinity,
-
-
-          child: Center(
-            child: Column(
-              children: [
-
-                Row(
-                  children: [
-                    Expanded(child:   ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Container(
-                          height:120 ,
-                          color:Colors.white,
-                          child: FadeInImage.assetNetwork(
-                            fit: BoxFit.cover,
-                            placeholder: 'assets/images/general_quiz.jpg',
-                            image:"image".toString(),
-                            imageErrorBuilder: (context, url, error) =>
-                                Image.asset(
-                                  imageLink.toString()
-                                  ,
-                                  fit: BoxFit.fill,
-                                ),
-                          )),
-
-                    )
-
-                    )
-                  ],
-                ),
-                SizedBox(height: 10,),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    "nameText".toString(),
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color:Colors.white,
-                        fontSize: sizeReturn(40),
-                        fontWeight: FontWeight.bold),
-                    softWrap: false,
-                    maxLines:1,
-                  ),
-                ),
-                const SizedBox(height: 15,),
-
-
-                Padding(padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
-                  child: Column(
-                    children: [
-
-
-                      _buildQuizItemBottomText(name: 'Total Question:', value: '10'),
-                      _buildQuizItemBottomText(name: 'Every Question Mark:', value: '1'),
-                      _buildQuizItemBottomText(name: 'Price Money:', value: '\$20.00'),
-                      _buildQuizItemBottomText(name: 'Price Money Will Get:', value: '1 Top Scorer'),
-                      _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$20.00'),
-
-
-                    ],
-                  ),
-                )
-
-              ],
-            ),
-          ),
-        ) ,
-      ),
-
-
-
-    );
-  }
+   
 
   Widget _buildRecentlyFinishedQuizItem({
     required var response,
@@ -491,12 +405,12 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
                           color:Colors.white,
                           child: FadeInImage.assetNetwork(
                             fit: BoxFit.cover,
-                            placeholder: 'assets/images/general_quiz.jpg',
-                            image:"image".toString(),
+                            placeholder: 'assets/images/empty.png',
+                            image:categoriesQuizDetailsPageController.imageUrl.toString(),
                             imageErrorBuilder: (context, url, error) =>
-                                Image.network(
-                                  "imageLink".toString()
-                                  ,
+                                Image.asset(
+                                  'assets/images/empty.png',
+
                                   fit: BoxFit.fill,
                                 ),
                           )),
@@ -610,12 +524,11 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
                           color:Colors.white,
                           child: FadeInImage.assetNetwork(
                             fit: BoxFit.cover,
-                            placeholder: 'assets/images/general_quiz.jpg',
-                            image:"image".toString(),
+                            placeholder: 'assets/images/empty.png',
+                            image:categoriesQuizDetailsPageController.imageUrl.toString(),
                             imageErrorBuilder: (context, url, error) =>
-                                Image.network(
-                                  "imageLink".toString()
-                                  ,
+                                Image.asset(
+                                    'assets/images/empty.png',
                                   fit: BoxFit.fill,
                                 ),
                           )),
