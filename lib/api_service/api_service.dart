@@ -9,6 +9,7 @@ String BASE_URL_API = "https://quiz.bizoytech.com/";
 
 String SUB_URL_API_LOG_IN = "api/login";
 String SUB_URL_API_SIGN_UP = "api/register";
+String SUB_URL_API_GET_ALL_COUNTRY_LIST = "api/country-list";
 
 
 

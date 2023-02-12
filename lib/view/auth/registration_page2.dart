@@ -368,21 +368,21 @@ class RegistrationScreen2  extends StatelessWidget {
               buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
 
-              items: signUpPageController.countryList.map((list) {
+              items: signUpPageController.countryDataList.map((list) {
                 return DropdownMenuItem(
                   alignment: Alignment.centerLeft,
 
 
 
                   // value: list["id"].toString(),
-                  value: list.countryName.toString(),
+                  value: list["name"].toString(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(child:Padding(
                         padding: EdgeInsets.only(left: 25),
                         child:Text(
-                            list.countryName,
+                            list["name"].toString(),
                             textAlign: TextAlign.left,
                             style:  const TextStyle(
                                 color: textColorWhiteLogin,

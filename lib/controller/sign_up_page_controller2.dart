@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import '../../../static/Colors.dart';
 import '../api_service/api_service.dart';
 import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
@@ -57,6 +58,16 @@ class SignUpPageController2 extends GetxController {
   var userAgeGradeTxt="".obs;
 
 
+  var selectCountryId="".obs;
+  var countryLis= [
+    CountryData("Bangladesh","1"),
+    CountryData("Pakistan","2"),
+    CountryData("India","3"),
+    CountryData("Dubai","4"),
+
+  ].obs;
+
+  var countryDataList = [].obs;
 
   dynamic argumentData = Get.arguments;
 
@@ -65,36 +76,65 @@ class SignUpPageController2 extends GetxController {
 
   @override
   void onInit() {
-    // print(argumentData[0]['first']);
-    // print(argumentData[1]['second']);
 
-    userNameTxt(argumentData['userNameTxt'].toString());
-    userEmailTxt(argumentData['userEmailTxt'].toString());
-    userPhoneTxt(argumentData['userPhoneTxt'].toString());
-    passwordTxt(argumentData['passwordTxt'].toString());
-    confirmPasswordTxt(argumentData['confirmPasswordTxt'].toString());
-    userDateOfBirthTxt(argumentData['userDateOfBirthTxt'].toString());
-    userAgeGradeTxt(argumentData['userAgeGradeTxt'].toString());
+    //
+    // userNameTxt(argumentData['userNameTxt'].toString());
+    // userEmailTxt(argumentData['userEmailTxt'].toString());
+    // userPhoneTxt(argumentData['userPhoneTxt'].toString());
+    // passwordTxt(argumentData['passwordTxt'].toString());
+    // confirmPasswordTxt(argumentData['confirmPasswordTxt'].toString());
+    // userDateOfBirthTxt(argumentData['userDateOfBirthTxt'].toString());
+    // userAgeGradeTxt(argumentData['userAgeGradeTxt'].toString());
 
+    getCountryDataList();
 
-    // showToastShort(argumentData['userNameTxt'].toString());
-
-    // _showToast(argumentData[0]['productId'].toString());
 
     super.onInit();
   }
 
-  var selectCountryId="".obs;
-  var countryList = [
-    CountryData("Bangladesh","1"),
-    CountryData("Pakistan","2"),
-    CountryData("India","3"),
-    CountryData("Dubai","4"),
-
-  ].obs;
 
 
 
+  void getCountryDataList() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          showLoadingDialog("loading...");
+
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_ALL_COUNTRY_LIST'),
+          );
+           showToastShort("status = ${response.statusCode}");
+           Get.back();
+
+          if (response.statusCode == 200) {
+
+            var dataResponse = jsonDecode(response.body);
+
+            // productDetailsDataList(dataResponse);
+            countryDataList(dataResponse["data"]);
+
+            showToastShort(countryDataList.length.toString());
+
+          }
+          else {
+            // Fluttertoast.cancel();
+            showToastShort("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+      else{
+        showToastShort("No Internet Connection!");
+
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
 
 
 //input text validation check
