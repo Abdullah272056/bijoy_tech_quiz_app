@@ -188,7 +188,7 @@ class RegistrationScreen2  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInput( signUpPageController.userStateController.value, 'Guardian Name', TextInputType.text),
+                  userInput( signUpPageController.guardianNameController.value, 'Guardian Name', TextInputType.text),
 
 
 
@@ -323,7 +323,6 @@ class RegistrationScreen2  extends StatelessWidget {
   }
 
 
-
   Widget userCountrySelect() {
     return Column(
       children: [
@@ -433,10 +432,24 @@ class RegistrationScreen2  extends StatelessWidget {
           if ( signUpPageController.inputValid(
               addressTxt: userAddressTxt, cityTxt: userCityTxt,
               stateTxt: userStateTxt, zipCodeTxt: zipCodeTxt,
-              guardianNameTxt:guardianNameTxt, relationWithGuardianTxt: guardianPhoneTxt,
-              guardianPhoneTxt: guardianEmailTxt, guardianEmailTxt: relationWithGuardianTxt,
+              guardianNameTxt:guardianNameTxt, relationWithGuardianTxt: relationWithGuardianTxt,
+              guardianPhoneTxt: guardianPhoneTxt, guardianEmailTxt: guardianEmailTxt,
               selectedCountryTxt: signUpPageController.selectCountryId.value
           )== false) {
+
+            signUpPageController.userSignUp(
+                name: signUpPageController.userNameTxt.value, grade:signUpPageController.userAgeGradeTxt.value,
+                date_of_birth: signUpPageController.userDateOfBirthTxt.value, email: signUpPageController.userEmailTxt.value,
+                phone: signUpPageController.userPhoneTxt.value, password: signUpPageController.confirmPasswordTxt.value,
+                address: userAddressTxt, city: userCityTxt,
+                state: userStateTxt, zip: zipCodeTxt,
+                country: signUpPageController.selectCountryId.value, guardian: guardianNameTxt,
+                relationWithGuardian: relationWithGuardianTxt, guardianPhone: guardianPhoneTxt,
+                guardianEmail: guardianEmailTxt);
+
+
+
+
 
           //  LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
 
@@ -470,8 +483,6 @@ class RegistrationScreen2  extends StatelessWidget {
       ),
     );
   }
-
-
 
 }
 

@@ -34,8 +34,8 @@ class SignUpPageController extends GetxController {
   var isObscurePassword = true.obs;
   var isObscureConfirmPassword = true.obs;
 
-  var particularBirthDate="Enter Birthday".obs;
-  var select_your_country="Enter Birthday".obs;
+  var userBirthDate="Enter Birthday".obs;
+  var select_your_birth_day="Enter Birthday".obs;
 
 
   var selectGradeId="".obs;
@@ -90,11 +90,28 @@ class SignUpPageController extends GetxController {
       return;
     }
 
+    if (userDateOfBirthTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Select date Of birth!");
+      return;
+    }
+    if (userDateOfBirthTxt==select_your_birth_day.value) {
+      Fluttertoast.cancel();
+      showToastLong("Select date Of birth!");
+      return;
+    }
+    if (userAgeGradeTxt.isEmpty) {
+      Fluttertoast.cancel();
+      showToastLong("Select age Grade!");
+      return;
+    }
+
     if (passwordTxt.isEmpty) {
       Fluttertoast.cancel();
       showToastLong("Password can't empty!");
       return;
     }
+
     if (passwordTxt.length < 8) {
       Fluttertoast.cancel();
       showToastLong("Password must be 8 character!");
@@ -105,16 +122,7 @@ class SignUpPageController extends GetxController {
       return;
     }
 
-    if (userDateOfBirthTxt.isEmpty) {
-      Fluttertoast.cancel();
-      showToastLong("Select date Of birth!");
-      return;
-    }
-    if (userAgeGradeTxt.isEmpty) {
-      Fluttertoast.cancel();
-      showToastLong("Select age Grade!");
-      return;
-    }
+
 
     return false;
   }

@@ -6,6 +6,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import '../quiz_start_page.dart';
 import 'auth/log_in_page.dart';
+import 'auth/registration_page.dart';
 import 'auth/registration_page2.dart';
 import 'custom_drawer.dart';
 import 'home_page/categories_wise_quiz_list_page.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-        home: LogInScreen()
+        home: RegistrationScreen()
 
     );
 

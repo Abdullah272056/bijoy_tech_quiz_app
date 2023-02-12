@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../static/Colors.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../../controller/sign_up_page_controller.dart';
+import '../../controller/sign_up_page_controller2.dart';
 import '../common/toast.dart';
 import 'fotget_password_page.dart';
 import 'log_in_page.dart';
@@ -585,9 +586,10 @@ class RegistrationScreen  extends StatelessWidget {
           lastDate: DateTime.now(),
         ))!;
 
-        signUpPageController.particularBirthDate(_myDate.toString());
+        signUpPageController.userBirthDate(_myDate.toString());
         // _particularBirthDate = DateFormat('yyyy-MM-dd').format(_myDate);
-        signUpPageController.particularBirthDate((DateFormat('MM/dd/yyyy').format(_myDate)).toString());
+        signUpPageController.userBirthDate((DateFormat('yyyy-MM-dd').format(_myDate)).toString());
+
 
       },
       child:Container(
@@ -607,8 +609,8 @@ class RegistrationScreen  extends StatelessWidget {
                 padding:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
                 child:Obx(() => Flex(direction: Axis.horizontal,
                   children: [
-                    if(signUpPageController.particularBirthDate==signUpPageController.select_your_country)...{
-                      Expanded(child: Obx(() => Text(signUpPageController.particularBirthDate.value,
+                    if(signUpPageController.userBirthDate==signUpPageController.select_your_birth_day)...{
+                      Expanded(child: Obx(() => Text(signUpPageController.userBirthDate.value,
                           style: const TextStyle(
                               color: hint_color,
                               fontSize: 16,
@@ -616,7 +618,7 @@ class RegistrationScreen  extends StatelessWidget {
                       ))),
                     }
                     else...{
-                      Expanded(child: Obx(() => Text(signUpPageController.particularBirthDate.value,
+                      Expanded(child: Obx(() => Text(signUpPageController.userBirthDate.value,
                           style: const TextStyle(
                               color: textColorWhiteLogin,
                               fontSize: 16,
@@ -663,19 +665,31 @@ class RegistrationScreen  extends StatelessWidget {
           String confirmPasswordTxt = signUpPageController.confirmPasswordController.value.text;
 
 
+        //  showToastShort(signUpPageController.userBirthDate.value);
 
-
-          if ( signUpPageController.inputValid(
+          if (signUpPageController.inputValid(
                   userNameTxt: userNameTxt,
                   userEmailTxt: userEmailTxt,
                   userPhoneTxt: userPhoneTxt,
                   passwordTxt: passwordTxt,
                   confirmPasswordTxt: confirmPasswordTxt,
-                  userDateOfBirthTxt: signUpPageController.particularBirthDate.value,
+                  userDateOfBirthTxt: signUpPageController.userBirthDate.value,
                   userAgeGradeTxt: signUpPageController.selectGradeId.value
                )== false){
             // LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
-            Get.to(RegistrationScreen2());
+
+
+           Get.to(() => RegistrationScreen2(), arguments: {
+             "userNameTxt": userNameTxt,
+             "userEmailTxt": userEmailTxt,
+             "userPhoneTxt": userPhoneTxt,
+             "passwordTxt": passwordTxt,
+             "confirmPasswordTxt": confirmPasswordTxt,
+             "userDateOfBirthTxt": signUpPageController.userBirthDate.value,
+             "userAgeGradeTxt": signUpPageController.selectGradeId.value,
+
+           })?.then((value) => Get.delete<SignUpPageController2>());
+
           }
         },
         style: ElevatedButton.styleFrom(

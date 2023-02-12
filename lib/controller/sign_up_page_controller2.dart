@@ -1,13 +1,20 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
+import '../api_service/api_service.dart';
+import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
+import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
+import '../view/home_page/dash_board_page.dart';
+import 'dash_board_page_controller.dart';
 
 class SignUpPageController2 extends GetxController {
 
@@ -41,7 +48,41 @@ class SignUpPageController2 extends GetxController {
   var emailFocusNode = FocusNode().obs;
 
 
+  var userNameTxt="".obs;
+  var userEmailTxt="".obs;
+  var userPhoneTxt="".obs;
+  var passwordTxt="".obs;
+  var confirmPasswordTxt="".obs;
+  var userDateOfBirthTxt="".obs;
+  var userAgeGradeTxt="".obs;
 
+
+
+  dynamic argumentData = Get.arguments;
+
+
+
+
+  @override
+  void onInit() {
+    // print(argumentData[0]['first']);
+    // print(argumentData[1]['second']);
+
+    userNameTxt(argumentData['userNameTxt'].toString());
+    userEmailTxt(argumentData['userEmailTxt'].toString());
+    userPhoneTxt(argumentData['userPhoneTxt'].toString());
+    passwordTxt(argumentData['passwordTxt'].toString());
+    confirmPasswordTxt(argumentData['confirmPasswordTxt'].toString());
+    userDateOfBirthTxt(argumentData['userDateOfBirthTxt'].toString());
+    userAgeGradeTxt(argumentData['userAgeGradeTxt'].toString());
+
+
+    // showToastShort(argumentData['userNameTxt'].toString());
+
+    // _showToast(argumentData[0]['productId'].toString());
+
+    super.onInit();
+  }
 
   var selectCountryId="".obs;
   var countryList = [
@@ -134,6 +175,118 @@ class SignUpPageController2 extends GetxController {
 
 
     return false;
+  }
+
+
+  userSignUp({
+    required String name,
+    required String grade,
+    required String date_of_birth,
+    required String email,
+    required String phone,
+    required String password,
+    required String address,
+    required String city,
+    required String state,
+    required String zip,
+    required String country,
+    required String guardian,
+    required String relationWithGuardian,
+    required String guardianPhone,
+    required String guardianEmail,
+
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+          showLoadingDialog("Checking");
+
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SIGN_UP'),
+
+              body: {
+                "name":name,
+                "grade":grade,
+                "date_of_birth":date_of_birth,
+                "email":email,
+                "phone":phone,
+                "password":password,
+                "address":address,
+                "city":city,
+                "state":state,
+                "zip":zip,
+                "country":country,
+                "guardian":guardian,
+                "relation_with_guardian":relationWithGuardian,
+                "guardian_phone":guardianPhone,
+                "guardian_email":guardianEmail
+              }
+          );
+          Get.back();
+           showToastShort(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            // _showToast("success");
+            var data = jsonDecode(response.body);
+            saveUserInfo(
+                userName: data["data"]["name"].toString(),
+                userToken: data["data"]["token"].toString());
+
+            Get.deleteAll();
+            Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+
+          }
+          else if (response.statusCode == 404) {
+            var data = jsonDecode(response.body);
+            if(data["message"]["name"]!=null){
+              showToastLong(data["message"]["name"][0].toString());
+              return;
+            }
+
+            if(data["message"]["email"]!=null){
+              showToastLong(data["message"]["email"][0].toString());
+              return;
+            }
+
+            if(data["message"]["password"]!=null){
+              showToastLong(data["message"]["password"][0].toString());
+              return;
+            }
+
+          }
+          else {
+
+            var data = jsonDecode(response.body);
+            //_showToast(data['message']);
+          }
+
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      showToastLong("No Internet Connection!");
+    }
+  }
+
+
+  ///user info with share pref
+  void saveUserInfo({required String userName,required String userToken,}) async {
+    try {
+      var storage =GetStorage();
+      storage.write(pref_user_name, userName);
+      storage.write(pref_user_token, userToken);
+      storage.write(pref_user_type, "user");
+      // _showToast(userToken.toString());
+    } catch (e) {
+      //code
+    }
   }
 
 
