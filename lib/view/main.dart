@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-        home: CategoriesQuizDetailsPageScreen()
+        home: DashBoardPageScreen()
 
     );
 

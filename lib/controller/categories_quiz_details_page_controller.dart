@@ -1,36 +1,43 @@
 
 import 'dart:convert';
 import 'dart:io';
-
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
-
 import '../api_service/api_service.dart';
 import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
 
 class CategoriesQuizDetailsPageController extends GetxController {
 
-
   var categoriesId="3".obs;
-
   var imageUrl="".obs;
 
-  var quizName="".obs;
+  var categoriesDataResponse;
+
+
+   var quizName="".obs;
+   var titleName="".obs;
+
   var quizAboutText="".obs;
   var onGoingQuizList= [].obs;
   var recentlyFinishedQuizList= [].obs;
 
+  dynamic argumentData = Get.arguments;
+
   @override
   void onInit() {
-    getQuizCategoriesDetailsDataList();
+    // categoriesDataResponse=argumentData['categoriesDataResponse'].toString();
+    // showToastShort(argumentData["categoriesId"].toString());
+    titleName(argumentData["categoriesQuizName"].toString());
+    imageUrl(argumentData["categoriesImg"].toString());
+    getQuizCategoriesDetailsDataList(argumentData["categoriesId"].toString() );
+
     super.onInit();
 
   }
 
-  void getQuizCategoriesDetailsDataList() async{
+  void getQuizCategoriesDetailsDataList(String categories_id ) async{
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -38,7 +45,7 @@ class CategoriesQuizDetailsPageController extends GetxController {
           showLoadingDialog("loading...");
 
           var response = await get(
-            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_DETAILS$categoriesId'),
+            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_DETAILS$categories_id'),
           );
             showToastShort("status = ${response.statusCode}");
           Get.back();
@@ -49,13 +56,13 @@ class CategoriesQuizDetailsPageController extends GetxController {
 
 
 
-            quizName(dataResponse["data"]["content"]["title"].toString());
-            quizAboutText(dataResponse["data"]["content"]["content"].toString());
+            quizName(dataResponse["data"]["content"][0]["title"].toString());
+            quizAboutText(dataResponse["data"]["content"][0]["content"].toString());
              //
              onGoingQuizList(dataResponse["data"]["ongoing"]);
             recentlyFinishedQuizList(dataResponse["data"]["quizes"]);
 
-            imageUrl(BASE_URL_HOME_IMAGE+dataResponse["data"]["content"]["img"].toString());
+            imageUrl(BASE_URL_HOME_IMAGE+dataResponse["data"]["content"][0]["img"].toString());
 
              // recentlyFinishedQuizList="".obs;
 
@@ -82,7 +89,5 @@ class CategoriesQuizDetailsPageController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
-
-
 
 }

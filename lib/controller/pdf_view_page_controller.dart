@@ -21,6 +21,12 @@ class PdfViewPageScreenController extends GetxController {
       "PageMaker including versions of Lorem IpsumLorem Ipsum is simply dummy text of the printing and typesetting "
       "industry. ".obs;
 
+  var currentPageNumber=0.obs;
+  var totalPageNumber=0.obs;
+  var defaultPageNumber=10.obs;
+  // var totalPageNumber=0.obs;
+  // var totalPageNumber=0.obs;
+
   void ref(){
     onInit();
   }

@@ -7,8 +7,10 @@ import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/categories_list_page_controller.dart';
+import '../../controller/categories_quiz_details_page_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/log_in_page_controller.dart';
+import '../categories_quiz_details.dart';
 import '../common/toast.dart';
 import '../custom_drawer.dart';
 import 'categories_wise_quiz_list_page.dart';
@@ -157,10 +159,6 @@ class QuizCategoriesScreen  extends StatelessWidget{
         ));
   }
 
-
-
-
-
   Widget _buildHomeCardItem(var response) {
     return InkResponse(
       onTap: (){
@@ -209,11 +207,11 @@ class QuizCategoriesScreen  extends StatelessWidget{
                                 color:Colors.white,
                                 child: FadeInImage.assetNetwork(
                                   fit: BoxFit.cover,
-                                  placeholder: 'assets/images/general_quiz.jpg',
-                                  image:"image".toString(),
+                                  placeholder: 'assets/images/empty.png',
+                                  image:BASE_URL_HOME_IMAGE+response["img"].toString(),
                                   imageErrorBuilder: (context, url, error) =>
-                                      Image.network(
-                                        BASE_URL_HOME_IMAGE+response["img"].toString()
+                                      Image.asset(
+                                        "assets/images/empty.png"
                                         // imageLink.toString(
                                         ,
                                         fit: BoxFit.fill,
@@ -280,7 +278,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
 
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: _buildGetStartButton(),
+                      child: _buildGetStartButton(response),
                     )
 
 
@@ -408,7 +406,9 @@ class QuizCategoriesScreen  extends StatelessWidget{
 
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: _buildGetStartButton(),
+                    child: Container()
+
+                    //_buildGetStartButton(),
                   )
 
 
@@ -460,13 +460,17 @@ class QuizCategoriesScreen  extends StatelessWidget{
       ),
     );
   }
-  Widget _buildGetStartButton() {
+  Widget _buildGetStartButton( var response) {
     return Container(
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-          Get.to(CategoriesWiseQuizListPageScreen());
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+          // Get.to(CategoriesQuizDetailsPageScreen());
+          Get.to(() => CategoriesQuizDetailsPageScreen(), arguments: {
+            "categoriesId": response["id"].toString(),
+            "categoriesQuizName": response["title"].toString(),
+            "categoriesImg": BASE_URL_HOME_IMAGE+response["img"].toString(),
+          })?.then((value) => Get.delete<CategoriesQuizDetailsPageController>());
         },
 
         child:Container(

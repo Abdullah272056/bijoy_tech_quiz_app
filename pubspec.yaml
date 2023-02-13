@@ -46,6 +46,9 @@ dependencies:
   card_swiper: ^2.0.4
   # api
   http: ^0.13.5
+  expandable_text: ^2.3.0
+  flutter_cached_pdfview: ^0.4.1
+  flutter_pdfview: ^1.2.5
 #  syncfusion_flutter_pdfviewer: ^20.4.49
 
 dev_dependencies:
