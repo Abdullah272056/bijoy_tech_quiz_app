@@ -536,7 +536,7 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
                                 }
                                 else{
 
-                                  userVerify(
+                                  emailVerifyPageController.userVerify(
                                       email: emailVerifyPageController.userEmail.value,
                                       otp: emailVerifyPageController.inputText.value);
 
@@ -882,57 +882,7 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
     // });
   }
 
-  userVerify({
-    required String email,
-    required String otp,
-  }) async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      // if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      //   try {
-      //
-      //     showLoadingDialog("Checking");
-      //
-      //     var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SEND_OTP'),
-      //     //     var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/reset-otp-check'),
-      //         body: {
-      //           'email': email,
-      //           'otp': otp
-      //         }
-      //     );
-      //     Get.back();
-      //   //  _showToast(response.statusCode.toString());
-      //     if (response.statusCode == 200) {
-      //
-      //       Get.to(() => PasswordSetScreen(), arguments: [
-      //         {"email": email},
-      //         {"otp": otp}
-      //       ]);
-      //     //  Get.to(PasswordSetScreen());
-      //
-      //     }
-      //
-      //     else {
-      //       // Get.back();
-      //       var data = jsonDecode(response.body);
-      //       showToastLong("Otp Invalid!");
-      //     }
-      //
-      //
-      //   } catch (e) {
-      //     //  Navigator.of(context).pop();
-      //     //print(e.toString());
-      //   } finally {
-      //     // Get.back();
-      //
-      //     /// Navigator.of(context).pop();
-      //   }
-      // }
-    } on SocketException catch (_) {
-      Fluttertoast.cancel();
-      showToastLong("No Internet Connection!");
-    }
-  }
+
 
   //loading dialog crete
   void showLoadingDialog(String message) {

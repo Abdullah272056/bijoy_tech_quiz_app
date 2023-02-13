@@ -14,29 +14,34 @@ class ForgetPasswordSetPageController extends GetxController {
 
 
   ///input box controller
-
-
   final passwordController = TextEditingController().obs;
   final confirmPasswordController = TextEditingController().obs;
 
-
-  final  passwordControllerFocusNode = FocusNode().obs;
-  final  confirmPasswordControllerFocusNode = FocusNode().obs;
 
 
   ///input box color and operation
   var userEmailLevelTextColor = hint_color.obs;
   var passwordLevelTextColor = hint_color.obs;
-  var emailFocusNode = FocusNode().obs;
+
 
   var isObscurePassword = true.obs;
   var isObscureConfirmPassword = true.obs;
 
-  var particularBirthDate="Enter Birthday".obs;
-  var select_your_country="Enter Birthday".obs;
 
 
 
+  dynamic argumentData = Get.arguments;
+  var userEmail="".obs;
+  var useOtp="".obs;
+  @override
+  void onInit() {
+    userEmail(argumentData[0]['email']);
+    useOtp(argumentData[1]['otp'].toString());
+    // _showToast(argumentData[0]['email']);
+    // _showToast(argumentData[1]['otp'].toString());
+
+    super.onInit();
+  }
 
 
   updateIsObscureConfirmPassword(var value) {
@@ -52,10 +57,8 @@ class ForgetPasswordSetPageController extends GetxController {
 //input text validation check
   inputValid(
       {
-
-      required String passwordTxt,
+        required String passwordTxt,
       required String confirmPasswordTxt,
-
       }
       ) {
 
@@ -85,9 +88,5 @@ class ForgetPasswordSetPageController extends GetxController {
 
 }
 
-class AgeGrade{
-  String gradeName;
-  String gradeId;
-  AgeGrade(this.gradeName, this.gradeId);
-}
+
 

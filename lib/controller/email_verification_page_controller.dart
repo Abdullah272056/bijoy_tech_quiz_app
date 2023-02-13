@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../api_service/api_service.dart';
+import '../view/auth/forgotten_password_set_page.dart';
 import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
 import 'package:http/http.dart' as http;
@@ -130,5 +131,57 @@ class EmailVerifyPageController extends GetxController {
     }
   }
 
+
+  userVerify({
+    required String email,
+    required String otp,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+          showLoadingDialog("Checking");
+
+          var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_SEND_OTP'),
+
+              body: {
+                'email': email,
+                'otp': otp
+              }
+          );
+          Get.back();
+          showToastShort(response.statusCode.toString());
+          if (response.statusCode == 200) {
+
+            Get.to(() => ForgetPasswordSetScreen(), arguments: [
+              {"email": email},
+              {"otp": otp}
+            ]);
+            //  Get.to(PasswordSetScreen());
+
+          }
+
+          else {
+            // Get.back();
+            var data = jsonDecode(response.body);
+            showToastLong("Otp Invalid!");
+          }
+
+
+        } catch (e) {
+          //  Navigator.of(context).pop();
+          //print(e.toString());
+        } finally {
+          // Get.back();
+
+          /// Navigator.of(context).pop();
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      showToastLong("No Internet Connection!");
+    }
+  }
 
 }
