@@ -293,8 +293,8 @@ class HomepageScreen  extends StatelessWidget{
                       _buildQuizItemBottomText(name: 'Every Question Mark:', value: response["mark"].toString()),
                       _buildQuizItemBottomText(name: 'Price Money:', value: '\$'+response["price"].toString()),
                       _buildQuizItemBottomText(name: 'Price Money Will Get:', value: response["person"].toString()),
-                      _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$20.00'),
-                      // _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$'+response["total_quistion"].toString()),
+                      // _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$20.00'),
+                      _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$'+response["each_person_get"].toString()),
 
 
                     ],
