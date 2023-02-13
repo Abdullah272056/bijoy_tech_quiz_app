@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
+import '../../api_service/api_service.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/home_controller1.dart';
 import '../../controller/home_controller2.dart';
@@ -15,7 +16,7 @@ import '../individual_quiz_about_more.dart';
 
 class HomepageScreen  extends StatelessWidget{
 
-  final homeController = Get.put(HomeController2());
+  final homeController = Get.put(HomeController());
   var width;
   var height;
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
@@ -146,24 +147,23 @@ class HomepageScreen  extends StatelessWidget{
                   //   ),
                   // ),
                   const SizedBox(height: 10,),
-                  ListView.builder(
-                      itemCount:4,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-
-                      // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                      //     crossAxisCount:2,
-                      //     // crossAxisCount:Get.size.width>550? 2:1,
-                      //     crossAxisSpacing: 0.0,
-                      //
-                      //     mainAxisSpacing: 10.0,
-                      //    mainAxisExtent:Get.size.width>550? 350:260
-                      // ),
-
-
-                      itemBuilder: (BuildContext context, int index) {
-                        return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg');
-                      })
+                 Obx(() =>  ListView.builder(
+                     itemCount:homeController.quizDataList.length,
+                     shrinkWrap: true,
+                     physics: const NeverScrollableScrollPhysics(),
+                     // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                     //     crossAxisCount:2,
+                     //     // crossAxisCount:Get.size.width>550? 2:1,
+                     //     crossAxisSpacing: 0.0,
+                     //
+                     //     mainAxisSpacing: 10.0,
+                     //    mainAxisExtent:Get.size.width>550? 350:260
+                     // ),
+                     itemBuilder: (BuildContext context, int index) {
+                       return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                           nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                           response: homeController.quizDataList[index]);
+                     }))
 
                 ],
               ),
@@ -172,14 +172,14 @@ class HomepageScreen  extends StatelessWidget{
         ));
   }
 
-  Widget _buildHomeCardItem({required double item_marginLeft,required double item_marginRight, required String nameText, required String imageLink, }) {
+  Widget _buildHomeCardItem({required var response,required double item_marginLeft,required double item_marginRight, required String nameText, required String imageLink, }) {
     return InkResponse(
       onTap: (){
         // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
 
       },
       child: Container(
-        margin:  EdgeInsets.only(left: item_marginLeft, right: item_marginRight,bottom: 20,top: 10),
+        margin:  EdgeInsets.only(left: item_marginLeft, right: item_marginRight,bottom: 10,top: 10),
         // width: 180,
         decoration: BoxDecoration(
           color:home_item_bg_color,
@@ -217,12 +217,12 @@ class HomepageScreen  extends StatelessWidget{
                             color:Colors.white,
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.cover,
-                              placeholder: 'assets/images/general_quiz.jpg',
-                              image:"image".toString(),
+                              placeholder: 'assets/images/empty.png',
+                              image:BASE_URL_HOME_IMAGE+response["home_content"]["img"].toString(),
+
                               imageErrorBuilder: (context, url, error) =>
                                   Image.asset(
-                                    imageLink.toString()
-                                    ,
+                                    'assets/images/empty.png',
                                     fit: BoxFit.fill,
                                   ),
                             )),
@@ -232,43 +232,45 @@ class HomepageScreen  extends StatelessWidget{
                       )
                     ],
                   ),
-                  Row(
-                    children: [
-                      Expanded(child:Align(alignment: Alignment.topRight,
-                        child: InkWell(
-                          onTap: (){
-                            showToastShort("more details");
-
-                          },
-                          child: Container(
-
-                            decoration:  BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(5.0),
-                                ),
-                                color: Colors.black.withOpacity(.25)
-                              //    color: buttonBgColor,
-                              //    color: buttonBgColor,
-                            ),
-                            padding: const EdgeInsets.only(left: 3,right: 3,top: 3,bottom: 3),
-                            child: Icon(
-                              Icons.info_outline,
-                              color: Colors.white,
-                              size: sizeReturn(40),
-                            ),
-
-
-                          ),
-                        ),
-                      )   )
-                    ],
-                  ),
-                ],),
+                  // Row(
+                  //   children: [
+                  //     Expanded(child:Align(alignment: Alignment.topRight,
+                  //       child: InkWell(
+                  //         onTap: (){
+                  //
+                  //           showToastShort("more details");
+                  //
+                  //         },
+                  //         child: Container(
+                  //
+                  //           decoration:  BoxDecoration(
+                  //               borderRadius: BorderRadius.only(
+                  //                 bottomLeft: Radius.circular(5.0),
+                  //               ),
+                  //               color: Colors.black.withOpacity(.25)
+                  //             //    color: buttonBgColor,
+                  //             //    color: buttonBgColor,
+                  //           ),
+                  //           padding: const EdgeInsets.only(left: 3,right: 3,top: 3,bottom: 3),
+                  //           child: Icon(
+                  //             Icons.info_outline,
+                  //             color: Colors.white,
+                  //             size: sizeReturn(40),
+                  //           ),
+                  //
+                  //
+                  //         ),
+                  //       ),
+                  //     )   )
+                  //   ],
+                  // ),
+                ]),
                 SizedBox(height: 10,),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Text(
-                    nameText.toString(),
+                      response["title"].toString(),
+                    // nameText.toString(),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:Colors.white,
@@ -286,11 +288,13 @@ class HomepageScreen  extends StatelessWidget{
                     children: [
 
 
-                      _buildQuizItemBottomText(name: 'Total Question:', value: '10'),
-                      _buildQuizItemBottomText(name: 'Every Question Mark:', value: '1'),
-                      _buildQuizItemBottomText(name: 'Price Money:', value: '\$20.00'),
-                      _buildQuizItemBottomText(name: 'Price Money Will Get:', value: '1 Top Scorer'),
+
+                      _buildQuizItemBottomText(name: 'Total Question:', value: response["total_quistion"].toString()),
+                      _buildQuizItemBottomText(name: 'Every Question Mark:', value: response["mark"].toString()),
+                      _buildQuizItemBottomText(name: 'Price Money:', value: '\$'+response["price"].toString()),
+                      _buildQuizItemBottomText(name: 'Price Money Will Get:', value: response["person"].toString()),
                       _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$20.00'),
+                      // _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$'+response["total_quistion"].toString()),
 
 
                     ],

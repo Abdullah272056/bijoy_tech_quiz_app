@@ -19,9 +19,7 @@ class CategoriesListPageController extends GetxController {
   var isDrawerOpen = false.obs;
   var quizCategoriesDataList = [].obs;
 
-  void ref(){
-    onInit();
-  }
+
   @override
   void onInit() {
 

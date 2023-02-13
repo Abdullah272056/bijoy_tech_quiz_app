@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-        home: DashBoardPageScreen()
+      //   home: DashBoardPageScreen()
+        home: HomepageScreen()
 
     );
 
