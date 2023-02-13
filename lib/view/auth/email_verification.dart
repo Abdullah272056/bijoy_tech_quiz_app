@@ -268,7 +268,7 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
                               child: InkResponse(
                                 onTap: (){
 
-                                  // _userSendCodeWithEmail();
+                                  emailVerifyPageController.userSendCodeWithEmail(email: emailVerifyPageController.userEmail.value);
 
                                 },
                                 child: const Text(
