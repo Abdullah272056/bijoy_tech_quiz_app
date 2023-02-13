@@ -298,8 +298,13 @@ class ForgetPasswordSetScreen  extends StatelessWidget {
                   confirmPasswordTxt: confirmPasswordTxt,
 
                )== false){
-            // LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
-            Get.to(RegistrationScreen2());
+
+            forgetPasswordSetPageController.newPassword(
+                otp: forgetPasswordSetPageController.useOtp.value,
+                email: forgetPasswordSetPageController.userEmail.value,
+                password: confirmPasswordTxt);
+
+
           }
         },
         style: ElevatedButton.styleFrom(
