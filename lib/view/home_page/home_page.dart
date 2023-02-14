@@ -413,6 +413,15 @@ class HomepageScreen  extends StatelessWidget{
       ),
       child: Row(
         children: [
+          Expanded(child:Container()
+          // Image.network(
+          //   'https://quiz.bizoytech.com/banner/playquiz.gif',
+          //   width: double.infinity,
+          //   height: sizeHeight * 0.23,
+          //   fit: BoxFit.fill,
+          //
+          // )
+          )
           // Flexible(
           //   flex: 2,
           //   child: Padding(
