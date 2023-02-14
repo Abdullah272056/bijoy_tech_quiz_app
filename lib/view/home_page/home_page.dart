@@ -160,9 +160,34 @@ class HomepageScreen  extends StatelessWidget{
                      //    mainAxisExtent:Get.size.width>550? 350:260
                      // ),
                      itemBuilder: (BuildContext context, int index) {
+                        if(homeController.quizDataList[index]["status"].toString()=="1" ||
+                            homeController.quizDataList[index]["status"].toString()=="2"){
+
+                          if(homeController.quizDataList[index]["active_bangla"].toString()=="1" ||
+                              homeController.quizDataList[index]["active_english"].toString()=="1"){
+
+                            return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                                nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                                response: homeController.quizDataList[index]);
+
+                          }
+
+                          else{
+                            return Container();
+                          }
+                       }
+                        else{
+
                        return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
-                           nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
-                           response: homeController.quizDataList[index]);
+                       nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                       response: homeController.quizDataList[index]);
+
+                       }
+
+
+
+
+
                      }))
 
                 ],
