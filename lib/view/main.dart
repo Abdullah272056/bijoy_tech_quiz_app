@@ -17,7 +17,7 @@ import 'home_page/general_quiz_details.dart';
 import 'home_page/quiz_categories_page.dart';
 import 'home_page/recently_finished_quiz_list_page.dart';
 import 'home_page/home_page.dart';
-import 'individual_quiz_about_more.dart';
+import 'before_join_quiz/individual_quiz_about_more.dart';
 
 void main() {
   GetStorage.init();

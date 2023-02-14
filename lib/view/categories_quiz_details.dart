@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../controller/categories_quiz_details_page_controller.dart';
 import '../controller/indevidual_quiz_about_page_controller.dart';
-import 'individual_quiz_about_more.dart';
+import 'before_join_quiz/individual_quiz_about_more.dart';
 
 class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
 

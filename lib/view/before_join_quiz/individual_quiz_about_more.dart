@@ -3,13 +3,13 @@ import 'package:bijoy_tech_quiz_app/view/pdf_view_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import '../../../static/Colors.dart';
-import '../controller/indevidual_quiz_about_page_controller.dart';
-import '../controller/pdf_view_page_controller.dart';
-import '../controller/quiz_start_page_controller.dart';
-import '../quiz_start_page.dart';
-import 'common/toast.dart';
-import 'custom_drawer.dart';
+import '../../../../static/Colors.dart';
+import '../../controller/indevidual_quiz_about_page_controller.dart';
+import '../../controller/pdf_view_page_controller.dart';
+import '../../controller/quiz_start_page_controller.dart';
+import '../../quiz_start_page.dart';
+import '../common/toast.dart';
+import '../custom_drawer.dart';
 
 
 
