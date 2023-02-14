@@ -330,8 +330,7 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
                     child: Row(
                       children: [
 
-                        Expanded(child: _buildReedBookButton(),),
-                        SizedBox(width: 10,),
+
                         Expanded(child: _buildStartQuizButton(),),
 
                       ],
@@ -420,46 +419,7 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
     );
   }
 
-  Widget _buildReedBookButton() {
-    return Container(
-      margin: const EdgeInsets.only(left: 0.0, right: 0.0),
-      child: InkResponse(
-        onTap: () {
-          // Get.to(() => PdfViewPageScreen(), arguments: {
-          //   // "categoriesId": response["id"].toString(),
-          //   // "categoriesId": response["id"].toString(),
-          // })?.then((value) => Get.delete<PdfViewPageScreenController>());
 
-        },
-
-        child:Container(
-          decoration: BoxDecoration(
-              color: buttonBgColor,
-
-              borderRadius: BorderRadius.circular(5.0)
-          ),
-          height:Get.size.height/16,
-          // width: 100,
-          alignment: Alignment.center,
-          child:  Wrap(
-            children:  [
-              Text(
-                "Read Book",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'PT-Sans',
-                  fontSize:15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
 
 
