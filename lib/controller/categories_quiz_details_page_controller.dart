@@ -16,6 +16,9 @@ class CategoriesQuizDetailsPageController extends GetxController {
   var categoriesDataResponse;
 
 
+   var quizTypeStatus="".obs;
+
+
    var quizName="".obs;
    var titleName="".obs;
 
@@ -47,7 +50,7 @@ class CategoriesQuizDetailsPageController extends GetxController {
           var response = await get(
             Uri.parse('$BASE_URL_API$SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_DETAILS$categories_id'),
           );
-            showToastShort("status = ${response.statusCode}");
+         //   showToastShort("status = ${response.statusCode}");
           Get.back();
 
           if (response.statusCode == 200) {
@@ -61,6 +64,11 @@ class CategoriesQuizDetailsPageController extends GetxController {
              //
              onGoingQuizList(dataResponse["data"]["ongoing"]);
             recentlyFinishedQuizList(dataResponse["data"]["quizes"]);
+
+
+            quizTypeStatus(dataResponse["data"]["content"][0]["status"].toString());
+
+
 
             imageUrl(BASE_URL_HOME_IMAGE+dataResponse["data"]["content"][0]["img"].toString());
 

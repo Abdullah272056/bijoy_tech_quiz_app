@@ -62,8 +62,8 @@ class SpellingIndividualQuizAboutPageScreen  extends StatelessWidget{
                       ),
                     ),
                   ),
-                  const Text(
-                    "About This Quiz",
+                  Obx(() =>  Text(
+                    spellingIndividualQuizAboutPagePageController.quizName.value,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:Colors.white,
@@ -71,7 +71,7 @@ class SpellingIndividualQuizAboutPageScreen  extends StatelessWidget{
                         fontWeight: FontWeight.w500),
                     softWrap: false,
                     maxLines:1,
-                  )
+                  ))
                 ],
               )
 

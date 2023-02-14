@@ -1,11 +1,20 @@
 
+import 'package:bijoy_tech_quiz_app/view/common/toast.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
+import '../controller/before_join_quiz/general_indevidual_quiz_about_page_controller.dart';
+import '../controller/before_join_quiz/reading_indevidual_quiz_about_page_controller.dart';
+import '../controller/before_join_quiz/spelling_indevidual_quiz_about_page_controller.dart';
+import '../controller/before_join_quiz/video_indevidual_quiz_about_page_controller.dart';
 import '../controller/categories_quiz_details_page_controller.dart';
 import '../controller/indevidual_quiz_about_page_controller.dart';
+import 'before_join_quiz/general_quiz_about_more.dart';
 import 'before_join_quiz/individual_quiz_about_more.dart';
+import 'before_join_quiz/reading_indevidual_quiz_about_more.dart';
+import 'before_join_quiz/spelling_indevidual_quiz_about_more.dart';
+import 'before_join_quiz/video_indevidual_quiz_about_more.dart';
 
 class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
 
@@ -585,7 +594,7 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
                  ],
                ),),
 
-                _buildContinueButton("df"),
+                _buildContinueButton(response),
 
               ],
             ),
@@ -604,11 +613,52 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-          // Get.to(CategoriesQuizDetailsPageScreen());
-          Get.to(() => IndividualQuizAboutPageScreen(), arguments: {
-            // "categoriesId": response["id"].toString(),
-            // "categoriesId": response["id"].toString(),
-          })?.then((value) => Get.delete<IndividualQuizAboutPagePage>());
+
+
+          showToastShort(categoriesQuizDetailsPageController.quizTypeStatus.toString());
+
+
+          if(categoriesQuizDetailsPageController.quizTypeStatus.value=="1"){
+            Get.to(() => GeneralIndividualQuizAboutPageScreen(), arguments: {
+
+              "quizId": response["id"].toString(),
+              "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
+              "quizName": response["title"].toString(),
+
+            })?.
+            then((value) => Get.delete<GeneralIndividualQuizAboutPagePageController>());
+          }
+          if(categoriesQuizDetailsPageController.quizTypeStatus.value=="2"){
+            Get.to(() => SpellingIndividualQuizAboutPageScreen(), arguments: {
+
+              "quizId": response["id"].toString(),
+              "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
+              "quizName": response["title"].toString(),
+
+            })?.
+            then((value) => Get.delete<SpellingIndividualQuizAboutPagePageController>());
+          }
+          if(categoriesQuizDetailsPageController.quizTypeStatus.value=="3"){
+            Get.to(() => ReadingIndividualQuizAboutPageScreen(), arguments: {
+
+              "quizId": response["id"].toString(),
+              "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
+              "quizName": response["title"].toString(),
+
+            })?.
+            then((value) => Get.delete<ReadingIndividualQuizAboutPagePageController>());
+          }
+          if(categoriesQuizDetailsPageController.quizTypeStatus.value=="4"){
+            Get.to(() => VideoIndividualQuizAboutPageScreen(), arguments: {
+
+              "quizId": response["id"].toString(),
+              "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
+              "quizName": response["title"].toString(),
+
+            })?.
+            then((value) => Get.delete<VideoIndividualQuizAboutPagePageController>());
+          }
+
         },
 
         child:Container(

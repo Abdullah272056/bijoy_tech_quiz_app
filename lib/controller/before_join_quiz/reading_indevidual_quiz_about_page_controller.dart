@@ -15,12 +15,10 @@ import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../../view/common/loading_dialog.dart';
 import '../../view/common/toast.dart';
 
-class ReadingIndividualQuizAboutPagePage extends GetxController {
+class ReadingIndividualQuizAboutPagePageController extends GetxController {
 
 
-  var aboutQuizText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been "
-      "the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type "
-      "industry. ".obs;
+
 
   var userName="".obs;
   var userToken="".obs;
@@ -34,10 +32,18 @@ class ReadingIndividualQuizAboutPagePage extends GetxController {
   var topEachPersonWillGet="".obs;
   var quizImageLink="".obs;
 
+  dynamic argumentData = Get.arguments;
+  var quizId="".obs;
+  var quizStatus="".obs;
+  var quizName="".obs;
+
   @override
   void onInit() {
+    quizId(argumentData["quizId"].toString());
+    quizStatus(argumentData["quizStatus"].toString());
+    quizName(argumentData["quizName"].toString());
     loadUserIdFromSharePref();
-    getJoinQuizDataList(quizId: '64', status: '3');
+    getJoinQuizDataList(quizId: argumentData["quizId"].toString(), status: argumentData["quizStatus"].toString());
     super.onInit();
 
   }
@@ -56,7 +62,7 @@ class ReadingIndividualQuizAboutPagePage extends GetxController {
                 "status":status
               }
           );
-          showToastShort("status = ${response.statusCode}");
+         // showToastShort("status = ${response.statusCode}");
           Get.back();
 
           if (response.statusCode == 200) {
@@ -80,7 +86,7 @@ class ReadingIndividualQuizAboutPagePage extends GetxController {
             // productDetailsDataList(dataResponse);
           //  quizCategoriesDataList(dataResponse["data"]);
 
-              showToastShort(activeBooksList.length.toString());
+           //   showToastShort(activeBooksList.length.toString());
 
           }
           else {

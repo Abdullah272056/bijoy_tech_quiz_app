@@ -18,7 +18,7 @@ import '../common/toast.dart';
 
 class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
 
-  final readingIndividualQuizAboutPagePage = Get.put(ReadingIndividualQuizAboutPagePage());
+  final readingIndividualQuizAboutPagePage = Get.put(ReadingIndividualQuizAboutPagePageController());
   var width;
   var height;
 
@@ -61,8 +61,8 @@ class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
                       ),
                     ),
                   ),
-                  const Text(
-                    "About This Quiz",
+                  Obx(() =>  Text(
+                    readingIndividualQuizAboutPagePage.quizName.value,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:Colors.white,
@@ -70,7 +70,7 @@ class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
                         fontWeight: FontWeight.w500),
                     softWrap: false,
                     maxLines:1,
-                  )
+                  ))
                 ],
               )
 

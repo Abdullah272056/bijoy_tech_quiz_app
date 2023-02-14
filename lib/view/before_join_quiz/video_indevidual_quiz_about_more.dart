@@ -61,8 +61,8 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
                       ),
                     ),
                   ),
-                  const Text(
-                    "About This Quiz",
+                  Obx(() =>  Text(
+                    videoIndividualQuizAboutPagePageController.quizName.value,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:Colors.white,
@@ -70,7 +70,7 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
                         fontWeight: FontWeight.w500),
                     softWrap: false,
                     maxLines:1,
-                  )
+                  ))
                 ],
               )
 

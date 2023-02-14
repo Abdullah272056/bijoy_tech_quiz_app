@@ -60,8 +60,8 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
                       ),
                     ),
                   ),
-                  const Text(
-                    "About This Quiz",
+                  Obx(() =>  Text(
+                    generalIndividualQuizAboutPagePageController.quizName.value,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:Colors.white,
@@ -69,7 +69,7 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
                         fontWeight: FontWeight.w500),
                     softWrap: false,
                     maxLines:1,
-                  )
+                  ))
                 ],
               )
 

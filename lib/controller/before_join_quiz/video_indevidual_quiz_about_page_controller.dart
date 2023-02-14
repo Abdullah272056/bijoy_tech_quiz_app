@@ -30,10 +30,18 @@ class VideoIndividualQuizAboutPagePageController extends GetxController {
   var topEachPersonWillGet="".obs;
   var quizImageLink="".obs;
 
+  dynamic argumentData = Get.arguments;
+  var quizId="".obs;
+  var quizStatus="".obs;
+  var quizName="".obs;
+
   @override
   void onInit() {
+    quizId(argumentData["quizId"].toString());
+    quizStatus(argumentData["quizStatus"].toString());
+    quizName(argumentData["quizName"].toString());
     loadUserIdFromSharePref();
-    getJoinQuizDataList(quizId: '67', status: '4');
+    getJoinQuizDataList(quizId: argumentData["quizId"].toString(), status: argumentData["quizStatus"].toString());
     super.onInit();
 
   }
@@ -52,7 +60,7 @@ class VideoIndividualQuizAboutPagePageController extends GetxController {
                 "status":status
               }
           );
-          showToastShort("status = ${response.statusCode}");
+         // showToastShort("status = ${response.statusCode}");
           Get.back();
 
           if (response.statusCode == 200) {
@@ -76,7 +84,7 @@ class VideoIndividualQuizAboutPagePageController extends GetxController {
             // productDetailsDataList(dataResponse);
             //  quizCategoriesDataList(dataResponse["data"]);
 
-            showToastShort(activeBooksList.length.toString());
+           // showToastShort(activeBooksList.length.toString());
 
           }
           else {
