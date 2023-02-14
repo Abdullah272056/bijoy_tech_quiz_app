@@ -11,6 +11,7 @@ import 'auth/registration_page2.dart';
 import 'before_join_quiz/general_quiz_about_more.dart';
 import 'before_join_quiz/reading_indevidual_quiz_about_more.dart';
 import 'before_join_quiz/spelling_indevidual_quiz_about_more.dart';
+import 'before_join_quiz/video_indevidual_quiz_about_more.dart';
 import 'categories_quiz_details.dart';
 import 'custom_drawer.dart';
 import 'home_page/categories_wise_quiz_list_page.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
       // home: DashBoardPageScreen()
-      home: SpellingIndividualQuizAboutPageScreen()
+      home: VideoIndividualQuizAboutPageScreen()
 
     );
 
