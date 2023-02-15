@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'home_page/dash_board_page.dart';
 import 'home_page/home_page.dart';
+import 'home_page/my_profile_page.dart';
  
 
 void main() {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-      home: DashBoardPageScreen(
+      home: MyProfileScreen(
 
       )
 

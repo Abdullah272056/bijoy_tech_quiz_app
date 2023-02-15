@@ -16,6 +16,7 @@ String SUB_URL_API_SIGN_UP = "api/register";
 String SUB_URL_API_FORGET_PASSWORD = "api/forgot-password";
 String SUB_URL_API_SEND_OTP = "api/check-otp";
 String SUB_URL_API_SET_NEW_PASSWORD = "api/new-password";
+String SUB_URL_API_GET_MY_PROFILE = "api/user/get-user-profile";
 
 String SUB_URL_API_GET_ALL_COUNTRY_LIST = "api/country-list";
 

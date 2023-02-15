@@ -92,9 +92,6 @@ class SignUpPageController2 extends GetxController {
     super.onInit();
   }
 
-
-
-
   void getCountryDataList() async{
     try {
       final result = await InternetAddress.lookup('example.com');

@@ -199,17 +199,6 @@ class MyProfileScreen  extends StatelessWidget {
                   ),
 
 
-                  //password input
-                  levelText("New Password"),
-                  userInputPassword(myProfilePageController.passwordController.value, 'New Password',
-                      TextInputType.visiblePassword),
-
-
-                  //confirm password
-                  levelText("Confirm Password"),
-                  userInputConfirmPassword(myProfilePageController.confirmPasswordController.value, 'Confirm Password',
-                      TextInputType.visiblePassword),
-
 
 
                   //Address
@@ -241,7 +230,7 @@ class MyProfileScreen  extends StatelessWidget {
 
                   //Guardian Name
                   levelText("Guardian Name"),
-                  userInput( myProfilePageController.userStateController.value, 'Guardian Name', TextInputType.text),
+                  userInput( myProfilePageController.guardianNameController.value, 'Guardian Name', TextInputType.text),
 
 
 
@@ -423,89 +412,6 @@ class MyProfileScreen  extends StatelessWidget {
     );
   }
 
-  Widget userInputPassword(TextEditingController userInputController, String hintTitle,
-      TextInputType keyboardType) {
-    return Container(
-      height: 50,
-      alignment: Alignment.center,
-      margin: const EdgeInsets.only(bottom: 15),
-      decoration: BoxDecoration(
-          color: input_box_back_ground_color,
-          borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding:
-        const EdgeInsets.only(left: 25.0, top: 0, bottom: 0, right: 10),
-        child: Obx(() => TextField(
-          controller: userInputController,
-          autocorrect: false,
-          obscureText: myProfilePageController.isObscurePassword.value,
-          obscuringCharacter: "*",
-          enableSuggestions: false,
-          autofocus: false,
-          cursorColor: Colors.white,
-          style: TextStyle(
-              color: Colors.white
-          ),
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            suffixIcon: IconButton(
-                color:  levelTextColorWhite,
-                icon:
-                Icon(myProfilePageController.isObscurePassword.value ? Icons.visibility : Icons.visibility_off),
-                onPressed: () {
-                  myProfilePageController.updateIsObscurePassword(!myProfilePageController.isObscurePassword.value);
-                }),
-            hintText: hintTitle,
-            hintStyle: const TextStyle(
-                fontSize: 18, color: hint_color, fontStyle: FontStyle.normal),
-          ),
-          keyboardType: keyboardType,
-        ),)
-      ),
-    );
-  }
-
-  Widget userInputConfirmPassword(TextEditingController userInputController, String hintTitle,
-      TextInputType keyboardType) {
-    return Container(
-      height: 50,
-      alignment: Alignment.center,
-      margin: const EdgeInsets.only(bottom: 15),
-      decoration: BoxDecoration(
-          color: input_box_back_ground_color,
-          borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding:
-        const EdgeInsets.only(left: 25.0, top: 0, bottom: 0, right: 10),
-        child: Obx(() => TextField(
-          controller: userInputController,
-          autocorrect: false,
-          obscureText: myProfilePageController.isObscureConfirmPassword.value,
-          obscuringCharacter: "*",
-          enableSuggestions: false,
-          autofocus: false,
-          cursorColor: Colors.white,
-          style: TextStyle(
-              color: Colors.white
-          ),
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            suffixIcon: IconButton(
-                color:  levelTextColorWhite,
-                icon:
-                Icon(myProfilePageController.isObscureConfirmPassword.value ? Icons.visibility : Icons.visibility_off),
-                onPressed: () {
-                  myProfilePageController.updateIsObscureConfirmPassword(!myProfilePageController.isObscureConfirmPassword.value);
-                }),
-            hintText: hintTitle,
-            hintStyle: const TextStyle(
-                fontSize: 18, color: hint_color, fontStyle: FontStyle.normal),
-          ),
-          keyboardType: keyboardType,
-        ),)
-      ),
-    );
-  }
 
   Widget userInput(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
@@ -668,7 +574,7 @@ class MyProfileScreen  extends StatelessWidget {
             child: Obx(()=>DropdownButton2(
               //  buttonHeight: 40,
               //   menuMaxHeight:55,
-              itemPadding: const EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 0),
+              itemPadding: EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 0),
               dropdownDecoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2),
                 color: bg_top_color,
@@ -676,7 +582,7 @@ class MyProfileScreen  extends StatelessWidget {
 
               ),
               iconSize: 30,
-              icon:const Padding(padding: EdgeInsets.only(right: 10),
+              icon:Padding(padding: EdgeInsets.only(right: 10),
                 child:  Icon(Icons.keyboard_arrow_down_outlined,color: levelTextColor,),),
               value: myProfilePageController.selectCountryId.value != null &&
                   myProfilePageController.selectCountryId.value.isNotEmpty ?
@@ -699,21 +605,21 @@ class MyProfileScreen  extends StatelessWidget {
               buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
 
-              items: myProfilePageController.countryList.map((list) {
+              items: myProfilePageController.countryDataList.map((list) {
                 return DropdownMenuItem(
                   alignment: Alignment.centerLeft,
 
 
 
                   // value: list["id"].toString(),
-                  value: list.countryName.toString(),
+                  value: list["name"].toString(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(child:Padding(
                         padding: EdgeInsets.only(left: 25),
                         child:Text(
-                            list.countryName,
+                            list["name"].toString(),
                             textAlign: TextAlign.left,
                             style:  const TextStyle(
                                 color: textColorWhiteLogin,

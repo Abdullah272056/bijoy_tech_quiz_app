@@ -1,4 +1,7 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,7 +9,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart';
 import '../../../static/Colors.dart';
+import '../api_service/api_service.dart';
+import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
+import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
 
 class MyProfilePageController extends GetxController {
@@ -58,10 +66,10 @@ class MyProfilePageController extends GetxController {
 
   var selectGradeId="".obs;
   var ageGradeList = [
-    AgeGrade("O-5 Grade","1"),
-    AgeGrade("6-8 Grade","2"),
-    AgeGrade("9-12 Grade","3"),
-    AgeGrade("Above/Adult Grade","4"),
+    AgeGrade("O-5 grade","1"),
+    AgeGrade("6-8 grade","2"),
+    AgeGrade("9-12 grade","3"),
+    AgeGrade("above/adult","4"),
 
   ].obs;
   var selectCountryId="".obs;
@@ -72,7 +80,22 @@ class MyProfilePageController extends GetxController {
     CountryData("Dubai","4"),
 
   ].obs;
+  var userName="".obs;
+  var userToken="".obs;
 
+  var countryDataList = [].obs;
+  @override
+  void onInit() {
+
+    loadUserIdFromSharePref();
+
+    ///getStateList();
+    getCountryDataList();
+    getUserAccountDetails(userToken.value);
+
+    super.onInit();
+
+  }
 
   updateIsObscureConfirmPassword(var value) {
     isObscureConfirmPassword(value);
@@ -84,8 +107,7 @@ class MyProfilePageController extends GetxController {
 
 
 //input text validation check
-  inputValid(
-      {
+  inputValid({
         required String userNameTxt, required String userEmailTxt,
         required String userPhoneTxt, required String passwordTxt,
         required String confirmPasswordTxt, required String userDateOfBirthTxt,
@@ -96,8 +118,7 @@ class MyProfilePageController extends GetxController {
         required String guardianPhoneTxt,
         required String guardianEmailTxt,
         required String selectedCountryTxt,
-      }
-      ) {
+      }) {
 
     if (userNameTxt.isEmpty) {
       Fluttertoast.cancel();
@@ -211,6 +232,183 @@ class MyProfilePageController extends GetxController {
 
 
     return false;
+  }
+
+
+  void getUserAccountDetails(String token) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        //_showToast(token);
+        try {
+          showLoadingDialog("Loading...");
+          var response = await get(
+
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_MY_PROFILE}'),
+            headers: {
+              'Authorization': 'Bearer '+token,
+              // 'Authorization': 'Bearer '+'38|8NS9lFUKzmHJux4R0JRO8hTuMP0Phwrequ5myJ6u',
+              'Content-Type': 'application/json',
+            },
+          );
+
+         showToastShort("account info= "+response.statusCode.toString());
+          Get.back();
+          if (response.statusCode == 200) {
+
+            var addressResponseData = jsonDecode(response.body);
+
+
+
+
+
+            if(addressResponseData["data"][0]["name"].toString()!="null"){
+              userName(addressResponseData["data"][0]["name"].toString());
+              userNameController.value.text =addressResponseData["data"][0]["name"].toString();
+              }
+            if(addressResponseData["data"][0]["email"].toString()!="null"){
+              userEmailController.value.text =addressResponseData["data"][0]["email"].toString();
+            }
+
+            if(addressResponseData["data"][0]["phone"].toString()!="null"){
+              userPhoneController.value.text = addressResponseData["data"][0]["phone"].toString();
+            }
+            if(addressResponseData["data"][0]["address"].toString()!="null"){
+              userAddressController.value.text =addressResponseData["data"][0]["address"].toString();
+            }
+            if(addressResponseData["data"][0]["city"].toString()!="null"){
+              userCityController.value.text =addressResponseData["data"][0]["city"].toString();
+            }
+
+
+
+
+            if(addressResponseData["data"][0]["state"].toString()!="null"){
+              userStateController.value.text =addressResponseData["data"][0]["state"].toString();
+            }
+            if(addressResponseData["data"][0]["zip"].toString()!="null"){
+              zipCodeController.value.text =addressResponseData["data"][0]["zip"].toString();
+            }
+
+            if(addressResponseData["data"][0]["guardian"].toString()!="null"){
+              guardianNameController.value.text =addressResponseData["data"][0]["guardian"].toString();
+            }
+            if(addressResponseData["data"][0]["guardian_phone"].toString()!="null"){
+              guardianPhoneController.value.text =addressResponseData["data"][0]["guardian_phone"].toString();
+            }
+            if(addressResponseData["data"][0]["guardian_email"].toString()!="null"){
+              guardianEmailController.value.text =addressResponseData["data"][0]["guardian_email"].toString();
+            }
+
+            if(addressResponseData["data"][0]["relation_with_guardian"].toString()!="null"){
+              relationWithGuardianNameController.value.text =addressResponseData["data"][0]["relation_with_guardian"].toString();
+            }
+
+
+
+            if(addressResponseData["data"][0]["date_of_birth"].toString()!="null"){
+              particularBirthDate(addressResponseData["data"][0]["date_of_birth"].toString());
+            }
+
+
+            if(addressResponseData["data"][0]["country"].toString()!="null"){
+              selectCountryId(addressResponseData["data"][0]["country"].toString());
+            }
+            if(addressResponseData["data"][0]["grade"].toString()!="null"){
+              selectGradeId(addressResponseData["data"][0]["grade"].toString());
+            }
+
+
+
+
+
+
+
+
+
+
+            //
+
+
+            // // _showToast(selectedState.value);
+            // //  stateController.value.text = addressResponseData["data"]["first_name"].toString() ;
+            // //  countryController.value.text = addressResponseData["data"]["first_name"].toString() ;
+            // zipCodeController.value.text = addressResponseData["data"]["zip_code"];
+            //
+            // imageLink(addressResponseData["data"]["image"].toString());
+            //
+            //
+            //
+            //
+            //
+            // getCountryList(token);
+
+
+          }
+          else {
+            // Fluttertoast.cancel();
+            showToastShort("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
+      //_showToast("anbv=  "+storage.read(pref_user_token).toString());
+    } catch (e) {
+    }
+  }
+
+  void getCountryDataList() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          showLoadingDialog("loading...");
+
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_ALL_COUNTRY_LIST'),
+          );
+          //showToastShort("status = ${response.statusCode}");
+          Get.back();
+
+          if (response.statusCode == 200) {
+
+            var dataResponse = jsonDecode(response.body);
+
+            // productDetailsDataList(dataResponse);
+            countryDataList(dataResponse["data"]);
+
+            //  showToastShort(countryDataList.length.toString());
+
+          }
+          else {
+            // Fluttertoast.cancel();
+            showToastShort("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+      else{
+        showToastShort("No Internet Connection!");
+
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
   }
 
 
