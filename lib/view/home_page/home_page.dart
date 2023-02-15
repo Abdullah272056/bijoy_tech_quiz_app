@@ -1,25 +1,33 @@
 
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../../api_service/api_service.dart';
+import '../../controller/before_join_quiz/general_indevidual_quiz_about_page_controller.dart';
+import '../../controller/before_join_quiz/reading_indevidual_quiz_about_page_controller.dart';
+import '../../controller/before_join_quiz/spelling_indevidual_quiz_about_page_controller.dart';
+import '../../controller/before_join_quiz/video_indevidual_quiz_about_page_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/home_controller1.dart';
 import '../../controller/home_controller2.dart';
 import '../../controller/log_in_page_controller.dart';
+import '../before_join_quiz/general_quiz_about_more.dart';
+import '../before_join_quiz/reading_indevidual_quiz_about_more.dart';
+import '../before_join_quiz/spelling_indevidual_quiz_about_more.dart';
+import '../before_join_quiz/video_indevidual_quiz_about_more.dart';
 import '../common/toast.dart';
 import '../custom_drawer.dart';
 import '../before_join_quiz/individual_quiz_about_more.dart';
 
-class HomepageScreen  extends StatelessWidget{
+class HomePageScreen  extends StatelessWidget{
 
   final homeController = Get.put(HomeController());
   var width;
   var height;
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     width =MediaQuery.of(context).size.width;
@@ -184,12 +192,7 @@ class HomepageScreen  extends StatelessWidget{
 
                        }
 
-
-
-
-
                      }))
-
                 ],
               ),
             )
@@ -201,7 +204,6 @@ class HomepageScreen  extends StatelessWidget{
     return InkResponse(
       onTap: (){
         // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
-
       },
       child: Container(
         margin:  EdgeInsets.only(left: item_marginLeft, right: item_marginRight,bottom: 10,top: 10),
@@ -326,7 +328,7 @@ class HomepageScreen  extends StatelessWidget{
                   ),
                 ),
 
-                _buildJoinQuizButton()
+                _buildJoinQuizButton(response)
 
 
               ],
@@ -366,13 +368,57 @@ class HomepageScreen  extends StatelessWidget{
     );
   }
 
-  Widget _buildJoinQuizButton() {
+  Widget _buildJoinQuizButton(var response) {
     return Container(
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-          Get.to(IndividualQuizAboutPageScreen());
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+
+
+          if(response["status"].toString()=="1"){
+            Get.to(() => GeneralIndividualQuizAboutPageScreen(), arguments: {
+
+              "quizId": response["id"].toString(),
+              "quizStatus": response["status"].toString(),
+              "quizName": response["title"].toString(),
+
+            })?.
+            then((value) => Get.delete<GeneralIndividualQuizAboutPagePageController>());
+          }
+          if(response["status"].toString()=="2"){
+            Get.to(() => SpellingIndividualQuizAboutPageScreen(), arguments: {
+
+              "quizId": response["id"].toString(),
+              "quizStatus": response["status"].toString(),
+              "quizName": response["title"].toString(),
+
+            })?.
+            then((value) => Get.delete<SpellingIndividualQuizAboutPagePageController>());
+          }
+          if(response["status"].toString()=="3"){
+            Get.to(() => ReadingIndividualQuizAboutPageScreen(), arguments: {
+
+              "quizId": response["id"].toString(),
+              "quizStatus": response["status"].toString(),
+              "quizName": response["title"].toString(),
+
+            })?.
+            then((value) => Get.delete<ReadingIndividualQuizAboutPagePageController>());
+          }
+          if(response["status"].toString()=="4"){
+            Get.to(() => VideoIndividualQuizAboutPageScreen(), arguments: {
+
+              "quizId": response["id"].toString(),
+              "quizStatus": response["status"].toString(),
+              "quizName": response["title"].toString(),
+
+            })?.
+            then((value) => Get.delete<VideoIndividualQuizAboutPagePageController>());
+          }
+
+
+          // Get.to(IndividualQuizAboutPageScreen());
+
         },
 
         child:Container(
@@ -616,7 +662,6 @@ class HomepageScreen  extends StatelessWidget{
       ),
     );
   }
-
 
 }
 

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'home_page/dash_board_page.dart';
 import 'home_page/home_page.dart';
  
 
@@ -26,8 +27,15 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-      // home: DashBoardPageScreen()
-      home: HomepageScreen()
+      home: DashBoardPageScreen(
+
+
+
+
+
+      )
+
+      // home: HomePageScreen()
       // home: QuizCategoriesScreen()
 
     );

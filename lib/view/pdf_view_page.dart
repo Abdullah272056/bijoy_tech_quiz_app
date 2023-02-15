@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../../../static/Colors.dart';
 import '../../controller/categories_wise_quiz_list_page_controller2.dart';
+import '../api_service/api_service.dart';
 import '../controller/indevidual_quiz_about_page_controller.dart';
 import '../controller/pdf_view_page_controller.dart';
 import 'common/toast.dart';
@@ -72,8 +73,8 @@ class PdfViewPageScreen  extends StatelessWidget{
                       ),
                     ),
                   ),
-                  Expanded(child: Text(
-                    "About This Quiz",
+                  Expanded(child: Obx(() => Text(
+                    pdfViewPageScreenController.pdfName.value,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:Colors.white,
@@ -81,7 +82,7 @@ class PdfViewPageScreen  extends StatelessWidget{
                         fontWeight: FontWeight.w500),
                     softWrap: false,
                     maxLines:1,
-                  ),),
+                  )),),
 
 
                   FutureBuilder<PDFViewController>(
@@ -278,7 +279,7 @@ class PdfViewPageScreen  extends StatelessWidget{
                   padding:
                   EdgeInsets.only(left: 0, top: 0, right: 0, bottom: 0),
                   // EdgeInsets.only(left: 10, top: 15, right: 10, bottom: 10),
-                  child: PDF(
+                  child: Obx(() => PDF(
                     enableSwipe: true,
                     swipeHorizontal: true,
                     autoSpacing: false,
@@ -296,8 +297,10 @@ class PdfViewPageScreen  extends StatelessWidget{
                       final int? pageCount = await pdfViewController.getPageCount();
                       _pageCountController.add('${currentPage + 1} - $pageCount');
                     },
-                  ).fromUrl(
-                    'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                  ).
+                  fromUrl(
+                    BASE_URL_PDF_BASE_URL+pdfViewPageScreenController.pdfLink.value,
+                    // 'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
                     placeholder: (double progress) => Center(child:
                     Text(
                       '$progress %',
@@ -314,7 +317,7 @@ class PdfViewPageScreen  extends StatelessWidget{
                     ),
                     errorWidget: (dynamic error) => Center(child: Text(error.toString())),
 
-                  )
+                  ))
 
 
               )

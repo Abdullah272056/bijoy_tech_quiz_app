@@ -6,6 +6,7 @@ String BASE_URL_API = "https://quiz.bizoytech.com/";
 
 
 String BASE_URL_HOME_IMAGE = "https://quiz.bizoytech.com/homeImg/";
+String BASE_URL_PDF_BASE_URL = "https://quiz.bizoytech.com/books/";
 
 
 

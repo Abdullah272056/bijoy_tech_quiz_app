@@ -191,7 +191,7 @@ class GeneralQuizDetailsPageScreen  extends StatelessWidget {
                   SizedBox(height: 10,),
 
                   Row(
-                    children: [
+                    children: const [
                      Expanded(child:  Text(
                        'General Quiz Competition',
                        textAlign: TextAlign.center,
@@ -208,12 +208,7 @@ class GeneralQuizDetailsPageScreen  extends StatelessWidget {
                   ),
                   SizedBox(height: 10,),
                   Text(
-                    generalQuizDetailsPageController.textValue.value+"\n\n\n"+
-                    generalQuizDetailsPageController.textValue.value+"\n\n\n"+
-                    generalQuizDetailsPageController.textValue.value+"\n\n\n"+
-                    generalQuizDetailsPageController.textValue.value+"\n\n\n"+
-                    generalQuizDetailsPageController.textValue.value+"\n\n"+
-                    generalQuizDetailsPageController.textValue.value,
+                    "${generalQuizDetailsPageController.textValue.value}\n\n\n${generalQuizDetailsPageController.textValue.value}\n\n\n${generalQuizDetailsPageController.textValue.value}\n\n\n${generalQuizDetailsPageController.textValue.value}\n\n\n${generalQuizDetailsPageController.textValue.value}\n\n${generalQuizDetailsPageController.textValue.value}",
                     style: TextStyle(
                         color:textColor,
                         fontSize: 15,

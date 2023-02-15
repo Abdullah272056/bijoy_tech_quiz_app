@@ -615,7 +615,7 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
         onTap: () {
 
 
-          showToastShort(categoriesQuizDetailsPageController.quizTypeStatus.toString());
+        //  showToastShort(categoriesQuizDetailsPageController.quizTypeStatus.toString());
 
 
           if(categoriesQuizDetailsPageController.quizTypeStatus.value=="1"){

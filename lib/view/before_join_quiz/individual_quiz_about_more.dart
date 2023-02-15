@@ -397,10 +397,10 @@ class IndividualQuizAboutPageScreen  extends StatelessWidget{
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-          Get.to(() => PdfViewPageScreen(), arguments: {
-            // "categoriesId": response["id"].toString(),
-            // "categoriesId": response["id"].toString(),
-          })?.then((value) => Get.delete<PdfViewPageScreenController>());
+          // Get.to(() => PdfViewPageScreen(), arguments: {
+          //   // "categoriesId": response["id"].toString(),
+          //   // "categoriesId": response["id"].toString(),
+          // })?.then((value) => Get.delete<PdfViewPageScreenController>());
 
         },
 

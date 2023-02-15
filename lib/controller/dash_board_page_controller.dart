@@ -1,18 +1,14 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../view/home_page/quiz_categories_page.dart';
 import '../view/home_page/home_page.dart';
 
 class DashBoardPageController extends GetxController {
   var selectedTabIndex = 0.obs;
   var selectedPageIndex = 1.obs;
 
-  var selectedPage = <Widget>[HomepageScreen()].obs;
+  var selectedPage = <Widget>[HomePageScreen()].obs;
 
   var userName="".obs;
   var userToken="".obs;

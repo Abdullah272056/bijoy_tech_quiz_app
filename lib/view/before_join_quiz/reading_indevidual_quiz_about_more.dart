@@ -146,18 +146,15 @@ class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
     required String nameText, required String imageLink, }){
      return Column(
        children: [
-
          _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
              nameText: activeBooksResponse["title"].toString(),
              imageLink: 'assets/images/general_quiz.jpg', activeBooksResponse: activeBooksResponse),
-
-
-
-
        ],
      );
 
   }
+
+
 
   Widget _buildQuizCardItem({required var activeBooksResponse,required double item_marginLeft,required double item_marginRight,
     required String nameText, required String imageLink, }) {
@@ -358,7 +355,7 @@ class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
                     child: Row(
                       children: [
 
-                        Expanded(child: _buildReedBookButton(),),
+                        Expanded(child: _buildReedBookButton(activeBooksResponse),),
                         SizedBox(width: 10,),
                         Expanded(child: _buildStartQuizButton(),),
 
@@ -448,15 +445,20 @@ class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
     );
   }
 
-  Widget _buildReedBookButton() {
+  Widget _buildReedBookButton(var response) {
     return Container(
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-          // Get.to(() => PdfViewPageScreen(), arguments: {
-          //   // "categoriesId": response["id"].toString(),
-          //   // "categoriesId": response["id"].toString(),
-          // })?.then((value) => Get.delete<PdfViewPageScreenController>());
+
+
+         // showToastShort(response["book"].toString());
+
+
+          Get.to(() => PdfViewPageScreen(), arguments: {
+           "pdfLink": response["book"].toString(),
+           "pdfName": response["title"].toString(),
+          })?.then((value) => Get.delete<PdfViewPageScreenController>());
 
         },
 
