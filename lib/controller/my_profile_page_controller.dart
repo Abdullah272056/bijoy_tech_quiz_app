@@ -73,13 +73,7 @@ class MyProfilePageController extends GetxController {
 
   ].obs;
   var selectCountryId="".obs;
-  var countryList = [
-    CountryData("Bangladesh","1"),
-    CountryData("Pakistan","2"),
-    CountryData("India","3"),
-    CountryData("Dubai","4"),
 
-  ].obs;
   var userName="".obs;
   var userToken="".obs;
 
@@ -109,8 +103,8 @@ class MyProfilePageController extends GetxController {
 //input text validation check
   inputValid({
         required String userNameTxt, required String userEmailTxt,
-        required String userPhoneTxt, required String passwordTxt,
-        required String confirmPasswordTxt, required String userDateOfBirthTxt,
+        required String userPhoneTxt,
+        required String userDateOfBirthTxt,
         required String userAgeGradeTxt,
         required String addressTxt, required String cityTxt,
         required String stateTxt, required String zipCodeTxt,
@@ -143,20 +137,7 @@ class MyProfilePageController extends GetxController {
       return;
     }
 
-    if (passwordTxt.isEmpty) {
-      Fluttertoast.cancel();
-      showToastLong("Password can't empty!");
-      return;
-    }
-    if (passwordTxt.length < 8) {
-      Fluttertoast.cancel();
-      showToastLong("Password must be 8 character!");
-      return;
-    } if (passwordTxt!=confirmPasswordTxt) {
-      Fluttertoast.cancel();
-      showToastLong("Confirm Password not match!");
-      return;
-    }
+
 
     if (userDateOfBirthTxt.isEmpty) {
       Fluttertoast.cancel();
@@ -221,13 +202,13 @@ class MyProfilePageController extends GetxController {
       return;
     }
 
-    if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
-      //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
-    ).hasMatch(guardianEmailTxt)) {
-      Fluttertoast.cancel();
-      showToastLong("Enter valid email!");
-      return;
-    }
+    // if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
+    //   //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
+    // ).hasMatch(guardianEmailTxt)) {
+    //   Fluttertoast.cancel();
+    //   showToastLong("Enter valid guardian email!");
+    //   return;
+    // }
 
 
 
@@ -411,6 +392,79 @@ class MyProfilePageController extends GetxController {
     }
   }
 
+  void updateUserAccountDetails({
+    required String token,
+    required String name,
+    required String grade,
+    required String date_of_birth,
+    required String email,
+    required String phone,
+    required String address,
+    required String city,
+    required String state,
+    required String zip,
+    required String country,
+    required String guardian,
+    required String relationWithGuardian,
+    required String guardianPhone,
+    required String guardianEmail,
+  }) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        // _showToast(token);
+        try {
+          showLoadingDialog("Saving...");
+          var response = await post(
+              Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_MY_PROFILE_UPDATE}'),
+              headers: {
+                'Authorization': 'Bearer '+token,
+                'Accept': 'application/json',
+              },
+              body: {
+                "name":name,
+                "grade":grade,
+                "date_of_birth":date_of_birth,
+                "email":email,
+                "phone":phone,
+                "address":address,
+                "city":city,
+                "state":state,
+                "zip":zip,
+                "country":country,
+                "guardian":guardian,
+                "relation_with_guardian":relationWithGuardian,
+                "guardian_phone":guardianPhone,
+                "guardian_email":guardianEmail
+              }
+          );
+
+          Get.back();
+          showToastShort(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            showToastShort("Account info update success!");
+            getUserAccountDetails(userToken.value);
+
+          }
+          else {
+            // Fluttertoast.cancel();
+            showToastShort("failed try again!");
+          }
+        } catch (e) {
+          showToastShort("catch");
+          // Fluttertoast.cancel();
+        }
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+
+
+
 
 }
 
@@ -420,8 +474,3 @@ class AgeGrade{
   AgeGrade(this.gradeName, this.gradeId);
 }
 
-class CountryData{
-  String countryName;
-  String countryId;
-  CountryData(this.countryName, this.countryId);
-}

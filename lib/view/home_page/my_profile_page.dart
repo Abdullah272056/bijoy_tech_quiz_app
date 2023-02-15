@@ -1,5 +1,6 @@
 
 import 'package:bijoy_tech_quiz_app/view/auth/registration_page2.dart';
+import 'package:bijoy_tech_quiz_app/view/common/toast.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
@@ -144,7 +145,8 @@ class MyProfileScreen  extends StatelessWidget {
                         child: FadeInImage.assetNetwork(
                           fit: BoxFit.fill,
                           placeholder: 'assets/images/profile_image_avater.png',
-                          image:'https://avatars.githubusercontent.com/u/47354776?v=4',
+                          image:'https://ava',
+                          // image:'https://avatars.githubusercontent.com/u/47354776?v=4',
                           imageErrorBuilder: (context, url, error) =>
                               Image.asset(
                                 'assets/images/profile_image_avater.png',
@@ -155,13 +157,13 @@ class MyProfileScreen  extends StatelessWidget {
 
                   const SizedBox(height: 8,),
 
-                  const Text(
-                    "Abdullah",
+                  Obx(() => Text(
+                    myProfilePageController.userName.value,
                     style: TextStyle(color: textColor,
                         fontSize: 15,
                         fontWeight: FontWeight.normal
                     ),
-                  ),
+                  )),
 
 
 
@@ -736,8 +738,7 @@ class MyProfileScreen  extends StatelessWidget {
           String userNameTxt = myProfilePageController.userNameController.value.text;
           String userEmailTxt = myProfilePageController.userEmailController.value.text;
           String userPhoneTxt = myProfilePageController.userPhoneController.value.text;
-          String passwordTxt = myProfilePageController.passwordController.value.text;
-          String confirmPasswordTxt = myProfilePageController.confirmPasswordController.value.text;
+
 
           String userAddressTxt = myProfilePageController.userAddressController.value.text;
           String userCityTxt = myProfilePageController.userCityController.value.text;
@@ -749,14 +750,12 @@ class MyProfileScreen  extends StatelessWidget {
           String guardianEmailTxt = myProfilePageController.guardianEmailController.value.text;
           String relationWithGuardianTxt = myProfilePageController.relationWithGuardianNameController.value.text;
 
-
+         //   showToastShort(userEmailTxt);
 
           if ( myProfilePageController.inputValid(
                   userNameTxt: userNameTxt,
                   userEmailTxt: userEmailTxt,
                   userPhoneTxt: userPhoneTxt,
-                  passwordTxt: passwordTxt,
-                  confirmPasswordTxt: confirmPasswordTxt,
                   userDateOfBirthTxt: myProfilePageController.particularBirthDate.value,
                   userAgeGradeTxt: myProfilePageController.selectGradeId.value,
                   addressTxt: userAddressTxt, cityTxt: userCityTxt,
@@ -765,7 +764,24 @@ class MyProfileScreen  extends StatelessWidget {
                   guardianPhoneTxt: guardianEmailTxt, guardianEmailTxt: relationWithGuardianTxt,
                   selectedCountryTxt: myProfilePageController.selectCountryId.value
                )==false){
-                  Get.to(RegistrationScreen2());
+
+
+            myProfilePageController.updateUserAccountDetails(
+                name: userNameTxt, grade:myProfilePageController.selectGradeId.value,
+                date_of_birth: myProfilePageController.particularBirthDate.value, email: userEmailTxt,
+                phone: userPhoneTxt,
+
+                address: userAddressTxt, city: userCityTxt,
+                state: userStateTxt, zip: zipCodeTxt,
+                country: myProfilePageController.selectCountryId.value, guardian: guardianNameTxt,
+                relationWithGuardian: relationWithGuardianTxt, guardianPhone: guardianPhoneTxt,
+                guardianEmail: guardianEmailTxt,
+                token: myProfilePageController.userToken.value,
+            );
+
+
+
+
                  }
         },
         style: ElevatedButton.styleFrom(
