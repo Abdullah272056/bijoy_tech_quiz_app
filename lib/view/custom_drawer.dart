@@ -223,7 +223,6 @@ class CustomDrawer extends StatelessWidget {
                           // ),
                         } else ...{
 
-
                           ListTile(
                             leading:
                             drawerItemIconDesign(Icons.app_registration),

@@ -11,6 +11,7 @@ import 'package:http/http.dart';
 import '../../static/Colors.dart';
 import '../../view/common/toast.dart';
 import '../api_service/api_service.dart';
+import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../view/common/loading_dialog.dart';
 
 class HomeController extends GetxController {
@@ -19,11 +20,13 @@ class HomeController extends GetxController {
   var isDrawerOpen = false.obs;
 
   var quizDataList = [].obs;
+  var userName="".obs;
+  var userToken="".obs;
 
 
   @override
   void onInit() {
-
+    loadUserIdFromSharePref();
     getQuizDataList();
     super.onInit();
 
@@ -70,7 +73,19 @@ class HomeController extends GetxController {
   }
 
 
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
 
+
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
+    } catch (e) {
+
+    }
+
+  }
 
 
 }

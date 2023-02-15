@@ -15,6 +15,7 @@ import 'before_join_quiz/individual_quiz_about_more.dart';
 import 'before_join_quiz/reading_indevidual_quiz_about_more.dart';
 import 'before_join_quiz/spelling_indevidual_quiz_about_more.dart';
 import 'before_join_quiz/video_indevidual_quiz_about_more.dart';
+import 'common/login_warning.dart';
 
 class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
 
@@ -614,50 +615,60 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
       child: InkResponse(
         onTap: () {
 
+         // showToastShort(categoriesQuizDetailsPageController.userToken.value);
 
-        //  showToastShort(categoriesQuizDetailsPageController.quizTypeStatus.toString());
 
+          if(categoriesQuizDetailsPageController.userToken.value.isNotEmpty &&
+              categoriesQuizDetailsPageController.userToken.value!=null &&
+              categoriesQuizDetailsPageController.userToken.value!="null"
+          ){
+            if(categoriesQuizDetailsPageController.quizTypeStatus.value=="1"){
+              Get.to(() => GeneralIndividualQuizAboutPageScreen(), arguments: {
 
-          if(categoriesQuizDetailsPageController.quizTypeStatus.value=="1"){
-            Get.to(() => GeneralIndividualQuizAboutPageScreen(), arguments: {
+                "quizId": response["id"].toString(),
+                "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
+                "quizName": response["title"].toString(),
 
-              "quizId": response["id"].toString(),
-              "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
-              "quizName": response["title"].toString(),
+              })?.
+              then((value) => Get.delete<GeneralIndividualQuizAboutPagePageController>());
+            }
+            if(categoriesQuizDetailsPageController.quizTypeStatus.value=="2"){
+              Get.to(() => SpellingIndividualQuizAboutPageScreen(), arguments: {
 
-            })?.
-            then((value) => Get.delete<GeneralIndividualQuizAboutPagePageController>());
+                "quizId": response["id"].toString(),
+                "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
+                "quizName": response["title"].toString(),
+
+              })?.
+              then((value) => Get.delete<SpellingIndividualQuizAboutPagePageController>());
+            }
+            if(categoriesQuizDetailsPageController.quizTypeStatus.value=="3"){
+              Get.to(() => ReadingIndividualQuizAboutPageScreen(), arguments: {
+
+                "quizId": response["id"].toString(),
+                "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
+                "quizName": response["title"].toString(),
+
+              })?.
+              then((value) => Get.delete<ReadingIndividualQuizAboutPagePageController>());
+            }
+            if(categoriesQuizDetailsPageController.quizTypeStatus.value=="4"){
+              Get.to(() => VideoIndividualQuizAboutPageScreen(), arguments: {
+
+                "quizId": response["id"].toString(),
+                "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
+                "quizName": response["title"].toString(),
+
+              })?.
+              then((value) => Get.delete<VideoIndividualQuizAboutPagePageController>());
+            }
+
+          }else{
+            showLoginWarning();
           }
-          if(categoriesQuizDetailsPageController.quizTypeStatus.value=="2"){
-            Get.to(() => SpellingIndividualQuizAboutPageScreen(), arguments: {
 
-              "quizId": response["id"].toString(),
-              "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
-              "quizName": response["title"].toString(),
 
-            })?.
-            then((value) => Get.delete<SpellingIndividualQuizAboutPagePageController>());
-          }
-          if(categoriesQuizDetailsPageController.quizTypeStatus.value=="3"){
-            Get.to(() => ReadingIndividualQuizAboutPageScreen(), arguments: {
 
-              "quizId": response["id"].toString(),
-              "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
-              "quizName": response["title"].toString(),
-
-            })?.
-            then((value) => Get.delete<ReadingIndividualQuizAboutPagePageController>());
-          }
-          if(categoriesQuizDetailsPageController.quizTypeStatus.value=="4"){
-            Get.to(() => VideoIndividualQuizAboutPageScreen(), arguments: {
-
-              "quizId": response["id"].toString(),
-              "quizStatus": categoriesQuizDetailsPageController.quizTypeStatus.toString(),
-              "quizName": response["title"].toString(),
-
-            })?.
-            then((value) => Get.delete<VideoIndividualQuizAboutPagePageController>());
-          }
 
         },
 

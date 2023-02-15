@@ -1,4 +1,5 @@
 
+import 'package:bijoy_tech_quiz_app/view/pdf_view_page.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 
@@ -6,9 +7,13 @@ import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/before_join_quiz/general_indevidual_quiz_about_page_controller.dart';
-
+import '../../controller/pdf_view_page_controller.dart';
 import '../../controller/quiz_start_page_controller.dart';
 import '../../quiz_start_page.dart';
+import '../common/toast.dart';
+
+
+
 
 class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
 
@@ -376,7 +381,6 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-
 
           Get.to(() => QuizStartPageScreen(), arguments: {
 

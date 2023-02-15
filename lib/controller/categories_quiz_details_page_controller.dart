@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import '../api_service/api_service.dart';
+import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
 
@@ -26,7 +28,11 @@ class CategoriesQuizDetailsPageController extends GetxController {
   var onGoingQuizList= [].obs;
   var recentlyFinishedQuizList= [].obs;
 
+  var userName="".obs;
+  var userToken="".obs;
+
   dynamic argumentData = Get.arguments;
+
 
   @override
   void onInit() {
@@ -34,7 +40,10 @@ class CategoriesQuizDetailsPageController extends GetxController {
     // showToastShort(argumentData["categoriesId"].toString());
     titleName(argumentData["categoriesQuizName"].toString());
     imageUrl(argumentData["categoriesImg"].toString());
+    loadUserIdFromSharePref();
     getQuizCategoriesDetailsDataList(argumentData["categoriesId"].toString() );
+
+
 
     super.onInit();
 
@@ -96,6 +105,18 @@ class CategoriesQuizDetailsPageController extends GetxController {
       Fluttertoast.cancel();
       // _showToast("No Internet Connection!");
     }
+  }
+
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
+    } catch (e) {
+
+    }
+
   }
 
 }
