@@ -35,11 +35,7 @@ class QuizStartPageScreenController extends GetxController {
   var questionMcqOptionsId="".obs;
   var serverErrorText="".obs;
 
-  //dynamic
-  var studentId = "".obs;
-  var hwPaneQuizId="".obs;
-  var hw_panel_id = "".obs;
-  var hw_panel_uid = "".obs;
+  var optionList=[].obs;
 
 
   final shortQuestionNameController = TextEditingController().obs;
@@ -101,10 +97,10 @@ class QuizStartPageScreenController extends GetxController {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
 
-          showToastShort(quizId);
-          showToastShort(status);
-          showToastShort(bookId);
-          showToastShort(language);
+          // showToastShort(quizId);
+          // showToastShort(status);
+          // showToastShort(bookId);
+          // showToastShort(language);
 
           showLoadingDialog("loading...");
 
@@ -124,10 +120,10 @@ class QuizStartPageScreenController extends GetxController {
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
+            optionList(dataResponse["data"]["question"]["options"]);
 
 
-
-            //   showToastShort(activeBooksList.length.toString());
+               showToastShort(optionList.length.toString());
 
           }
           else {

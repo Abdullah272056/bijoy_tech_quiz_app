@@ -29,10 +29,6 @@ class MyApp extends StatelessWidget {
       // debugShowCheckedModeBanner: false,
       home: DashBoardPageScreen(
 
-
-
-
-
       )
 
       // home: HomePageScreen()

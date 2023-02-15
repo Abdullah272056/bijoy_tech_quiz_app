@@ -70,8 +70,6 @@ class LogInPageController extends GetxController {
     return false;
   }
 
-
-
   userLogIn({
     required String email,
     required String password,

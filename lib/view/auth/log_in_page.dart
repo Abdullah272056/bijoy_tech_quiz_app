@@ -1,15 +1,11 @@
 
 import 'package:bijoy_tech_quiz_app/view/auth/registration_page.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../common/toast.dart';
 import 'fotget_password_page.dart';
-
-
-
 
 class LogInScreen  extends StatelessWidget {
 

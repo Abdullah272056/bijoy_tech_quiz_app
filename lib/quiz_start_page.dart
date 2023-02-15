@@ -11,6 +11,8 @@ class QuizStartPageScreen  extends StatelessWidget{
   var width;
   var height;
 
+  QuizStartPageScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     width =MediaQuery.of(context).size.width;
