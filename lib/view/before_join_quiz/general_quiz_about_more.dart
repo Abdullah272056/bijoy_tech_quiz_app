@@ -1,5 +1,4 @@
 
-import 'package:bijoy_tech_quiz_app/view/pdf_view_page.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 
@@ -7,13 +6,9 @@ import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/before_join_quiz/general_indevidual_quiz_about_page_controller.dart';
-import '../../controller/pdf_view_page_controller.dart';
+
 import '../../controller/quiz_start_page_controller.dart';
 import '../../quiz_start_page.dart';
-import '../common/toast.dart';
-
-
-
 
 class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
 
@@ -129,7 +124,7 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
 
 
 
-  Widget _buildQuizCardItem({required String language, required double item_marginLeft,required double item_marginRight, required String imageLink, }) {
+  Widget _buildQuizCardItem({required String language, required double item_marginLeft,required double item_marginRight, required String imageLink,}) {
     return Column(
       children: [
         Container(
@@ -331,7 +326,7 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
                       children: [
 
 
-                        Expanded(child: _buildStartQuizButton(),),
+                        Expanded(child: _buildStartQuizButton(language),),
 
                       ],
                     ),
@@ -376,17 +371,21 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
     );
   }
 
-  Widget _buildStartQuizButton() {
+  Widget _buildStartQuizButton(String language) {
     return Container(
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-          // Get.to(() => QuizStartPageScreen(), arguments: {
-          //   // "categoriesId": response["id"].toString(),
-          //   // "categoriesId": response["id"].toString(),
-          // })?.then((value) => Get.delete<QuizStartPageScreenController>());
 
 
+          Get.to(() => QuizStartPageScreen(), arguments: {
+
+            "quizId": generalIndividualQuizAboutPagePageController.quizId.value,
+            "quizTypeStatus": generalIndividualQuizAboutPagePageController.quizStatus.value,
+            "bookId": "",
+            "language": language,
+
+          })?.then((value) => Get.delete<QuizStartPageScreenController>());
 
         },
 

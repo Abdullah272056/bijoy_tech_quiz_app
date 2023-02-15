@@ -42,17 +42,18 @@ class QuizStartPageScreen  extends StatelessWidget{
                     margin: const EdgeInsets.only(left: 20,right: 20),
                     child: InkResponse(
                       onTap: () {
-                        Get.to(QuizFinishedPageScreen());
+                        Get.back();
+                        // Get.to(QuizFinishedPageScreen());
                       },
                       child: const Icon(
-                        Icons.home,
+                        Icons.arrow_back,
                         color: Colors.white,
                         size: 25.0,
                       ),
                     ),
                   ),
                   const Text(
-                    "Quiz Finished",
+                    "Quiz Start",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:Colors.white,

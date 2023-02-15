@@ -357,7 +357,7 @@ class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
 
                         Expanded(child: _buildReedBookButton(activeBooksResponse),),
                         SizedBox(width: 10,),
-                        Expanded(child: _buildStartQuizButton(),),
+                        Expanded(child: _buildStartQuizButton(activeBooksResponse),),
 
                       ],
                     ),
@@ -402,15 +402,19 @@ class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
     );
   }
 
-  Widget _buildStartQuizButton() {
+  Widget _buildStartQuizButton(var activeBookResponse) {
     return Container(
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-          // Get.to(() => QuizStartPageScreen(), arguments: {
-          //   // "categoriesId": response["id"].toString(),
-          //   // "categoriesId": response["id"].toString(),
-          // })?.then((value) => Get.delete<QuizStartPageScreenController>());
+          Get.to(() => QuizStartPageScreen(), arguments: {
+
+            "quizId": activeBookResponse["quiz_id"].toString(),
+            "quizTypeStatus": readingIndividualQuizAboutPagePage.quizStatus.value,
+            "bookId": activeBookResponse["id"].toString(),
+            "language": activeBookResponse["language"].toString(),
+
+          })?.then((value) => Get.delete<QuizStartPageScreenController>());
 
 
 
@@ -451,9 +455,7 @@ class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
       child: InkResponse(
         onTap: () {
 
-
          // showToastShort(response["book"].toString());
-
 
           Get.to(() => PdfViewPageScreen(), arguments: {
            "pdfLink": response["book"].toString(),

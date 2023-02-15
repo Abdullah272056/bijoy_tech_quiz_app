@@ -333,7 +333,7 @@ class SpellingIndividualQuizAboutPageScreen  extends StatelessWidget{
                       children: [
 
 
-                        Expanded(child: _buildStartQuizButton(),),
+                        Expanded(child: _buildStartQuizButton(language),),
 
                       ],
                     ),
@@ -378,18 +378,19 @@ class SpellingIndividualQuizAboutPageScreen  extends StatelessWidget{
     );
   }
 
-  Widget _buildStartQuizButton() {
+  Widget _buildStartQuizButton(String language) {
     return Container(
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-          // Get.to(() => QuizStartPageScreen(), arguments: {
-          //   // "categoriesId": response["id"].toString(),
-          //   // "categoriesId": response["id"].toString(),
-          // })?.then((value) => Get.delete<QuizStartPageScreenController>());
+          Get.to(() => QuizStartPageScreen(), arguments: {
 
+            "quizId": spellingIndividualQuizAboutPagePageController.quizId.value,
+            "quizTypeStatus": spellingIndividualQuizAboutPagePageController.quizStatus.value,
+            "bookId": "",
+            "language": language,
 
-
+          })?.then((value) => Get.delete<QuizStartPageScreenController>());
         },
 
         child:Container(

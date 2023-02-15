@@ -19,14 +19,15 @@ String SUB_URL_API_SET_NEW_PASSWORD = "api/new-password";
 
 String SUB_URL_API_GET_ALL_COUNTRY_LIST = "api/country-list";
 
-
-
 String SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_LIST = "api/home-category";
 String SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_DETAILS = "api/content?id=";
 String SUB_URL_API_GET_HOME_PAGE_ALL_QUIZ = "api/user/quizzes";
 
 //join quiz
 String SUB_URL_API_GET_JOIN_QUIZ = "api/user/join-quiz";
+
+//quiz start
+String SUB_URL_API_GET_START_QUIZ = "api/user/start-quiz";
 
 
 

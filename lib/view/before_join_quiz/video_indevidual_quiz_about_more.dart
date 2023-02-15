@@ -149,7 +149,7 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
 
         _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
             nameText: activeBooksResponse["title"].toString(),
-            imageLink: 'assets/images/general_quiz.jpg', activeBooksResponse: activeBooksResponse),
+            imageLink: 'assets/images/general_quiz.jpg', activeVideoResponse: activeBooksResponse),
 
 
 
@@ -159,7 +159,7 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
 
   }
 
-  Widget _buildQuizCardItem({required var activeBooksResponse,required double item_marginLeft,required double item_marginRight,
+  Widget _buildQuizCardItem({required var activeVideoResponse,required double item_marginLeft,required double item_marginRight,
     required String nameText, required String imageLink, }) {
     return Column(
       children: [
@@ -270,7 +270,7 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
 
                         Row(
                           children: [
-                            Expanded(child: _buildQuizItemBottomText(name: 'Language:', value:activeBooksResponse['language'].toString()),),
+                            Expanded(child: _buildQuizItemBottomText(name: 'Language:', value:activeVideoResponse['language'].toString()),),
                           ],
                         ),
                         Row(
@@ -331,7 +331,7 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
                       child:  Row(
                         children: [
                           Expanded(child: ExpandableText(
-                            activeBooksResponse['description'].toString(),
+                            activeVideoResponse['description'].toString(),
                             expandText: '  show more',
                             collapseText: '  show less',
                             maxLines: 3,
@@ -360,7 +360,7 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
 
                         Expanded(child: _buildWatchVideoButton(),),
                         SizedBox(width: 10,),
-                        Expanded(child: _buildStartQuizButton(),),
+                        Expanded(child: _buildStartQuizButton(activeVideoResponse),),
 
                       ],
                     ),
@@ -405,17 +405,19 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
     );
   }
 
-  Widget _buildStartQuizButton() {
+  Widget _buildStartQuizButton(var activeVideoResponse) {
     return Container(
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-          // Get.to(() => QuizStartPageScreen(), arguments: {
-          //   // "categoriesId": response["id"].toString(),
-          //   // "categoriesId": response["id"].toString(),
-          // })?.then((value) => Get.delete<QuizStartPageScreenController>());
+          Get.to(() => QuizStartPageScreen(), arguments: {
 
+            "quizId": activeVideoResponse["quiz_id"].toString(),
+            "quizTypeStatus": videoIndividualQuizAboutPagePageController.quizStatus.value,
+            "bookId": activeVideoResponse["id"].toString(),
+            "language": activeVideoResponse["language"].toString(),
 
+          })?.then((value) => Get.delete<QuizStartPageScreenController>());
 
         },
 

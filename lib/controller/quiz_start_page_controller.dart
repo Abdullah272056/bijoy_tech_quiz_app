@@ -1,8 +1,16 @@
 
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart';
 
+import '../api_service/api_service.dart';
+import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
+import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
 class QuizStartPageScreenController extends GetxController {
 
@@ -39,13 +47,41 @@ class QuizStartPageScreenController extends GetxController {
   var selectedValue = (-1).obs;
   var message="If you click 'Skip' or 'Submit' button, You will can not go back previous page.".obs;
 
-  void ref(){
-    onInit();
-  }
+
+  dynamic argumentData = Get.arguments;
+  var quizId="".obs;
+  var quizTypeStatus="".obs;
+  var bookId="".obs;
+  var language="".obs;
+
+  var userName="".obs;
+  var userToken="".obs;
+
 
   @override
   void onInit() {
     super.onInit();
+
+    quizId(argumentData["quizId"].toString());
+    quizTypeStatus(argumentData["quizTypeStatus"].toString());
+    bookId(argumentData["bookId"].toString());
+    language(argumentData["language"].toString());
+
+
+
+
+    loadUserIdFromSharePref();
+
+    getStartQuizData(
+
+        quizId: argumentData["quizId"].toString(),
+        status: argumentData["quizTypeStatus"].toString(),
+        bookId: argumentData["bookId"].toString(),
+        language:argumentData["language"].toString()
+
+    );
+
+
     startTimer(19);
   }
   @override
@@ -53,6 +89,74 @@ class QuizStartPageScreenController extends GetxController {
     print('I am disposed');
     timer!.cancel();
     super.dispose();
+
+  }
+
+  void getStartQuizData({
+    required String quizId,required String status,
+    required String bookId,required String language
+  }) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+          showToastShort(quizId);
+          showToastShort(status);
+          showToastShort(bookId);
+          showToastShort(language);
+
+          showLoadingDialog("loading...");
+
+          var response = await post(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_GET_START_QUIZ'),
+              body: {
+                "quiz_id":quizId,
+                "status":status,
+                "book_id":bookId,
+                "lang":language
+              }
+          );
+
+           showToastShort("status = ${response.statusCode}");
+          Get.back();
+
+          if (response.statusCode == 200) {
+
+            var dataResponse = jsonDecode(response.body);
+
+
+
+            //   showToastShort(activeBooksList.length.toString());
+
+          }
+          else {
+            // Fluttertoast.cancel();
+            showToastShort("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+      else{
+        showToastShort("No Internet Connection!");
+
+      }
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+  ///get data from share pref
+  void loadUserIdFromSharePref() async {
+    try {
+      var storage =GetStorage();
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
+    } catch (e) {
+
+    }
 
   }
 
@@ -120,4 +224,6 @@ class QuizStartPageScreenController extends GetxController {
   updateQuestionMcqOptionsId(String value) {
     questionMcqOptionsId(value);
   }
+
+
 }
