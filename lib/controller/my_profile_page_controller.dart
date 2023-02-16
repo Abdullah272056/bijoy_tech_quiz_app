@@ -233,7 +233,7 @@ class MyProfilePageController extends GetxController {
             },
           );
 
-         showToastShort("account info= "+response.statusCode.toString());
+      //   showToastShort("account info= "+response.statusCode.toString());
           Get.back();
           if (response.statusCode == 200) {
 
@@ -440,7 +440,7 @@ class MyProfilePageController extends GetxController {
           );
 
           Get.back();
-          showToastShort(response.statusCode.toString());
+        //  showToastShort(response.statusCode.toString());
 
           if (response.statusCode == 200) {
             showToastShort("Account info update success!");

@@ -28,11 +28,11 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       // color: Colors.lime,
       // debugShowCheckedModeBanner: false,
-      home: MyProfileScreen(
+      home: DashBoardPageScreen(
 
       )
 
-      // home: HomePageScreen()
+      // home: DashBoardPageScreen()
       // home: QuizCategoriesScreen()
 
     );

@@ -1,4 +1,5 @@
 
+import 'package:bijoy_tech_quiz_app/view/common/toast.dart';
 import 'package:bijoy_tech_quiz_app/view/quiz_finished_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -104,11 +105,15 @@ class QuizStartPageScreen  extends StatelessWidget{
 
                            Padding(padding: EdgeInsets.only(left: 20,top: 20,right: 20),
                            child:  Row(children:  [
-                            Expanded(child:  Text(("Question No: 1 of 15 "),
+                            Expanded(child:  Obx(() => Text(("Question No: "+
+                                (int.parse(quizStartPageScreenController.currentQuestionNumber.value)+1).toString()+
+                                " of "+
+                                quizStartPageScreenController.totalQuestionNumber.value.toString()
+                            ),
                                 style: TextStyle(
                                     color: buttonBgColor,
                                     fontSize: 20,
-                                    fontWeight: FontWeight.w500)),),
+                                    fontWeight: FontWeight.w500))),),
                             Obx(() =>  Text(quizStartPageScreenController.startTxt.value,
                                 style: const TextStyle(
                                     color: buttonBgColor,
@@ -116,7 +121,7 @@ class QuizStartPageScreen  extends StatelessWidget{
                                     fontWeight: FontWeight.w500)),)
                            ],),
                            ),
-                            const Padding(
+                             Padding(
                                 padding: EdgeInsets.only(
                                     left: 20,
                                     right: 10,
@@ -124,19 +129,14 @@ class QuizStartPageScreen  extends StatelessWidget{
                                     bottom: 5),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(
-                                      "Q: What is your name?"
-                                      // "Q: " +"${examStartPageController
-                                      //     .mcqQuestionDataModel
-                                      //     .value
-                                      //     .data![0]
-                                      //     .questionName}"
+                                  child: Obx(()=>Text(
+                                      "Q: " +quizStartPageScreenController.questionName.value
                                       ,
                                       style: TextStyle(
                                           color: textColor,
                                           fontSize: 18,
                                           fontWeight:
-                                          FontWeight.w500)),
+                                          FontWeight.w500))),
                                 )
 
 
@@ -152,9 +152,9 @@ class QuizStartPageScreen  extends StatelessWidget{
                                       unselectedWidgetColor:
                                       awsEndColor,
                                     ),
-                                    child:  ListView.builder(
+                                    child:  Obx(() => ListView.builder(
 
-                                      itemCount: 4,
+                                      itemCount: quizStartPageScreenController.optionList.length,
 
                                       // physics: NeverScrollableScrollPhysics(),
                                       // shrinkWrap: true,
@@ -171,26 +171,25 @@ class QuizStartPageScreen  extends StatelessWidget{
                                               quizStartPageScreenController
                                                   .abcdList[index]
                                                   .toString()+'  '+
-                                              "Abdullah "+index.toString(),
-                                              // optionList[index]["mcq_option_answer"].toString(),
+                                                  // "Abdullah "+index.toString(),
+                                                  quizStartPageScreenController.optionList[index]["option"].toString(),
                                               style: TextStyle(
-                                                color: textColor,
+                                                  color: textColor,
                                                   fontSize: 16),
                                             ),
                                             groupValue:
                                             quizStartPageScreenController
                                                 .selectedValue
                                                 .value,
-                                            onChanged: (
-                                                value) {
-                                              // _showToast(examStartPageController.mcqQuestionDataModel.value.data![0].
-                                              // questionsOptions[index].questionMcqOptionsId.toString());
-                                              quizStartPageScreenController
-                                                  .selectedValueUpdate(
-                                                  index);
+                                            onChanged: (value) {
 
-                                              quizStartPageScreenController
-                                                  .updateQuestionMcqOptionsId(
+
+                                              quizStartPageScreenController.selectedAnswer(quizStartPageScreenController.optionList[index]["option"].toString());
+
+
+                                              quizStartPageScreenController.selectedValueUpdate(index);
+
+                                              quizStartPageScreenController.updateQuestionMcqOptionsId(
                                                   "Abdullah"
                                                 // quizStartPageScreenController
                                                 //     .mcqQuestionDataModel
@@ -206,7 +205,7 @@ class QuizStartPageScreen  extends StatelessWidget{
 
 
                                       },
-                                    ),
+                                    )),
 
 
                                   ),
@@ -237,10 +236,29 @@ class QuizStartPageScreen  extends StatelessWidget{
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap:(){
-          quizStartPageScreenController.cancelTimer();
-          quizStartPageScreenController.startTimer(19);
 
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+          if(quizStartPageScreenController.selectedAnswer.value!=""){
+
+            quizStartPageScreenController.submitQuizData(
+              quizId: quizStartPageScreenController.quizId.value,
+                       status: quizStartPageScreenController.quizTypeStatus.value,
+                       bookId: quizStartPageScreenController.bookId.value,
+                       language: quizStartPageScreenController.language.value,
+                       selectedAnswer: quizStartPageScreenController.selectedAnswer.value,
+                       questionId: quizStartPageScreenController.questionId.value,
+                  quesNumber: quizStartPageScreenController.currentQuestionNumberForSubmit.value
+            );
+
+
+          }else{
+
+            showToastShort("Please select  Answer!");
+          }
+
+          //
+
+
+
         },
 
         child:Container(

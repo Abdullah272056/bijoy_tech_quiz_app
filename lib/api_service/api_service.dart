@@ -18,6 +18,7 @@ String SUB_URL_API_SEND_OTP = "api/check-otp";
 String SUB_URL_API_SET_NEW_PASSWORD = "api/new-password";
 String SUB_URL_API_GET_MY_PROFILE = "api/user/get-user-profile";
 String SUB_URL_API_GET_MY_PROFILE_UPDATE = "api/user/profile-update";
+String SUB_URL_API_GET_PASSWORD_CHANGE = "api/user/change-password";
 
 String SUB_URL_API_GET_ALL_COUNTRY_LIST = "api/country-list";
 
@@ -31,6 +32,7 @@ String SUB_URL_API_GET_JOIN_QUIZ = "api/user/join-quiz";
 
 //quiz start
 String SUB_URL_API_GET_START_QUIZ = "api/user/start-quiz";
+String SUB_URL_API_SUBMIT_QUIZ = "api/user/next-quiz";
 
 
 

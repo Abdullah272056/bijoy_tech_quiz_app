@@ -12,6 +12,7 @@ import '../api_service/api_service.dart';
 import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
+import 'package:http/http.dart' as http;
 class QuizStartPageScreenController extends GetxController {
 
   ///timer variable
@@ -37,10 +38,19 @@ class QuizStartPageScreenController extends GetxController {
 
   var optionList=[].obs;
 
+  var questionName="".obs;
+  var questionId="".obs;
+
+  var currentQuestionNumberForSubmit="".obs;
+  var currentQuestionNumber="0".obs;
+  var totalQuestionNumber="0".obs;
+
+
 
   final shortQuestionNameController = TextEditingController().obs;
   var abcdList=["(a)","(b)","(c)","(d)","(e)","(f)","(g)","(h)"];
   var selectedValue = (-1).obs;
+  var selectedAnswer = "".obs;
   var message="If you click 'Skip' or 'Submit' button, You will can not go back previous page.".obs;
 
 
@@ -52,6 +62,8 @@ class QuizStartPageScreenController extends GetxController {
 
   var userName="".obs;
   var userToken="".obs;
+
+
 
 
   @override
@@ -78,7 +90,7 @@ class QuizStartPageScreenController extends GetxController {
     );
 
 
-    startTimer(19);
+   // startTimer(19);
   }
   @override
   void dispose() {
@@ -111,7 +123,8 @@ class QuizStartPageScreenController extends GetxController {
                 "status":status,
                 "book_id":bookId,
                 "lang":language
-              }
+              },
+
           );
 
            showToastShort("status = ${response.statusCode}");
@@ -120,10 +133,18 @@ class QuizStartPageScreenController extends GetxController {
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
+            questionName(dataResponse["data"]["question"]["question"]);
+            questionId(dataResponse["data"]["question"]["id"].toString());
             optionList(dataResponse["data"]["question"]["options"]);
 
+            currentQuestionNumberForSubmit(dataResponse["data"]["quesNumber"].toString());
+            currentQuestionNumber(dataResponse["data"]["quesNumber"].toString());
+            totalQuestionNumber(dataResponse["data"]["total_question"].toString());
 
-               showToastShort(optionList.length.toString());
+            cancelTimer();
+            startTimer(19);
+
+            //showToastShort(optionList.length.toString());
 
           }
           else {
@@ -143,6 +164,87 @@ class QuizStartPageScreenController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
+
+
+
+  void submitQuizData({
+    required String quizId,
+    required String status,
+    required String bookId,
+    required String language,
+    required String selectedAnswer,
+    required String questionId,
+    required String quesNumber,
+  }) async{
+    try {
+
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+
+          showLoadingDialog("loading...");
+
+          var response = await post(
+               Uri.parse('$BASE_URL_API$SUB_URL_API_SUBMIT_QUIZ'),
+
+              body: json.encode({
+
+                "quiz_id": quizId,
+                "status": status,
+                "book_id": bookId,
+                "variation_id": bookId,
+                "lang":language,
+                "answer": selectedAnswer,
+                "questionId": questionId,
+                "quesNumber": quesNumber
+              }),
+              headers: {
+                'Content-Type': 'application/json'
+              }
+          );
+
+
+          Get.back();
+          showToastShort("status = ${response.statusCode}");
+          if (response.statusCode == 200) {
+
+          //  var dataResponse = jsonDecode(response.body);
+            // questionName(dataResponse["data"]["question"]["question"]);
+            // optionList(dataResponse["data"]["question"]["options"]);
+            //
+            // currentQuestionNumber(dataResponse["data"]["quesNumber"].toString());
+            // totalQuestionNumber(dataResponse["data"]["total_question"].toString());
+            //
+            // cancelTimer();
+            // startTimer(19);
+
+            //showToastShort(optionList.length.toString());
+
+          }
+          else {
+            // Fluttertoast.cancel();
+            showToastShort("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
+      else{
+        showToastShort("No Internet Connection!");
+
+      }
+
+    } on SocketException {
+      Fluttertoast.cancel();
+      // _showToast("No Internet Connection!");
+    }
+  }
+
+
+
+
+
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {
@@ -164,6 +266,7 @@ class QuizStartPageScreenController extends GetxController {
     print('I am closed');
 
   }
+
   ///timer cancel
   ifTimerMounted(){
     final itimer = timer == null ? false : timer!.isActive;
@@ -190,7 +293,7 @@ class QuizStartPageScreenController extends GetxController {
         //   showToastLong("time over!");
         //   // Get.off(TimeOverScreen());
         // }
-        showToastLong("time over!");
+       // showToastLong("time over!");
         startTimer(19);
         // _showToast("Time over!");
         timer.cancel();
@@ -217,6 +320,7 @@ class QuizStartPageScreenController extends GetxController {
   void selectedValueUpdate(int option){
     selectedValue(option);
   }
+
   updateQuestionMcqOptionsId(String value) {
     questionMcqOptionsId(value);
   }

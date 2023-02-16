@@ -1,30 +1,18 @@
 
-import 'package:bijoy_tech_quiz_app/view/auth/registration_page2.dart';
-import 'package:bijoy_tech_quiz_app/view/common/toast.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../static/Colors.dart';
-
 import '../../controller/my_profile_page_controller.dart';
-
-import '../auth/log_in_page.dart';
 import '../custom_drawer.dart';
-
-
-
-
 
 class MyProfileScreen  extends StatelessWidget {
 
   final myProfilePageController = Get.put(MyProfilePageController());
-
   var width;
   var height;
   late BuildContext _context;
-
 
   // String _particularBirthDate="Enter Birthday";
   // String select_your_country="Enter Birthday";
@@ -414,7 +402,6 @@ class MyProfileScreen  extends StatelessWidget {
     );
   }
 
-
   Widget userInput(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
     return Container(
@@ -652,7 +639,6 @@ class MyProfileScreen  extends StatelessWidget {
     ;
   }
 
-
   ///user input birth date select box
   Widget userInputBirthDay( ) {
     return InkResponse(
@@ -810,7 +796,6 @@ class MyProfileScreen  extends StatelessWidget {
       ),
     );
   }
- 
 
 }
 
