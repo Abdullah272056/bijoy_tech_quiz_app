@@ -1,14 +1,10 @@
 
-import 'package:bijoy_tech_quiz_app/view/pdf_view_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
-
+import 'home_page/MyQuizScorePage.dart';
 import 'home_page/dash_board_page.dart';
-import 'home_page/home_page.dart';
-import 'home_page/my_profile_page.dart';
- 
 
 void main() {
   GetStorage.init();
@@ -26,11 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return  GetMaterialApp(
-      // color: Colors.lime,
-      // debugShowCheckedModeBanner: false,
-      home: DashBoardPageScreen(
 
-      )
+      home: MyQuizScorePageScreen()
 
       // home: DashBoardPageScreen()
       // home: QuizCategoriesScreen()

@@ -20,6 +20,9 @@ String SUB_URL_API_GET_MY_PROFILE = "api/user/get-user-profile";
 String SUB_URL_API_GET_MY_PROFILE_UPDATE = "api/user/profile-update";
 String SUB_URL_API_GET_PASSWORD_CHANGE = "api/user/change-password";
 
+
+String SUB_URL_API_GET_USER_SCORE_RESULT = "api/user/score-result";
+
 String SUB_URL_API_GET_ALL_COUNTRY_LIST = "api/country-list";
 
 String SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_LIST = "api/home-category";
