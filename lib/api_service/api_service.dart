@@ -29,6 +29,7 @@ String SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_LIST = "api/home-category";
 String SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_DETAILS = "api/content?id=";
 
 String SUB_URL_API_GET_HOME_PAGE_ALL_QUIZ = "api/user/quizzes";
+String SUB_URL_API_GET_USER_INFO = "api/user/user-info";
 
 //join quiz
 String SUB_URL_API_GET_JOIN_QUIZ = "api/user/join-quiz";

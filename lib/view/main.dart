@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
 
     return  GetMaterialApp(
 
-      home: MyQuizScorePageScreen()
+     // home: MyQuizScorePageScreen()
 
-      // home: DashBoardPageScreen()
+       home: DashBoardPageScreen()
       // home: QuizCategoriesScreen()
 
     );
