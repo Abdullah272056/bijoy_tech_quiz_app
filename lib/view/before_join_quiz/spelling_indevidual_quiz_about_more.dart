@@ -37,7 +37,6 @@ class SpellingIndividualQuizAboutPageScreen  extends StatelessWidget{
     );
   }
 
-
   Widget _buildBodyDesign() {
     return Container(
       color: bg_top_color,
@@ -128,8 +127,6 @@ class SpellingIndividualQuizAboutPageScreen  extends StatelessWidget{
           ],
         ));
   }
-
-
 
   Widget _buildQuizCardItem({required String language, required double item_marginLeft,required double item_marginRight, required String imageLink, }) {
     return Column(
@@ -421,10 +418,6 @@ class SpellingIndividualQuizAboutPageScreen  extends StatelessWidget{
       ),
     );
   }
-
-
-
-
 
   double sizeReturn(int divide){
     return Get.size.height/divide;

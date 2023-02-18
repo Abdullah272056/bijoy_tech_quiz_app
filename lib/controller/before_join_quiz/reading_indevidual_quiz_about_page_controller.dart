@@ -17,9 +17,6 @@ import '../../view/common/toast.dart';
 
 class ReadingIndividualQuizAboutPagePageController extends GetxController {
 
-
-
-
   var userName="".obs;
   var userToken="".obs;
 
@@ -43,12 +40,12 @@ class ReadingIndividualQuizAboutPagePageController extends GetxController {
     quizStatus(argumentData["quizStatus"].toString());
     quizName(argumentData["quizName"].toString());
     loadUserIdFromSharePref();
-    getJoinQuizDataList(quizId: argumentData["quizId"].toString(), status: argumentData["quizStatus"].toString());
+    getJoinQuizDataList(token: userToken.value,quizId: argumentData["quizId"].toString(), status: argumentData["quizStatus"].toString(), );
     super.onInit();
 
   }
 
-  void getJoinQuizDataList({required String quizId,required String status}) async{
+  void getJoinQuizDataList({required String token,required String quizId,required String status}) async{
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -57,6 +54,10 @@ class ReadingIndividualQuizAboutPagePageController extends GetxController {
 
           var response = await post(
             Uri.parse('$BASE_URL_API$SUB_URL_API_GET_JOIN_QUIZ'),
+              headers: {
+                'Authorization': 'Bearer '+token,
+                'Accept': 'application/json',
+              },
               body: {
                 "quiz_id":quizId,
                 "status":status

@@ -31,7 +31,7 @@ class CustomDrawerController extends GetxController {
 
 
     loadUserIdFromSharePref();
-    // retriveUserInfo();
+
    // getUserInfoList();
     //getCategories();
 
@@ -46,8 +46,8 @@ class CustomDrawerController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
-          showToastShort("call");
-          showToastShort( token);
+        //  showToastShort("call");
+       //   showToastShort( token);
 
 
           var response = await get(
@@ -57,7 +57,7 @@ class CustomDrawerController extends GetxController {
               'Accept': 'application/json',
             },
           );
-          showToastShort("status = ${response.statusCode}");
+        //  showToastShort("status = ${response.statusCode}");
           Get.back();
 
           if (response.statusCode == 200) {
@@ -84,8 +84,6 @@ class CustomDrawerController extends GetxController {
     }
   }
 
-
-
   ///get data from share pref
   void loadUserIdFromSharePref() async {
     try {
@@ -94,7 +92,7 @@ class CustomDrawerController extends GetxController {
        userName(storage.read(pref_user_name));
        userToken(storage.read(pref_user_token));
 
-      getUserInfoList(userToken.value);
+     getUserInfoList(userToken.value);
 
    //   _showToast("qwer "+userToken.toString());
     } catch (e) {
@@ -103,18 +101,6 @@ class CustomDrawerController extends GetxController {
 
   }
 
-  ///get user data from share pref
-  void retriveUserInfo() async {
-    try {
-      var storage =GetStorage();
-      // userName(storage.read(pref_user_name).toString());
-      // userToken(storage.read(pref_user_token).toString());
-     // _showToast("Tokenqw = "+storage.read(pref_user_token).toString());
-    }catch(e){
-
-    }
-
-  }
 
 
   void getUserAccountLogOut(String token) async{

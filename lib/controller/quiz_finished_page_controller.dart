@@ -13,19 +13,24 @@ import '../../view/common/toast.dart';
 class QuizFinishedPageScreenController extends GetxController {
 
 
-  var wrongAnswer = "1".obs;
-  var rightAnswer = "9".obs;
-  var totalMarkYouGot = "90.00".obs;
+  var wrongAnswer = "0".obs;
+  var rightAnswer = "0".obs;
+  var totalMarkYouGot = "0.00".obs;
   var aboutQuizText = " ".obs;
+  dynamic argumentData = Get.arguments;
 
-  void ref(){
-    onInit();
-  }
+
+
+
+
   @override
   void onInit() {
-
-
     super.onInit();
+
+    rightAnswer(argumentData["total_right_ans"].toString());
+    wrongAnswer(argumentData["total_wrong_ans"].toString());
+    totalMarkYouGot(argumentData["total_mark"].toString());
+
 
   }
 

@@ -9,8 +9,6 @@ String BASE_URL_HOME_IMAGE = "https://quiz.bizoytech.com/homeImg/";
 String BASE_URL_PDF_BASE_URL = "https://quiz.bizoytech.com/books/";
 
 
-
-
 String SUB_URL_API_LOG_IN = "api/login";
 String SUB_URL_API_SIGN_UP = "api/register";
 String SUB_URL_API_FORGET_PASSWORD = "api/forgot-password";

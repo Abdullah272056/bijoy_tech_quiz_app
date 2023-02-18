@@ -6,13 +6,14 @@ import 'package:get_storage/get_storage.dart';
 import 'home_page/MyQuizScorePage.dart';
 import 'home_page/dash_board_page.dart';
 
-void main() {
-  GetStorage.init();
+Future<void> main() async {
+
+  await GetStorage.init();
   runApp( MyApp());
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    // statusBarColor:awsStartColor,
-    // systemNavigationBarColor:awsEndColor,
-  ));
+  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //   // statusBarColor:awsStartColor,
+  //   // systemNavigationBarColor:awsEndColor,
+  // ));
 }
 
 class MyApp extends StatelessWidget {

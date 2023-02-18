@@ -3,6 +3,7 @@ import 'package:bijoy_tech_quiz_app/view/common/toast.dart';
 import 'package:bijoy_tech_quiz_app/view/quiz_finished_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../../static/Colors.dart';
 import 'controller/quiz_start_page_controller.dart';
 
@@ -90,145 +91,196 @@ class QuizStartPageScreen  extends StatelessWidget{
             topRight: Radius.circular(30.0),
           ),
         ),
-        child:Column(
+        child:Obx(() => Column(
           children: [
-            Expanded(child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:  [
 
-                Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          children: [
+            if(quizStartPageScreenController.examAlreadyDone.value=="2")...{
+              Expanded(child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:  [
 
-                           Padding(padding: EdgeInsets.only(left: 20,top: 20,right: 20),
-                           child:  Row(children:  [
-                            Expanded(child:  Obx(() => Text(("Question No: "+
-                                (int.parse(quizStartPageScreenController.currentQuestionNumber.value)+1).toString()+
-                                " of "+
-                                quizStartPageScreenController.totalQuestionNumber.value.toString()
-                            ),
-                                style: TextStyle(
-                                    color: buttonBgColor,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500))),),
-                            Obx(() =>  Text(quizStartPageScreenController.startTxt.value,
-                                style: const TextStyle(
-                                    color: buttonBgColor,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w500)),)
-                           ],),
-                           ),
-                             Padding(
-                                padding: EdgeInsets.only(
-                                    left: 20,
-                                    right: 10,
-                                    top: 20,
-                                    bottom: 5),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Obx(()=>Text(
-                                      "Q: " +quizStartPageScreenController.questionName.value
-                                      ,
-                                      style: TextStyle(
-                                          color: textColor,
-                                          fontSize: 18,
-                                          fontWeight:
-                                          FontWeight.w500))),
-                                )
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Expanded(
+                          child: Column(
+                            children: [
 
-
-                            ),
-
-                            Expanded(
-                                child: Container(
-                                  padding: EdgeInsets.only(left: 15),
-                                  color: transparent,
-                                  child: Theme(
-                                    data: Theme.of(context)
-                                        .copyWith(
-                                      unselectedWidgetColor:
-                                      awsEndColor,
-                                    ),
-                                    child:  Obx(() => ListView.builder(
-
-                                      itemCount: quizStartPageScreenController.optionList.length,
-
-                                      // physics: NeverScrollableScrollPhysics(),
-                                      // shrinkWrap: true,
-                                      shrinkWrap: true,
-                                      primary: false,
-                                      //  physics: NeverScrollableScrollPhysics(),
-                                      itemBuilder: (
-                                          context, index) {
-                                        return Obx(() =>  RadioListTile<int>(
-
-                                            value: index,
-                                            activeColor: awsEndColor,
-                                            title: Text(
-                                              quizStartPageScreenController
-                                                  .abcdList[index]
-                                                  .toString()+'  '+
-                                                  // "Abdullah "+index.toString(),
-                                                  quizStartPageScreenController.optionList[index]["option"].toString(),
-                                              style: TextStyle(
-                                                  color: textColor,
-                                                  fontSize: 16),
-                                            ),
-                                            groupValue:
-                                            quizStartPageScreenController
-                                                .selectedValue
-                                                .value,
-                                            onChanged: (value) {
-
-
-                                              quizStartPageScreenController.selectedAnswer(quizStartPageScreenController.optionList[index]["option"].toString());
-
-
-                                              quizStartPageScreenController.selectedValueUpdate(index);
-
-                                              quizStartPageScreenController.updateQuestionMcqOptionsId(
-                                                  "Abdullah"
-                                                // quizStartPageScreenController
-                                                //     .mcqQuestionDataModel
-                                                //     .
-                                                // value
-                                                //     .data![0]
-                                                //     .questionsOptions[index]
-                                                //     .questionMcqOptionsId
-                                                //     .toString()
-                                              );
-                                            }));
-
-
-
-                                      },
-                                    )),
-
-
+                              Padding(padding: EdgeInsets.only(left: 20,top: 20,right: 20),
+                                child:  Row(children:  [
+                                  Expanded(child:  Obx(() => Text(("Question No: "+
+                                      (int.parse(quizStartPageScreenController.currentQuestionNumber.value)+1).toString()+
+                                      " of "+
+                                      quizStartPageScreenController.totalQuestionNumber.value.toString()
                                   ),
-                                )
+                                      style: TextStyle(
+                                          color: buttonBgColor,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500))),),
+                                  Obx(() =>  Text(quizStartPageScreenController.startTxt.value,
+                                      style: const TextStyle(
+                                          color: buttonBgColor,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w500)),)
+                                ],),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 20,
+                                      right: 10,
+                                      top: 20,
+                                      bottom: 5),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Obx(()=>Text(
+                                        "Q: " +quizStartPageScreenController.questionName.value
+                                        ,
+                                        style: TextStyle(
+                                            color: textColor,
+                                            fontSize: 18,
+                                            fontWeight:
+                                            FontWeight.w500))),
+                                  )
 
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+
+                              ),
+
+                              Expanded(
+                                  child: Container(
+                                    padding: EdgeInsets.only(left: 15),
+                                    color: transparent,
+                                    child: Theme(
+                                      data: Theme.of(context)
+                                          .copyWith(
+                                        unselectedWidgetColor:
+                                        awsEndColor,
+                                      ),
+                                      child:  Obx(() => ListView.builder(
+
+                                        itemCount: quizStartPageScreenController.optionList.length,
+
+                                        // physics: NeverScrollableScrollPhysics(),
+                                        // shrinkWrap: true,
+                                        shrinkWrap: true,
+                                        primary: false,
+                                        //  physics: NeverScrollableScrollPhysics(),
+                                        itemBuilder: (
+                                            context, index) {
+                                          return Obx(() =>  RadioListTile<int>(
+
+                                              value: index,
+                                              activeColor: awsEndColor,
+                                              title: Text(
+                                                quizStartPageScreenController
+                                                    .abcdList[index]
+                                                    .toString()+'  '+
+                                                    // "Abdullah "+index.toString(),
+                                                    quizStartPageScreenController.optionList[index]["option"].toString(),
+                                                style: TextStyle(
+                                                    color: textColor,
+                                                    fontSize: 16),
+                                              ),
+                                              groupValue:
+                                              quizStartPageScreenController
+                                                  .selectedValue
+                                                  .value,
+                                              onChanged: (value) {
+
+
+                                                quizStartPageScreenController.selectedAnswer(quizStartPageScreenController.optionList[index]["option"].toString());
+
+
+                                                quizStartPageScreenController.selectedValueUpdate(index);
+
+                                                quizStartPageScreenController.updateQuestionMcqOptionsId(
+                                                    "Abdullah"
+                                                  // quizStartPageScreenController
+                                                  //     .mcqQuestionDataModel
+                                                  //     .
+                                                  // value
+                                                  //     .data![0]
+                                                  //     .questionsOptions[index]
+                                                  //     .questionMcqOptionsId
+                                                  //     .toString()
+                                                );
+                                              }));
+
+
+
+                                        },
+                                      )),
+
+
+                                    ),
+                                  )
+
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 20, right: 20,top: 10,bottom: 20),
-                  child: _buildSubmitButton(),
-                ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20, right: 20,top: 10,bottom: 20),
+                    child: _buildSubmitButton(),
+                  ),
 
-              ],
-            )),
+                ],
+              )),
+
+            }
+            else if(quizStartPageScreenController.examAlreadyDone.value=="1")...{
+              Expanded(child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:  [
+                  Text(
+                    "Exam Not Found!\nTry Again!",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color:Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500),
+
+                  )
+
+
+                ],
+              )),
+
+            }
+            else...{
+                Expanded(child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:  [
+
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              children: [
+
+
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+
+                  ],
+                )),
+
+              }
+
+
 
 
           ],
-        ));
+        )));
   }
 
   Widget _buildSubmitButton() {
@@ -239,14 +291,20 @@ class QuizStartPageScreen  extends StatelessWidget{
 
           if(quizStartPageScreenController.selectedAnswer.value!=""){
 
+            // showToastShort(quizStartPageScreenController.questionId.value);
+            // showToastShort(quizStartPageScreenController.currentQuestionNumberForSubmit.value);
+            // showToastShort(quizStartPageScreenController.userToken.value);
+
+
             quizStartPageScreenController.submitQuizData(
               quizId: quizStartPageScreenController.quizId.value,
                        status: quizStartPageScreenController.quizTypeStatus.value,
                        bookId: quizStartPageScreenController.bookId.value,
                        language: quizStartPageScreenController.language.value,
-                       selectedAnswer: quizStartPageScreenController.selectedAnswer.value,
-                       questionId: quizStartPageScreenController.questionId.value,
-                  quesNumber: quizStartPageScreenController.currentQuestionNumberForSubmit.value
+                       selected_answer: quizStartPageScreenController.selectedAnswer.value,
+                       question_id: quizStartPageScreenController.questionId.value,
+                  quesNumber: quizStartPageScreenController.currentQuestionNumberForSubmit.value,
+                token: quizStartPageScreenController.userToken.value
             );
 
 
@@ -256,8 +314,6 @@ class QuizStartPageScreen  extends StatelessWidget{
           }
 
           //
-
-
 
         },
 

@@ -49,7 +49,6 @@ class ChangePasswordPageController extends GetxController {
   @override
   void onInit() {
     loadUserIdFromSharePref();
-
     super.onInit();
 
   }
@@ -130,6 +129,7 @@ class ChangePasswordPageController extends GetxController {
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_GET_PASSWORD_CHANGE'),
               headers: {
                 'Authorization': 'Bearer '+userToken,
+                'Accept': 'application/json',
               },
               body: {
                 'password': password,

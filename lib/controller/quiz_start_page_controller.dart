@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:bijoy_tech_quiz_app/controller/quiz_finished_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -13,12 +14,14 @@ import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
 import 'package:http/http.dart' as http;
+
+import '../view/quiz_finished_page.dart';
 class QuizStartPageScreenController extends GetxController {
 
   ///timer variable
-  var startTxt = "01:00".obs;
+  var startTxt = "00:59".obs;
   Timer? timer;
-  var otpCountDownSecond = 60.obs;
+
   // var uid = "09a8a3fb-0c63-49ec-abc4-657132ff8e9f".obs;
 
   ///question no variable
@@ -64,7 +67,8 @@ class QuizStartPageScreenController extends GetxController {
   var userToken="".obs;
 
 
-
+//if 0 then no data found, if 1 then exam end,  if 2 exam running
+  var examAlreadyDone = "0".obs;
 
   @override
   void onInit() {
@@ -81,16 +85,14 @@ class QuizStartPageScreenController extends GetxController {
     loadUserIdFromSharePref();
 
     getStartQuizData(
-
         quizId: argumentData["quizId"].toString(),
         status: argumentData["quizTypeStatus"].toString(),
         bookId: argumentData["bookId"].toString(),
-        language:argumentData["language"].toString()
-
+        language:argumentData["language"].toString(), token: userToken.value
     );
 
 
-   // startTimer(19);
+  //  startTimer(19);
   }
   @override
   void dispose() {
@@ -101,6 +103,7 @@ class QuizStartPageScreenController extends GetxController {
   }
 
   void getStartQuizData({
+    required String token,
     required String quizId,required String status,
     required String bookId,required String language
   }) async{
@@ -118,6 +121,10 @@ class QuizStartPageScreenController extends GetxController {
 
           var response = await post(
               Uri.parse('$BASE_URL_API$SUB_URL_API_GET_START_QUIZ'),
+            headers: {
+              'Authorization': 'Bearer '+token,
+              'Accept': 'application/json',
+            },
               body: {
                 "quiz_id":quizId,
                 "status":status,
@@ -127,7 +134,7 @@ class QuizStartPageScreenController extends GetxController {
 
           );
 
-           showToastShort("status = ${response.statusCode}");
+          // showToastShort("status = ${response.statusCode}");
           Get.back();
 
           if (response.statusCode == 200) {
@@ -141,13 +148,19 @@ class QuizStartPageScreenController extends GetxController {
             currentQuestionNumber(dataResponse["data"]["quesNumber"].toString());
             totalQuestionNumber(dataResponse["data"]["total_question"].toString());
 
-            cancelTimer();
-            startTimer(19);
+           // cancelTimer();
+            examAlreadyDone("2");
+            startTimer(60);
 
             //showToastShort(optionList.length.toString());
 
           }
+          else if(response.statusCode == 401){
+
+            examAlreadyDone("1");
+           }
           else {
+            examAlreadyDone("0");
             // Fluttertoast.cancel();
             showToastShort("failed try again!");
           }
@@ -166,14 +179,14 @@ class QuizStartPageScreenController extends GetxController {
   }
 
 
-
   void submitQuizData({
+    required String token,
     required String quizId,
     required String status,
     required String bookId,
     required String language,
-    required String selectedAnswer,
-    required String questionId,
+    required String selected_answer,
+    required String question_id,
     required String quesNumber,
   }) async{
     try {
@@ -181,47 +194,64 @@ class QuizStartPageScreenController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
-
+         String questionNumber=(int.parse(quesNumber)+1).toString();
 
           showLoadingDialog("loading...");
 
           var response = await post(
                Uri.parse('$BASE_URL_API$SUB_URL_API_SUBMIT_QUIZ'),
-
-              body: json.encode({
-
+              headers: {
+                'Authorization': 'Bearer '+token,
+                'Accept': 'application/json',
+              },
+              body: {
                 "quiz_id": quizId,
                 "status": status,
                 "book_id": bookId,
                 "variation_id": bookId,
                 "lang":language,
-                "answer": selectedAnswer,
-                "questionId": questionId,
-                "quesNumber": quesNumber
-              }),
-              headers: {
-                'Content-Type': 'application/json'
-              }
+                "answer": selected_answer,
+                "questionId": question_id,
+                "quesNumber": questionNumber
+              },
+
           );
 
-
           Get.back();
-          showToastShort("status = ${response.statusCode}");
+        //  showToastShort("status = ${response.statusCode}");
           if (response.statusCode == 200) {
 
-          //  var dataResponse = jsonDecode(response.body);
-            // questionName(dataResponse["data"]["question"]["question"]);
-            // optionList(dataResponse["data"]["question"]["options"]);
-            //
-            // currentQuestionNumber(dataResponse["data"]["quesNumber"].toString());
-            // totalQuestionNumber(dataResponse["data"]["total_question"].toString());
-            //
-            // cancelTimer();
-            // startTimer(19);
+            var dataResponse = jsonDecode(response.body);
+            questionName(dataResponse["data"]["question"]["question"]);
+            questionId(dataResponse["data"]["question"]["id"].toString());
+            optionList(dataResponse["data"]["question"]["options"]);
 
-            //showToastShort(optionList.length.toString());
+            currentQuestionNumberForSubmit(dataResponse["data"]["quesNumber"].toString());
+            currentQuestionNumber(dataResponse["data"]["quesNumber"].toString());
+            totalQuestionNumber(dataResponse["data"]["total_question"].toString());
+            selectedValueUpdate(-1);
+            selectedAnswer("");
+            cancelTimer();
+            startTimer(60);
 
           }
+
+          else if (response.statusCode == 208) {
+            showToastShort("Question Already submitted!");
+          }
+          else if (response.statusCode == 201) {
+            showToastShort("exam done!");
+            var dataResponse = jsonDecode(response.body);
+
+            Get.off(() => QuizFinishedPageScreen(), arguments:{
+
+              "total_right_ans": dataResponse["data"]["result"]["total_right_ans"].toString(),
+              "total_wrong_ans": dataResponse["data"]["result"]["total_worng_ans"].toString(),
+              "total_mark": dataResponse["data"]["result"]["total_mark"].toString(),
+
+            })?.then((value) => Get.delete<QuizFinishedPageScreenController>());
+          }
+
           else {
             // Fluttertoast.cancel();
             showToastShort("failed try again!");
@@ -240,10 +270,6 @@ class QuizStartPageScreenController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
-
-
-
-
 
 
   ///get data from share pref
@@ -294,9 +320,25 @@ class QuizStartPageScreenController extends GetxController {
         //   // Get.off(TimeOverScreen());
         // }
        // showToastLong("time over!");
-        startTimer(19);
+        cancelTimer();
+
+       // startTimer(60);
+
+
+        submitQuizData(
+            quizId:quizId.value,
+            status: quizTypeStatus.value,
+            bookId:bookId.value,
+            language:language.value,
+            selected_answer:selectedAnswer.value,
+            question_id:questionId.value,
+            quesNumber:currentQuestionNumberForSubmit.value,
+            token:userToken.value
+        );
+
+        showToastLong("call next api!");
         // _showToast("Time over!");
-        timer.cancel();
+      //  timer.cancel();
       }
       else {
         if(timer.isActive){

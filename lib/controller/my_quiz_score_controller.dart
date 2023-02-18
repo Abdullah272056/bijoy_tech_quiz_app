@@ -50,7 +50,6 @@ class MyQuizScoreController extends GetxController {
 
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_USER_SCORE_RESULT}'),
             headers: {
-
               'Authorization': 'Bearer '+token,
               'Accept': 'application/json',
             },
@@ -62,15 +61,13 @@ class MyQuizScoreController extends GetxController {
 
 
           Get.back();
+         // showToastShort("account info= "+response.statusCode.toString());
           if (response.statusCode == 200) {
 
             var addressResponseData = jsonDecode(response.body);
             quizResultList(addressResponseData["data"]["scores"]);
-            showToastShort("account info= "+quizResultList.length.toString());
-
 
             // getCountryList(token);
-
 
           }
           else {
