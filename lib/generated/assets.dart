@@ -34,5 +34,6 @@ class Assets {
   static const String imagesSubmitIcon = 'assets/images/submit_icon.png';
   static const String imagesVerified = 'assets/images/verified.png';
   static const String imagesVideoQuiz = 'assets/images/video_quiz.png';
+  static const String imagesYoutubeIcon = 'assets/images/youtube_icon.png';
 
 }

@@ -49,6 +49,8 @@ dependencies:
   expandable_text: ^2.3.0
   flutter_cached_pdfview: ^0.4.1
   flutter_pdfview: ^1.2.5
+  url_launcher: ^6.1.9
+
 #  syncfusion_flutter_pdfviewer: ^20.4.49
 
 dev_dependencies:

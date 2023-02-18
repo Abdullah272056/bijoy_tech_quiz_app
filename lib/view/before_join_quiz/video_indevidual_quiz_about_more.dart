@@ -4,6 +4,7 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../static/Colors.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/before_join_quiz/general_indevidual_quiz_about_page_controller.dart';
@@ -198,18 +199,25 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
                         Expanded(child:   ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: Container(
+                            // height: double.infinity,
+                            // width: double.infinity,
                               height:Get.size.width<550?Get.size.width/3.2 :Get.size.width/3.2 ,
                               color:Colors.white,
-                              child: FadeInImage.assetNetwork(
-                                fit: BoxFit.cover,
-                                placeholder: 'assets/images/empty.png',
-                                image:BASE_URL_HOME_IMAGE+videoIndividualQuizAboutPagePageController.quizImageLink.toString(),
-                                imageErrorBuilder: (context, url, error) =>
-                                    Image.asset(
-                                      'assets/images/empty.png'
-                                      ,
-                                      fit: BoxFit.fill,
-                                    ),
+                              child:Container(
+                                color: Colors.deepOrangeAccent,
+                                child:  FadeInImage.assetNetwork(
+                                  // height:Get.size.width<550?Get.size.width/3.2 :Get.size.width/3.2 ,
+                                  // width: double.infinity,
+                                  fit: BoxFit.cover,
+                                  placeholder: 'assets/images/empty.png',
+                                  // image:BASE_URL_HOME_IMAGE+videoIndividualQuizAboutPagePageController.quizImageLink.toString(),
+                                  image:getYoutubeThumbnail(activeVideoResponse['video'].toString()),
+                                  imageErrorBuilder: (context, url, error) =>
+                                      Image.asset(
+                                        'assets/images/empty.png',
+                                        fit: BoxFit.fill,
+                                      ),
+                                ),
                               )),
 
                         )
@@ -217,36 +225,31 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
                         )
                       ],
                     ),
-                    // Row(
-                    //   children: [
-                    //     Expanded(child:Align(alignment: Alignment.topRight,
-                    //       child: InkWell(
-                    //         onTap: (){
-                    //           showToastShort("more details");
-                    //
-                    //         },
-                    //         child: Container(
-                    //
-                    //           decoration:  BoxDecoration(
-                    //               borderRadius: BorderRadius.only(
-                    //                 bottomLeft: Radius.circular(5.0),
-                    //               ),
-                    //               color: Colors.black.withOpacity(.25)
-                    //
-                    //           ),
-                    //           padding: const EdgeInsets.only(left: 3,right: 3,top: 3,bottom: 3),
-                    //           child: Icon(
-                    //             Icons.info_outline,
-                    //             color: Colors.white,
-                    //             size: sizeReturn(40),
-                    //           ),
-                    //
-                    //
-                    //         ),
-                    //       ),
-                    //     )   )
-                    //   ],
-                    // ),
+
+                    Row(
+                      children: [
+                        Expanded(child:   ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Container(
+                            // height: double.infinity,
+                            // width: double.infinity,
+                              height:Get.size.width<550?Get.size.width/3.2 :Get.size.width/3.2 ,
+                              color:Colors.transparent,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child:  Image.asset(
+                                  height:40,
+                                  width:40,
+                                  'assets/images/youtube_icon.png',
+                                  fit: BoxFit.fill,
+                                ),
+                              ),),
+
+                        )
+
+                        )
+                      ],
+                    ),
                   ],),
                   SizedBox(height: 10,),
                   Align(
@@ -358,7 +361,7 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
                     child: Row(
                       children: [
 
-                        Expanded(child: _buildWatchVideoButton(),),
+                        Expanded(child: _buildWatchVideoButton(activeVideoResponse),),
                         SizedBox(width: 10,),
                         Expanded(child: _buildStartQuizButton(activeVideoResponse),),
 
@@ -377,6 +380,13 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
     );
   }
 
+
+  Future<void> _launchUrl(String videoLink) async {
+    final Uri _url = Uri.parse(videoLink);
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
   Widget _buildQuizItemBottomText({required String name,required String value}) {
     return  Row(
       children:  [
@@ -450,11 +460,14 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
     );
   }
 
-  Widget _buildWatchVideoButton() {
+  Widget _buildWatchVideoButton(var activeVideoResponse) {
     return Container(
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
+
+          _launchUrl(activeVideoResponse["video"].toString());
+          // _launchUrl('https://flutter.dev');
           // Get.to(() => PdfViewPageScreen(), arguments: {
           //   // "categoriesId": response["id"].toString(),
           //   // "categoriesId": response["id"].toString(),
@@ -495,6 +508,17 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
 
   double sizeReturn(int divide){
     return Get.size.height/divide;
+  }
+
+  String getYouTubeVideoId(String url) {
+    RegExp regExp = RegExp(r'(?:(?:\?|&)v=|\/embed\/)([a-zA-Z0-9_-]{11}).*');
+    Match match = regExp.firstMatch(url) as Match;
+    return match.group(1).toString();
+  }
+
+  String getYoutubeThumbnail(String videoUrl) {
+    final uri = Uri.parse(videoUrl);
+    return 'https://img.youtube.com/vi/${uri.queryParameters['v']}/0.jpg';
   }
 }
 
