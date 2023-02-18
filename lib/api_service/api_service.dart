@@ -38,3 +38,7 @@ String SUB_URL_API_SUBMIT_QUIZ = "api/user/next-quiz";
 
 
 
+String SUB_URL_API_PAYMENT_REQUEST = "api/user/payment-request";
+
+
+

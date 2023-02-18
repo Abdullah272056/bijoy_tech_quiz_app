@@ -125,7 +125,7 @@ class QuizFinishedPageScreen  extends StatelessWidget{
                 SizedBox(height: 15,),
                 Obx(() => _buildQuizItemBottomText(name: 'Right Answer:', value: quizFinishedPageScreenController.rightAnswer.value),),
                 SizedBox(height: 7,),
-                Obx(() => _buildQuizItemBottomText(name: 'Wrong Answer:', value: quizFinishedPageScreenController.totalMarkYouGot.value),),
+                Obx(() => _buildQuizItemBottomText(name: 'Wrong Answer:', value: quizFinishedPageScreenController.wrongAnswer.value),),
                 SizedBox(height: 7,),
                 Obx(() => _buildQuizItemBottomText(name: 'Total Mark You Have Got:', value: quizFinishedPageScreenController.totalMarkYouGot.value),),
                 SizedBox(height: 20,),

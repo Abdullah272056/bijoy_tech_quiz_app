@@ -230,12 +230,33 @@ class QuizStartPageScreen  extends StatelessWidget{
               )),
 
             }
+
+            else if(quizStartPageScreenController.examAlreadyDone.value=="4")...{
+              Expanded(child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:  [
+                  Text(
+                    "Question Not Found!",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color:Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500),
+
+                  )
+
+
+                ],
+              )),
+
+            }
             else if(quizStartPageScreenController.examAlreadyDone.value=="1")...{
               Expanded(child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
                   Text(
-                    "Exam Not Found!\nTry Again!",
+                    "You have already finished this quiz!",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

@@ -67,7 +67,7 @@ class QuizStartPageScreenController extends GetxController {
   var userToken="".obs;
 
 
-//if 0 then no data found, if 1 then exam end,  if 2 exam running
+//if 0 then no data found, if 1 then exam end,  if 2 exam running if 4 question not fount
   var examAlreadyDone = "0".obs;
 
   @override
@@ -155,6 +155,10 @@ class QuizStartPageScreenController extends GetxController {
             //showToastShort(optionList.length.toString());
 
           }
+          else if(response.statusCode == 204){
+
+            examAlreadyDone("4");
+           }
           else if(response.statusCode == 401){
 
             examAlreadyDone("1");
@@ -162,7 +166,7 @@ class QuizStartPageScreenController extends GetxController {
           else {
             examAlreadyDone("0");
             // Fluttertoast.cancel();
-            showToastShort("failed try again!");
+          //  showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();

@@ -67,14 +67,15 @@ class CustomDrawer extends StatelessWidget {
                               fontSize: 18,
                               fontWeight: FontWeight.w500),
                         ),),
-
+                        const SizedBox(
+                          height: 4,
+                        ),
 
                         Obx(() =>  Text(
-                          customDrawerController.amount.value,
-                          // "Balance: \$0.00",
+                          "Balance: \$"+customDrawerController.amount.value,
                           style: TextStyle(
                               color: textColor,
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w500),
                         ),),
 

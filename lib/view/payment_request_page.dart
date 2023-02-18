@@ -10,7 +10,7 @@ import '../controller/payment-request_page_controller.dart';
 
 class PaymentRequestScreen  extends StatelessWidget {
 
-  final signUpPageController = Get.put(PaymentRequestPageController());
+  final paymentRequestPageController = Get.put(PaymentRequestPageController());
   var width;
   var height;
   late BuildContext _context;
@@ -134,7 +134,7 @@ class PaymentRequestScreen  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInput( signUpPageController.accountNumberController.value, 'Account Number', TextInputType.text),
+                  userInput( paymentRequestPageController.accountNumberController.value, 'Account Number', TextInputType.text),
 
 
                   //Account Name
@@ -149,7 +149,7 @@ class PaymentRequestScreen  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInput( signUpPageController.accountNameController.value, 'Account Name', TextInputType.text),
+                  userInput( paymentRequestPageController.accountNameController.value, 'Account Name', TextInputType.text),
 
                   //Amount
                   const Align(
@@ -163,7 +163,7 @@ class PaymentRequestScreen  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInputAmount( signUpPageController.amountController.value, 'Amount', TextInputType.number),
+                  userInputAmount( paymentRequestPageController.amountController.value, 'Amount', TextInputType.number),
 
 
 
@@ -179,7 +179,7 @@ class PaymentRequestScreen  extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  userInputNote( signUpPageController.noteController.value, 'Note', TextInputType.text),
+                  userInputNote( paymentRequestPageController.noteController.value, 'Note', TextInputType.text),
 
 
 
@@ -380,9 +380,9 @@ class PaymentRequestScreen  extends StatelessWidget {
               iconSize: 30,
               icon:Padding(padding: EdgeInsets.only(right: 10),
                 child:  Icon(Icons.keyboard_arrow_down_outlined,color: levelTextColor,),),
-              value: signUpPageController.selectPaymentMethodId.value != null &&
-                  signUpPageController.selectPaymentMethodId.value.isNotEmpty ?
-              signUpPageController.selectPaymentMethodId.value : null,
+              value: paymentRequestPageController.selectPaymentMethodId.value != null &&
+                  paymentRequestPageController.selectPaymentMethodId.value.isNotEmpty ?
+              paymentRequestPageController.selectPaymentMethodId.value : null,
               underline:const SizedBox.shrink(),
               hint:Row(
                 children: const [
@@ -401,7 +401,7 @@ class PaymentRequestScreen  extends StatelessWidget {
               buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
 
-              items: signUpPageController.paymentMethodList.map((list) {
+              items: paymentRequestPageController.paymentMethodList.map((list) {
                 return DropdownMenuItem(
                   alignment: Alignment.centerLeft,
 
@@ -435,7 +435,7 @@ class PaymentRequestScreen  extends StatelessWidget {
               },
               ).toList(),
               onChanged:(String? value){
-                String data= signUpPageController.selectPaymentMethodId(value.toString());
+                String data= paymentRequestPageController.selectPaymentMethodId(value.toString());
                 //  _showToast("Id ="+checkoutPageController.selectStateId(value.toString()));
               },
 
@@ -453,20 +453,27 @@ class PaymentRequestScreen  extends StatelessWidget {
         onPressed: () {
 
 
-          String accountNumberTxt = signUpPageController.accountNumberController.value.text;
-          String accountNameTxt = signUpPageController.accountNameController.value.text;
-          String amountTxt = signUpPageController.amountController.value.text;
+          String accountNumberTxt = paymentRequestPageController.accountNumberController.value.text;
+          String accountNameTxt = paymentRequestPageController.accountNameController.value.text;
+          String amountTxt = paymentRequestPageController.amountController.value.text;
+          String noteTxt = paymentRequestPageController.noteController.value.text;
 
 
-          if ( signUpPageController.inputValid(
-              paymentMethod: signUpPageController.selectPaymentMethodId.value,
+          if ( paymentRequestPageController.inputValid(
+              paymentMethod: paymentRequestPageController.selectPaymentMethodId.value,
               accountNumber: accountNumberTxt,
               accountName: accountNameTxt,
-              amount: amountTxt
+              amount: amountTxt,
+              note: noteTxt
 
           )== false) {
 
-          //  LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
+            paymentRequestPageController.paymentRequest(
+                token: paymentRequestPageController.userToken.value,
+                payment_method: paymentRequestPageController.selectPaymentMethodId.value,
+                account_number:accountNumberTxt, account_name: accountNameTxt,
+                amount: amountTxt, note: noteTxt
+            );
 
           }
 

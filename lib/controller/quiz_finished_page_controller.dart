@@ -19,10 +19,6 @@ class QuizFinishedPageScreenController extends GetxController {
   var aboutQuizText = " ".obs;
   dynamic argumentData = Get.arguments;
 
-
-
-
-
   @override
   void onInit() {
     super.onInit();
