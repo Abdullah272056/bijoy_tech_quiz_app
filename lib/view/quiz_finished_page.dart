@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 
 import '../../../static/Colors.dart';
 import '../../controller/categories_wise_quiz_list_page_controller2.dart';
+import '../controller/dash_board_page_controller.dart';
 import '../controller/indevidual_quiz_about_page_controller.dart';
 import '../controller/pdf_view_page_controller.dart';
 import '../controller/quiz_finished_page_controller.dart';
 import 'common/toast.dart';
 import 'custom_drawer.dart';
+import 'home_page/dash_board_page.dart';
 
 
 
@@ -27,20 +29,8 @@ class QuizFinishedPageScreen  extends StatelessWidget{
       child: Scaffold(
           backgroundColor:  backGroundColor,
 
-          body:
-
-          // Container(
-          //
-          // ),
-
-
-          LayoutBuilder(builder: (context,constraints){
-           return
-           //   SfPdfViewer.network(
-           //   'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
-           //  // key: _pdfViewerKey,
-           // );
-             _buildBodyDesign();
+          body: LayoutBuilder(builder: (context,constraints){
+           return _buildBodyDesign();
           },)
 
 
@@ -63,16 +53,18 @@ class QuizFinishedPageScreen  extends StatelessWidget{
                     margin: const EdgeInsets.only(left: 20,right: 20),
                     child: InkResponse(
                       onTap: () {
-                        Get.to(QuizFinishedPageScreen());
+
+                        Get.back();
+
                       },
                       child: const Icon(
-                        Icons.home,
+                        Icons.arrow_back_rounded,
                         color: Colors.white,
                         size: 25.0,
                       ),
                     ),
                   ),
-                  const Text(
+                  Expanded(child: Text(
                     "Quiz Finished",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -81,7 +73,23 @@ class QuizFinishedPageScreen  extends StatelessWidget{
                         fontWeight: FontWeight.w500),
                     softWrap: false,
                     maxLines:1,
-                  )
+                  )),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20,right: 25),
+                    child: InkResponse(
+                      onTap: () {
+
+
+                        Get.deleteAll();
+                        Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                      },
+                      child: const Icon(
+                        Icons.home,
+                        color: Colors.white,
+                        size: 25.0,
+                      ),
+                    ),
+                  ),
                 ],
               )
 
@@ -91,6 +99,7 @@ class QuizFinishedPageScreen  extends StatelessWidget{
           Expanded(
             child: _buildBottomDesign(),
           ),
+          
 
         ],
       ),
@@ -117,7 +126,7 @@ class QuizFinishedPageScreen  extends StatelessWidget{
                   "Congratulation!\nYou have successfully finished Quiz.",
                       textAlign: TextAlign.center,
                   style: TextStyle(
-                      color:congratulationTextColor,
+                      color:recentTextColor,
                       fontSize:22,
                       fontWeight: FontWeight.w500),
 

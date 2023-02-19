@@ -11,11 +11,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../static/Colors.dart';
 import '../api_service/api_service.dart';
 import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
+import 'package:http/http.dart' as http;
 
 class MyProfilePageController extends GetxController {
 
@@ -76,8 +78,15 @@ class MyProfilePageController extends GetxController {
 
   var userName="".obs;
   var userToken="".obs;
-
   var countryDataList = [].obs;
+
+  var imageLink="".obs;
+
+  PickedFile? _fornt_imageFile;
+  final ImagePicker _fornt_picker=ImagePicker();
+  String _imageLink = "";
+  File? fornt_imageFile;
+
   @override
   void onInit() {
 
@@ -85,7 +94,16 @@ class MyProfilePageController extends GetxController {
 
     ///getStateList();
     getCountryDataList();
-    getUserAccountDetails(userToken.value);
+
+    if(
+        userToken.value!=""&&
+        userToken.value!="null"&&
+        userToken.value!=null
+    ){
+      getUserAccountDetails(userToken.value);
+
+    }
+
 
     super.onInit();
 
@@ -299,7 +317,7 @@ class MyProfilePageController extends GetxController {
               selectGradeId(addressResponseData["data"][0]["grade"].toString());
             }
 
-
+            imageLink(addressResponseData["data"][0]["image"].toString());
 
 
 
@@ -356,13 +374,13 @@ class MyProfilePageController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
-          showLoadingDialog("loading...");
+          //showLoadingDialog("loading...");
 
           var response = await get(
             Uri.parse('$BASE_URL_API$SUB_URL_API_GET_ALL_COUNTRY_LIST'),
           );
           //showToastShort("status = ${response.statusCode}");
-          Get.back();
+          //Get.back();
 
           if (response.statusCode == 200) {
 
@@ -463,8 +481,152 @@ class MyProfilePageController extends GetxController {
   }
 
 
+  void openBottomSheet() {
+    Get.bottomSheet(
+        Container(
+          height: 100,
+          width: Get.size.width,
+          margin: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+          child: Column(
+            children: [
+              Text("Choose",
+                  style: const TextStyle(
+                    fontFamily: 'PT-Sans',
+                    fontSize: 18,
+                    // color: Colors.black,
+                  )
+              ),
+              SizedBox(height: 20,),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(child: TextButton.icon(     // <-- TextButton
+                    onPressed: () {
+                      //  Navigator.of(context).pop();
+                      Get.back();
+                      takeImage(ImageSource.camera);
+                    },
+                    icon: Icon(
+                      Icons.camera,
+                      size: 30.0,
+                    ),
+                    label: Text('Camera',
+                        style: const TextStyle(
+                          fontFamily: 'PT-Sans',
+                          fontSize: 18,
+                          // color: Colors.black,
+                        )
+                    ),
+                  ),),
+                  Expanded(child: TextButton.icon(     // <-- TextButton
+                    onPressed: () {
+                      // Navigator.of(context).pop();
+                      Get.back();
+                      takeImage(ImageSource.gallery);
+                    },
+                    icon: Icon(
+                      Icons.image,
+                      size: 30.0,
+                    ),
+                    label: Text('Gallery',style: const TextStyle(
+                      fontFamily: 'PT-Sans',
+                      fontSize: 18,
+                      // color: Colors.black,
+                    ),),
+                  ),)
 
 
+
+
+                ],
+              )
+            ],
+          ),
+
+        ),
+
+
+        backgroundColor: Colors.white,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        isScrollControlled: true
+
+
+      //  resizeToAvoidBottomInset: false
+      // isScrollControlled: true,
+    );
+  }
+
+  void takeImage(ImageSource source)async{
+    final pickedFile= await _fornt_picker.getImage(source: source);
+    _fornt_imageFile=pickedFile!;
+    fornt_imageFile = File(pickedFile.path);
+    final bytes = File(_fornt_imageFile!.path).readAsBytesSync();
+
+    String img64 = base64Encode(bytes);
+
+    _uploadImage(
+      fontImage: fornt_imageFile!,
+      token: userToken.value,
+    );
+
+  }
+
+  ///profile image
+  _uploadImage({
+    required File fontImage,
+    required String token,
+  }) async {
+
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+        try {
+          showLoadingDialog("Saving...");
+          var headers = {
+            'Authorization': 'Bearer '+token,
+            // 'Authorization': 'Bearer 16|GcZjU2qXDUN2IIS6HDiDJvOPut6hOPT35HgN2qql',
+          };
+          //  _showToast(fontImage.path.toString());
+          var request = http.MultipartRequest('POST', Uri.parse('${BASE_URL_API}${SUB_URL_API_UPLOAD_PROFILE_IMAGE}'));
+          request.files.add(await http.MultipartFile.fromPath('image', fontImage.path));
+          request.headers.addAll(headers);
+
+          http.StreamedResponse response = await request.send();
+
+          final res = await http.Response.fromStream(response);
+
+          Get.back();
+          //  _showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+
+            var data = jsonDecode(res.body);
+            showToastShort("Image Saved Successfully!");
+            getUserAccountDetails(token);
+
+          }
+          if (response.statusCode == 404) {
+            var data = jsonDecode(res.body);
+            showToastShort(data["message"]["image"]["0"]);
+            // getUserBillingInfoList(token);
+          }
+          else {
+            print(response.reasonPhrase);
+          }
+        } catch (e) {
+          //   Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      showToastShort("No Internet Connection!");
+    }
+  }
 
 }
 

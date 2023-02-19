@@ -182,11 +182,7 @@ class CustomDrawer extends StatelessWidget {
                             leading: drawerItemIconDesign(Icons.logout),
                             title: drawerItemDesign("Log Out"),
                             onTap: () {
-                              Navigator.pop(context);
-
-                              removeUserInfo();
-                              Get.deleteAll();
-                              Get.offAll(LogInScreen());
+                              customDrawerController.getUserAccountLogOut(GetStorage().read(pref_user_token));
                             },
                           ),
 

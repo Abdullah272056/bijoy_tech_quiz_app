@@ -245,7 +245,7 @@ class HomePageScreen  extends StatelessWidget{
                           margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 30),
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.back();
+
                               Get.to(RegistrationScreen());
 
                               //  Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpScreen()));
@@ -287,7 +287,7 @@ class HomePageScreen  extends StatelessWidget{
                           margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 0),
                           child: InkWell(
                             onTap: (){
-                              Get.back();
+
                               Get.to(LogInScreen());
                               //   Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
                             },

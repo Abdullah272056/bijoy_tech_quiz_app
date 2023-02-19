@@ -94,9 +94,16 @@ class HomeController extends GetxController {
       var storage =GetStorage();
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
+      if(
+      userToken.value!=""&&
+      userToken.value!="null"&&
+      userToken.value!=null
+      ){
+        getQuizDataList(userToken.value);
+
+      }
 
 
-    getQuizDataList(userToken.value);
 
     } catch (e) {
 

@@ -5,6 +5,7 @@ String BASE_URL = "https://fnfbuy.bizoytech.com/";
 String BASE_URL_API = "https://quiz.bizoytech.com/";
 
 
+String BASE_URL_PROFILE_IMAGE = "https://quiz.bizoytech.com/user_image/";
 String BASE_URL_HOME_IMAGE = "https://quiz.bizoytech.com/homeImg/";
 String BASE_URL_PDF_BASE_URL = "https://quiz.bizoytech.com/books/";
 
@@ -39,6 +40,8 @@ String SUB_URL_API_SUBMIT_QUIZ = "api/user/next-quiz";
 
 
 String SUB_URL_API_PAYMENT_REQUEST = "api/user/payment-request";
+String SUB_URL_API_UPLOAD_PROFILE_IMAGE= "api/user/image-upload";
+String SUB_URL_API_LOG_OUT= "api/user/logout";
 
 
 

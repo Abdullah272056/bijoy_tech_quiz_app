@@ -8,6 +8,7 @@ import 'package:http/http.dart';
 
 import '../api_service/api_service.dart';
 import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
+import '../view/auth/log_in_page.dart';
 import '../view/common/loading_dialog.dart';
 import '../view/common/toast.dart';
 
@@ -24,11 +25,6 @@ class CustomDrawerController extends GetxController {
   void onInit() {
 
     super.onInit();
-
-
-
-
-
 
     loadUserIdFromSharePref();
 
@@ -68,14 +64,14 @@ class CustomDrawerController extends GetxController {
           }
           else {
             // Fluttertoast.cancel();
-            showToastShort("failed try again!");
+            //showToastShort("failed try again!");
           }
         } catch (e) {
           // Fluttertoast.cancel();
         }
       }
       else{
-        showToastShort("No Internet Connection!");
+      //  showToastShort("No Internet Connection!");
 
       }
     } on SocketException {
@@ -106,39 +102,39 @@ class CustomDrawerController extends GetxController {
   void getUserAccountLogOut(String token) async{
     try {
       final result = await InternetAddress.lookup('example.com');
-      // if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      //   //_showToast(token);
-      //   try {
-      //     showLoadingDialog("Processing...");
-      //     var response = await post(
-      //
-      //       Uri.parse('${BASE_URL_API}${SUB_URL_API_LOG_OUT}'),
-      //       headers: {
-      //         'Authorization': 'Bearer '+token,
-      //         'Content-Type': 'application/json',
-      //       },
-      //     );
-      //
-      //     Get.back();
-      //
-      //   //  showToastShort(response.statusCode.toString());
-      //     if (response.statusCode == 200) {
-      //
-      //       saveUserInfoRemove(
-      //           userName:"",
-      //           userToken:"");
-      //       Get.deleteAll();
-      //       Get.offAll(LogInScreen());
-      //
-      //     }
-      //     else {
-      //       // Fluttertoast.cancel();
-      //       //  _showToast("failed try again!");
-      //     }
-      //   } catch (e) {
-      //     // Fluttertoast.cancel();
-      //   }
-      // }
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        //_showToast(token);
+        try {
+          showLoadingDialog("Processing...");
+          var response = await post(
+
+            Uri.parse('${BASE_URL_API}${SUB_URL_API_LOG_OUT}'),
+            headers: {
+              'Authorization': 'Bearer '+token,
+              'Content-Type': 'application/json',
+            },
+          );
+
+          Get.back();
+
+          //  showToastShort(response.statusCode.toString());
+          if (response.statusCode == 200) {
+
+            saveUserInfoRemove(
+                userName:"",
+                userToken:"");
+            Get.deleteAll();
+            Get.offAll(LogInScreen());
+
+          }
+          else {
+            // Fluttertoast.cancel();
+            //  _showToast("failed try again!");
+          }
+        } catch (e) {
+          // Fluttertoast.cancel();
+        }
+      }
     } on SocketException {
       Fluttertoast.cancel();
       // _showToast("No Internet Connection!");
