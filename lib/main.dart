@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
-import 'home_page/MyQuizScorePage.dart';
-import 'home_page/dash_board_page.dart';
+import 'view/home_page/MyQuizScorePage.dart';
+import 'view/home_page/dash_board_page.dart';
 
 Future<void> main() async {
 

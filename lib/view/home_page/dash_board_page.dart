@@ -31,13 +31,14 @@ class DashBoardPageScreen extends StatelessWidget {
           dashBoardPageController.selectedTabIndex(index);
 
           if(index==0){
-            dashBoardPageController.updateSelectedPage([HomePageScreen()]);
+            dashBoardPageController.updateSelectedPage([QuizCategoriesScreen()]);
+
             // selectedPage(HomePage( ));
             return;
           }
 
           if(index==1){
-            dashBoardPageController.updateSelectedPage([QuizCategoriesScreen()]);
+            dashBoardPageController.updateSelectedPage([HomePageScreen()]);
             //  selectedPage(HomePage( ));
             // selectedPage= ShopPage( );
             return;
@@ -60,11 +61,12 @@ class DashBoardPageScreen extends StatelessWidget {
 
           _bottomNavigationBarItem(iconData: Icons.home, levelText: 'Home'),
 
-          _bottomNavigationBarItem(iconData: Icons.grid_view, levelText: 'Category'),
+          _bottomNavigationBarItem(iconData: Icons.view_list, levelText: 'Quizzes'),
 
           _bottomNavigationBarItem(iconData: Icons.person, levelText: 'Account'),
 
           _bottomNavigationBarItem(iconData: Icons.read_more, levelText: 'More'),
+
         ],
       ),),
     );
@@ -83,5 +85,8 @@ _bottomNavigationBarItem({required IconData iconData,required String levelText})
     );
 
 }
+
+
+
 
 }

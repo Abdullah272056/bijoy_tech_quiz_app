@@ -51,8 +51,6 @@ class QuizCategoriesScreen  extends StatelessWidget{
     );
   }
 
-
-
   Widget _buildBodyDesign() {
     return Container(
       color: bg_top_color,
@@ -105,7 +103,6 @@ class QuizCategoriesScreen  extends StatelessWidget{
     );
   }
 
-
   Widget _buildBottomDesign() {
     return Container(
         width: Get.size.width,
@@ -119,42 +116,72 @@ class QuizCategoriesScreen  extends StatelessWidget{
         child: Padding(
             padding:
             const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 10),
-            child:SingleChildScrollView(
-              child: Column(
-                children:  [
+            child:Column(
+              children: [
+                Expanded(child: SingleChildScrollView(
+                  child: Column(
+                    children:  [
 
-                  Obx(() => GridView.builder(
-                      itemCount:categoriesListPageController.quizCategoriesDataList.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: Get.size.height * 0.22,
+                        child: Swiper(
+                          itemCount: 3,
+                          itemBuilder: (ctx, index) {
+                            return InkWell(
+                              onTap: (){
+                                showToastShort(index.toString());
+                              },
+                              child: _sliderCardDesign(),
+                            ) ;
+                          },
+                          autoplay: true,
+                          pagination: const SwiperPagination(
 
-                      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount:Get.size.width>550? 3:2,
-                          crossAxisSpacing:15.0,
-                          mainAxisSpacing: 15.0,
+                              alignment: Alignment.bottomCenter,
 
-                          mainAxisExtent:Get.size.width>550? 320:265
+                              builder: DotSwiperPaginationBuilder(
+                                  color: Colors.white,
+                                  activeColor: Colors.green)),
+                          // control: const SwiperControl(),
+                        ),
                       ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return _buildHomeCardItem(categoriesListPageController.quizCategoriesDataList[index] );
+                      SizedBox(height: 10,),
+
+                      Obx(() => GridView.builder(
+                          itemCount:categoriesListPageController.quizCategoriesDataList.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+
+                          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount:Get.size.width>550? 3:2,
+                              crossAxisSpacing:15.0,
+                              mainAxisSpacing: 15.0,
+
+                              mainAxisExtent:Get.size.width>550? 320:265
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return _buildHomeCardItem(categoriesListPageController.quizCategoriesDataList[index] );
 
 
-                      }),),
-                  SizedBox(height: 10,)
+                          }),),
+                      SizedBox(height: 10,)
 
 
-                  // Row(children: [
-                  //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg')),
-                  //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,   nameText: 'Reading Quiz', imageLink: 'assets/images/reading_quiz.jpg')),
-                  // ],),
-                  //
-                  // Row(children: [
-                  //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,  nameText: 'Video Quiz', imageLink: 'assets/images/video_quiz.png')),
-                  //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,   nameText: 'Spelling Quiz', imageLink: 'assets/images/spelling.png')),
-                  // ],)
+                      // Row(children: [
+                      //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg')),
+                      //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,   nameText: 'Reading Quiz', imageLink: 'assets/images/reading_quiz.jpg')),
+                      // ],),
+                      //
+                      // Row(children: [
+                      //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,  nameText: 'Video Quiz', imageLink: 'assets/images/video_quiz.png')),
+                      //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,   nameText: 'Spelling Quiz', imageLink: 'assets/images/spelling.png')),
+                      // ],)
 
-                ],
-              ),
+                    ],
+                  ),
+                )),
+              ],
             )
 
         ));
@@ -341,6 +368,114 @@ class QuizCategoriesScreen  extends StatelessWidget{
     return Get.size.height/devide;
   }
 
+  Widget _sliderCardDesign() {
+    // Size size = MediaQuery.of(context).size;
+    double sizeHeight = Get.height;
+    return Container(
+      margin: EdgeInsets.only(left: 00,right: 00),
+      width: double.infinity,
+      height: sizeHeight * 0.2,
+      // decoration: BoxDecoration(
+      //   borderRadius: BorderRadius.circular(15),
+      //   gradient: const LinearGradient(
+      //       colors: [
+      //
+      //         Color(0xFF7A60A5),
+      //         //Color(0xFF82C3DF),
+      //         fnf_color,
+      //       ],
+      //       begin: FractionalOffset(0.0, 0.0),
+      //       end: FractionalOffset(1.0, 0.0),
+      //       stops: [0.0, 1.0],
+      //       tileMode: TileMode.clamp),
+      // ),
+      decoration: new BoxDecoration(
+        image: new DecorationImage(
+          image: new AssetImage("assets/images/slider_image.jpg"),
+          fit: BoxFit.fill,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Expanded(child:Container()
+            // Image.network(
+            //   'https://quiz.bizoytech.com/banner/playquiz.gif',
+            //   width: double.infinity,
+            //   height: sizeHeight * 0.23,
+            //   fit: BoxFit.fill,
+            //
+            // )
+          )
+          // Flexible(
+          //   flex: 2,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(14.0),
+          //     child: Container(
+          //       height: double.infinity,
+          //       // decoration: BoxDecoration(
+          //       //   color: const Color(0xFF9689CE),
+          //       //   borderRadius: BorderRadius.circular(18),
+          //       // ),
+          //         decoration: new BoxDecoration(
+          //             image: new DecorationImage(
+          //               image: new AssetImage("assets/images/slider_image.jpg"),
+          //               fit: BoxFit.fill,
+          //             ),
+          //             borderRadius: BorderRadius.circular(18),
+          //         ),
+          //       child: Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: Column(
+          //           // mainAxisSize: MainAxisSize.max,
+          //           // mainAxisAlignment: MainAxisAlignment.center,
+          //           // crossAxisAlignment: CrossAxisAlignment.center,
+          //           children: const [
+          //             Text(
+          //               "Get the special discount",
+          //               style: TextStyle(color: Colors.white),
+          //             ),
+          //             SizedBox(
+          //               height: 18,
+          //             ),
+          //             Flexible(
+          //               child: SizedBox(
+          //                 width: double.infinity,
+          //                 child: FittedBox(
+          //                   fit: BoxFit.contain,
+          //                   child: Text(
+          //                     "40 %\nOFF",
+          //                     style: TextStyle(
+          //                       color: Colors.white,
+          //                       fontWeight: FontWeight.bold,
+          //                       // fontSize: 300,
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // Flexible(
+          //   flex: 3,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(14.0),
+          //     child: Image.network(
+          //       width: double.infinity,
+          //       // height: double.infinity,
+          //       "https://i.ibb.co/vwB46Yq/shoes.png",
+          //       fit: BoxFit.contain,
+          //     ),
+          //   ),
+          // ),
+        ],
+      ),
+    );
+  }
 
 }
 
