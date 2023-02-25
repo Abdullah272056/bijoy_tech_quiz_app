@@ -22,6 +22,9 @@ class MyProfileScreen extends StatelessWidget{
 
   MyProfileScreen({super.key});
 
+
+
+
   @override
   Widget build(BuildContext context) {
     _context = context;
@@ -30,8 +33,7 @@ class MyProfileScreen extends StatelessWidget{
     return SafeArea(
       child: Scaffold(
           backgroundColor: backGroundColor,
-          key: _drawerKey,
-          drawer: CustomDrawer(),
+
           body: LayoutBuilder(
             builder: (context, constraints) {
               if (constraints.maxWidth < 600) {
@@ -66,19 +68,12 @@ class MyProfileScreen extends StatelessWidget{
                     margin: const EdgeInsets.only(left: 25, right: 20),
                     child: InkResponse(
                       onTap: () {
-                        if (_drawerKey.currentState!.isDrawerOpen) {
-                          myProfilePageController.isDrawerOpen(false);
-                          _drawerKey.currentState!.openEndDrawer();
-                          return;
-                        } else {
-                          _drawerKey.currentState!.openDrawer();
-                          myProfilePageController.isDrawerOpen(true);
-                        }
+                         Get.back();
                       },
                       child: const Icon(
-                        Icons.menu,
+                        Icons.arrow_back_outlined,
                         color: Colors.white,
-                        size: 30.0,
+                        size: 22.0,
                       ),
                     ),
                   ),
@@ -940,4 +935,6 @@ class MyProfileScreen extends StatelessWidget{
       ),
     );
   }
+
+
 }

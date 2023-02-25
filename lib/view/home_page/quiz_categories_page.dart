@@ -364,9 +364,8 @@ class QuizCategoriesScreen  extends StatelessWidget{
     );
   }
 
-  double sizeReturn(int devide){
-
-    return Get.size.height/devide;
+  double sizeReturn(int divide){
+    return Get.size.height/divide;
   }
 
   Widget _sliderCardDesign() {

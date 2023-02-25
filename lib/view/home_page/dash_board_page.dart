@@ -1,4 +1,5 @@
 
+import 'package:bijoy_tech_quiz_app/view/home_page/profile_section_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/dash_board_page_controller.dart';
@@ -45,7 +46,7 @@ class DashBoardPageScreen extends StatelessWidget {
           }
 
           if(index==2){
-            dashBoardPageController.updateSelectedPage([MyProfileScreen()]);
+            dashBoardPageController.updateSelectedPage([ProfileSectionPage()]);
             // selectedPage= AccountPage( );
             return;
           }
