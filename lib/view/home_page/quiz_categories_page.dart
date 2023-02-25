@@ -115,16 +115,16 @@ class QuizCategoriesScreen  extends StatelessWidget{
         ),
         child: Padding(
             padding:
-            const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 10),
+            const EdgeInsets.only(left: 10, top: 8, right: 10, bottom: 0),
             child:Column(
               children: [
                 Expanded(child: SingleChildScrollView(
                   child: Column(
                     children:  [
 
-                      SizedBox(height: 10,),
+                      SizedBox(height: 5,),
                       SizedBox(
-                        height: Get.size.height * 0.22,
+                        height: Get.size.height * 0.20,
                         child: Swiper(
                           itemCount: 3,
                           itemBuilder: (ctx, index) {
@@ -146,7 +146,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
                           // control: const SwiperControl(),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 5,),
 
                       Obx(() => GridView.builder(
                           itemCount:categoriesListPageController.quizCategoriesDataList.length,
@@ -155,17 +155,18 @@ class QuizCategoriesScreen  extends StatelessWidget{
 
                           gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount:Get.size.width>550? 3:2,
-                              crossAxisSpacing:15.0,
-                              mainAxisSpacing: 15.0,
+                              crossAxisSpacing:10.0,
+                              mainAxisSpacing: 10.0,
 
-                              mainAxisExtent:Get.size.width>550? 320:265
+                              // mainAxisExtent:Get.size.width>550? 320:250
+                              mainAxisExtent:Get.size.width>550? 320:Get.size.height/3.1
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             return _buildHomeCardItem(categoriesListPageController.quizCategoriesDataList[index] );
 
 
                           }),),
-                      SizedBox(height: 10,)
+                      SizedBox(height: 15,)
 
 
                       // Row(children: [
@@ -194,7 +195,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
 
       },
       child: Container(
-        margin:  EdgeInsets.only(left: 0, right: 0,bottom: 10,top: 10),
+        margin:  EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 10),
         child: Wrap(
           children: [
             Container(
@@ -231,7 +232,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
                           Expanded(child:   ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: Container(
-                                height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
+                                height:Get.size.width<550?Get.size.width/3 :Get.size.width/3 ,
                                 color:Colors.white,
                                 child: FadeInImage.assetNetwork(
                                   fit: BoxFit.cover,
@@ -285,8 +286,8 @@ class QuizCategoriesScreen  extends StatelessWidget{
                         ],
                       ),
                     ],),
-                    SizedBox(height: 10,),
-                    Padding(padding: EdgeInsets.only(left: 15,right: 15),
+                    SizedBox(height: 7,),
+                    Padding(padding: EdgeInsets.only(left: 10,right: 10),
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: Text(
@@ -302,7 +303,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
                         ),
                       ),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(height: 7,),
 
                     Align(
                       alignment: Alignment.bottomCenter,
@@ -340,7 +341,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
 
               borderRadius: BorderRadius.circular(10.0)
           ),
-          height:Get.size.height/18,
+          height:Get.size.height/22,
           // width: 100,
           alignment: Alignment.center,
           child:  Wrap(

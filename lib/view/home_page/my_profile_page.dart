@@ -9,7 +9,7 @@ import '../auth/log_in_page.dart';
 import '../auth/registration_page.dart';
 import '../custom_drawer.dart';
 
-class MyProfileScreen extends StatelessWidget {
+class MyProfileScreen extends StatelessWidget{
   final myProfilePageController = Get.put(MyProfilePageController());
   var width;
   var height;

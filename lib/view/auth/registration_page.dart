@@ -45,7 +45,7 @@ class RegistrationScreen  extends StatelessWidget {
             return Center(child:
             Container(
               // height: 100,
-            width: 500,
+           // width: 500,
             child: _buildBodyDesign(),
             // color: Colors.amber,
             ),);

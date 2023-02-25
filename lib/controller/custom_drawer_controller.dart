@@ -20,7 +20,7 @@ class CustomDrawerController extends GetxController {
   var userToken="".obs;
 
   var amount="0.00".obs;
-
+  var imageLink="".obs;
   @override
   void onInit() {
 
@@ -60,6 +60,7 @@ class CustomDrawerController extends GetxController {
             var dataResponse = jsonDecode(response.body);
             amount(dataResponse["data"]["amount"].toString());
             userName(dataResponse["data"]["user"]["name"]);
+            imageLink(dataResponse["data"]["user"]["image"]);
 
           }
           else {

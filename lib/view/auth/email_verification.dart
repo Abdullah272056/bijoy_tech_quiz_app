@@ -26,7 +26,8 @@ final emailVerifyPageController = Get.put(EmailVerifyPageController());
               return _buildBodyDesign(width);
             }
             else{
-              return _buildBodyDesign(550);
+              return _buildBodyDesign(width);
+              // return _buildBodyDesign(550);
 
             }
 

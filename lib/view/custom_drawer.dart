@@ -48,8 +48,8 @@ class CustomDrawer extends StatelessWidget {
                                 fit: BoxFit.fill,
                                 placeholder:
                                     'assets/images/profile_image_avater.png',
-                                image:
-                                    'https://avatars.githubusercontent.com/u/47354776?v=4',
+                                image:BASE_URL_PROFILE_IMAGE+ customDrawerController.imageLink.toString(),
+                                    // 'https://avatars.githubusercontent.com/u/47354776?v=4',
                                 imageErrorBuilder: (context, url, error) =>
                                     Image.asset(
                                   'assets/images/profile_image_avater.png',
