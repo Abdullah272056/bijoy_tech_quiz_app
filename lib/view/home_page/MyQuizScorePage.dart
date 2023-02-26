@@ -4,6 +4,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../static/Colors.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/home_controller1.dart';
@@ -15,7 +16,7 @@ import '../custom_drawer.dart';
 
 class MyQuizScorePageScreen  extends StatelessWidget{
 
-  final homeController = Get.put(MyQuizScoreController());
+  final myQuizScoreController = Get.put(MyQuizScoreController());
   var width;
   var height;
   final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
@@ -113,24 +114,26 @@ class MyQuizScorePageScreen  extends StatelessWidget{
                 children:  [
 
 
-                  ListView.builder(
-                      itemCount:4,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+               Obx(() => ListView.builder(
+                   itemCount:myQuizScoreController.quizResultList.length,
+                   shrinkWrap: true,
+                   physics: const NeverScrollableScrollPhysics(),
 
-                      // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                      //     crossAxisCount:2,
-                      //     // crossAxisCount:Get.size.width>550? 2:1,
-                      //     crossAxisSpacing: 0.0,
-                      //
-                      //     mainAxisSpacing: 10.0,
-                      //    mainAxisExtent:Get.size.width>550? 350:260
-                      // ),
+                   // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                   //     crossAxisCount:2,
+                   //     // crossAxisCount:Get.size.width>550? 2:1,
+                   //     crossAxisSpacing: 0.0,
+                   //
+                   //     mainAxisSpacing: 10.0,
+                   //    mainAxisExtent:Get.size.width>550? 350:260
+                   // ),
 
 
-                      itemBuilder: (BuildContext context, int index) {
-                        return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg');
-                      })
+                   itemBuilder: (BuildContext context, int index) {
+                     return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                         nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                         resultResponse: myQuizScoreController.quizResultList[index]);
+                   }))
 
                 ],
               ),
@@ -139,7 +142,13 @@ class MyQuizScorePageScreen  extends StatelessWidget{
         ));
   }
 
-  Widget _buildHomeCardItem({required double item_marginLeft,required double item_marginRight, required String nameText, required String imageLink, }) {
+  Widget _buildHomeCardItem({
+    required double item_marginLeft,
+    required double item_marginRight,
+    required String nameText,
+    required String imageLink,
+    required var resultResponse,
+  }) {
     return InkResponse(
       onTap: (){
         // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
@@ -179,7 +188,7 @@ class MyQuizScorePageScreen  extends StatelessWidget{
                 Align(
                   alignment: Alignment.topCenter,
                   child: Text(
-                    "Upcoming General Quiz 1".toString(),
+                      resultResponse["quiz_title"].toString(),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:Colors.white,
@@ -195,41 +204,85 @@ class MyQuizScorePageScreen  extends StatelessWidget{
                 Padding(padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Expanded(child: _buildQuizItemBottomText(name: 'Date:', value: '02/08/2023'),),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(child: _buildQuizItemBottomText(name: 'Book/Video:', value: ''),),
-                          SizedBox(width: 10,),
-                          Expanded(child: _buildQuizItemBottomText(name: 'Language:', value: ''),)
 
-                          
+                      Row(
+                        children: [
+                          Expanded(child: _buildQuizItemBottomText(name: 'Date:', value: dateFormat(resultResponse["created_at"].toString())),),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(child: _buildQuizItemBottomText(name: 'Book/Video:', value: resultResponse["quiz_title"].toString()),),
+                        ],
+                      ),
+                      Row(
+                        children: [
+
+                        if(resultResponse["status"].toString()=="3")...{
+                            if(resultResponse["book_language"].toString()!="null")...{
+
+                              Expanded(child: _buildQuizItemBottomText(name: 'Language:', value: resultResponse["book_language"].toString()),)
+                            }
+
+                          }
+
+                         else if(resultResponse["status"].toString()=="4")...{
+                            if(resultResponse["video_language"].toString()!="null")...{
+
+                              Expanded(child: _buildQuizItemBottomText(name: 'Language:', value: resultResponse["video_language"].toString()),)
+                            }
+
+                          }
+                         else if(resultResponse["status"].toString()=="1"||resultResponse["status"].toString()=="2")...{
+                           Expanded(child: _buildQuizItemBottomText(name: 'Language:', value: resultResponse["language"].toString()),)
+                         }
+                         else...{
+
+                           Expanded(child: _buildQuizItemBottomText(name: 'Language:', value: ""),)
+                         }
+
+
+
 
                         ],
                       ),
                       Row(
                         children: [
-                          Expanded(child: _buildQuizItemBottomText(name: 'Right:', value: '03'),),
+                          Expanded(child: _buildQuizItemBottomText(name: 'Right:', value: resultResponse["total_right_ans"].toString()),),
                           SizedBox(width: 10,),
-                          Expanded(child: _buildQuizItemBottomText(name: 'Wrong:', value: '10'),)
+                          Expanded(child: _buildQuizItemBottomText(name: 'Wrong:', value: resultResponse["total_worng_ans"].toString()),)
 
                         ],
                       ),
                       Row(
                         children: [
-                         Expanded(child:  _buildQuizItemBottomText(name: 'Score Got:', value: '09'),),
+                         Expanded(child:  _buildQuizItemBottomText(name: 'Score Got:', value: resultResponse["total_mark"].toString()),),
                           SizedBox(width: 10,),
-                         Expanded(child:  _buildQuizItemBottomText(name: 'Total Mark:', value: '10.00'),)
+                         Expanded(child:  _buildQuizItemBottomText(name: 'Total Mark:',
+                           value:totalMark(mark: resultResponse["mark"].toString(), totalQuestion: resultResponse["total_quistion"].toString()),))
                         ],
                       ),
                       Row(
                         children: [
-                         Expanded(child:  _buildQuizItemBottomText(name: 'Position:', value: '09'),),
+
+                          if(resultResponse["position"].toString()!="null")...{
+                            Expanded(child:  _buildQuizItemBottomText(name: 'Position:', value: resultResponse["position"].toString()),),
+                          }
+                          else...{
+                            Expanded(child:  _buildQuizItemBottomText(name: 'Position:', value: ""),),
+                          },
+
+
                          SizedBox(width: 10,),
-                         Expanded(child:  _buildQuizItemBottomText(name: 'Prize Money:', value: '\$0.00'),)
+
+                          if(resultResponse["aword"].toString()!="null")...{
+                            Expanded(child:  _buildQuizItemBottomText(name: 'Prize Money:', value: '\$'+resultResponse["aword"].toString()),)
+
+                          }
+                          else...{
+                            Expanded(child:  _buildQuizItemBottomText(name: 'Prize Money:', value: '\$0.00'),)
+                          },
+
                         ],
                       ),
 
@@ -253,6 +306,24 @@ class MyQuizScorePageScreen  extends StatelessWidget{
 
     );
   }
+
+
+  String totalMark({required String mark,required String totalQuestion}){
+
+    return (double.parse(mark)*double.parse(totalQuestion)).toString();
+  }
+
+  String dateFormat(String dateString){
+
+    DateTime parseDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);
+    var inputDate = DateTime.parse(parseDate.toString());
+    var outputFormat = DateFormat('dd/MMM/yyyy');
+    // var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
+    var outputDate = outputFormat.format(inputDate);
+
+    return outputDate.toString();
+  }
+
 
   Widget _buildQuizItemBottomText({required String name,required String value}) {
     return  Row(

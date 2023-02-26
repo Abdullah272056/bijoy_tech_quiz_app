@@ -1,18 +1,16 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../view/home_page/quiz_categories_page.dart';
+import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../view/home_page/home_page.dart';
+import '../view/home_page/quiz_categories_page.dart';
 
 class DashBoardPageController extends GetxController {
   var selectedTabIndex = 0.obs;
   var selectedPageIndex = 1.obs;
 
-  var selectedPage = <Widget>[HomepageScreen()].obs;
+  var selectedPage = <Widget>[QuizCategoriesScreen()].obs;
 
   var userName="".obs;
   var userToken="".obs;
@@ -74,12 +72,13 @@ class DashBoardPageController extends GetxController {
 
 
   ///get data from share pref
+
   void loadUserIdFromSharePref() async {
     try {
       var storage =GetStorage();
-      // userName(storage.read(pref_user_name));
-      // userToken(storage.read(pref_user_token));
-      // prefUserType(storage.read(pref_user_type));
+      userName(storage.read(pref_user_name));
+      userToken(storage.read(pref_user_token));
+      //prefUserType(storage.read(pref_user_type));
 
 
     } catch (e) {

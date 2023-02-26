@@ -1,15 +1,11 @@
 
 import 'package:bijoy_tech_quiz_app/view/auth/registration_page.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../common/toast.dart';
 import 'fotget_password_page.dart';
-
-
-
 
 class LogInScreen  extends StatelessWidget {
 
@@ -32,7 +28,7 @@ class LogInScreen  extends StatelessWidget {
             return Center(child:
             Container(
               // height: 100,
-            width: 500,
+          //  width: 500,
             child: _buildBodyDesign(),
             // color: Colors.amber,
             ),);
@@ -42,7 +38,6 @@ class LogInScreen  extends StatelessWidget {
     );
   }
 
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print("AppLifecycleState changed: $state");
@@ -50,7 +45,6 @@ class LogInScreen  extends StatelessWidget {
       showToastLong("resumed");
     }
   }
-
 
   Widget _buildBodyDesign() {
     return Container(
@@ -76,7 +70,6 @@ class LogInScreen  extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildBottomDesign() {
     return Container(
@@ -220,7 +213,6 @@ class LogInScreen  extends StatelessWidget {
         ));
   }
 
-
   Widget _buildSignInButton() {
     return Container(
       margin: const EdgeInsets.only(left: 20.0, right: 20.0),
@@ -231,7 +223,7 @@ class LogInScreen  extends StatelessWidget {
 
           if (logInPageController.inputValid(userEmailTxt, passwordTxt)== false) {
 
-          //  LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
+            logInPageController.userLogIn(email: userEmailTxt, password: passwordTxt);
 
           }
         },
@@ -310,7 +302,6 @@ class LogInScreen  extends StatelessWidget {
     );
   }
 
-
   Widget userInputPassword(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
     return Container(
@@ -352,13 +343,6 @@ class LogInScreen  extends StatelessWidget {
       ),
     );
   }
-
-
-
-
- 
-
-
 
 }
 

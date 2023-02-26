@@ -39,7 +39,7 @@ class RegistrationScreen2  extends StatelessWidget {
             return Center(child:
             Container(
               // height: 100,
-            width: 500,
+          //  width: 500,
             child: _buildBodyDesign(),
             // color: Colors.amber,
             ),);
@@ -56,11 +56,11 @@ class RegistrationScreen2  extends StatelessWidget {
         direction: Axis.vertical,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+            margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
             child: Image.asset(
               "assets/images/app_logo.png",
               //width: 50,
-              height: 50,
+              height: 35,
               fit: BoxFit.fill,
             ),
           ),
@@ -88,158 +88,194 @@ class RegistrationScreen2  extends StatelessWidget {
             padding:
             const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 20),
             child:SingleChildScrollView(
-              child: Column(
+              child: Obx(()=>Column(
                 children: [
 
-                  SizedBox(height: 10,),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text("Registration",
-                        style: TextStyle(
-                            color: levelTextColorWhite,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w900)),
+
+
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 5,
+                      ),
+                    const Align(
+                alignment: Alignment.center,
+                child: Text("Registration",
+                    style: TextStyle(
+                        color: levelTextColorWhite,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700)),
+              ),
+                      SizedBox(height: 10,),
+
+                      // userInputFullName( signUpPageController.userNameController.value, 'Full Name', TextInputType.text),
+                      userInput(
+                          userInputController: signUpPageController.userNameController.value,
+                          hintTitle: 'Full Name', keyboardType:TextInputType.text,
+                          iconData: Icons.person
+                      ),
+
+
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      // userInputEmail(signUpPageController.userEmailController.value, 'Email', TextInputType.emailAddress),
+                      userInput(
+                          userInputController: signUpPageController.userEmailController.value,
+                          hintTitle: 'Email', keyboardType:TextInputType.emailAddress,
+                          iconData: Icons.email_outlined
+                      ),
+
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      // userInputPhoneNumber(signUpPageController.userPhoneController.value, 'Phone Number', TextInputType.emailAddress),
+                      userInput(
+                          userInputController: signUpPageController.userPhoneController.value,
+                          hintTitle: 'Phone Number', keyboardType:TextInputType.phone,
+                          iconData: Icons.phone
+                      ),
+
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      userInputBirthDay(),
+
+                      const SizedBox(
+                        height: 0,
+                      ),
+                      userGradeSelect(),
+                      const SizedBox(
+                        height: 13,
+                      ),
+
+                      userInputPassword(signUpPageController.passwordController.value, 'New Password',
+                          TextInputType.visiblePassword),
+
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      userInputConfirmPassword(signUpPageController.confirmPasswordController.value, 'Confirm Password',
+                          TextInputType.visiblePassword),
+
+                    ],
                   ),
-
-
-                  SizedBox(height: 20,),
-
-
 
                   //Address
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Address",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
+
                   const SizedBox(
-                    height: 10,
+                    height: 3,
                   ),
-                  userInput( signUpPageController.userAddressController.value, 'Address', TextInputType.text),
+                  userInput(
+                      userInputController: signUpPageController.userAddressController.value,
+                      hintTitle: 'Address', keyboardType:TextInputType.text,
+                      iconData: Icons.location_city
+                  ),
 
 
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("City",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
                   const SizedBox(
-                    height: 10,
+                    height: 3,
                   ),
-                  userInput( signUpPageController.userCityController.value, 'City', TextInputType.text),
+                  userInput(
+                      userInputController:  signUpPageController.userCityController.value,
+                      hintTitle: 'City', keyboardType:TextInputType.text,
+                      iconData: Icons.location_city
+                  ),
 
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("State",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
                   const SizedBox(
-                    height: 10,
+                    height: 3,
                   ),
-                  userInput( signUpPageController.userStateController.value, 'State', TextInputType.text),
+
+                  Row(
+                    children: [
 
 
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Zip",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
+                      Expanded(child:   userInput(
+                          userInputController:  signUpPageController.userStateController.value,
+                          hintTitle: 'State', keyboardType:TextInputType.text,
+                          iconData: Icons.location_city
+                      ),),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(child:  userInput(
+                          userInputController:  signUpPageController.zipCodeController.value,
+                          hintTitle: 'Zip', keyboardType:TextInputType.text,
+                          iconData: Icons.location_city
+
+                      ),),
+
+
+
+
+
+                    ],
                   ),
+
+
+
                   const SizedBox(
-                    height: 10,
-                  ),
-                  userInput( signUpPageController.zipCodeController.value, 'Zip', TextInputType.text),
-
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Country",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  const SizedBox(
-                    height: 10,
+                    height: 3,
                   ),
                   userCountrySelect(),
 
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Guardian Name",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  userInput( signUpPageController.userStateController.value, 'Guardian Name', TextInputType.text),
-
-
-
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Relation with Guardian",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  userInput( signUpPageController.relationWithGuardianNameController.value, 'Relation with Guardian', TextInputType.text),
-
-
-
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Guardian Phone",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  userInput( signUpPageController.guardianPhoneController.value, 'Guardian Phone', TextInputType.text),
-
-
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Guardian Email",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  userInput( signUpPageController.guardianEmailController.value, 'Guardian Email', TextInputType.text),
-
 
                   const SizedBox(
-                    height: 10,
+                    height: 13,
                   ),
+
+                  if(signUpPageController.selectGradeId.value!="above/adult")...{
+                    Column(
+                      children: [
+                        userInput(
+
+                          userInputController:  signUpPageController.guardianNameController.value,
+                          hintTitle: 'Guardian Name', keyboardType:TextInputType.text,
+                          // iconData: Icons.location_city
+
+
+                        ),
+
+
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        userInput(
+                          userInputController:  signUpPageController.relationWithGuardianNameController.value,
+                          hintTitle: 'Relation with Guardian', keyboardType:TextInputType.text,
+                          // iconData: Icons.location_city
+
+                        ),
+
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        userInput(
+                          userInputController:  signUpPageController.guardianPhoneController.value,
+                          hintTitle: 'Guardian Phone', keyboardType:TextInputType.text,
+                          // iconData: Icons.location_city
+
+                        ),
+
+
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        userInput(
+                          userInputController:  signUpPageController.guardianEmailController.value,
+                          hintTitle: 'Guardian Email', keyboardType:TextInputType.text,
+                          // iconData: Icons.location_city
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  },
+
+
+
                   _buildSignUpButton(),
-
 
                   Align(
                     alignment: Alignment.center,
@@ -268,24 +304,312 @@ class RegistrationScreen2  extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
+              )),
             )
-
         ));
   }
 
-  Widget userInput(TextEditingController userInputController, String hintTitle,
+
+  Widget userInputPassword(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
     return Container(
       height: 50,
       alignment: Alignment.center,
-      margin: const EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+          color: input_box_back_ground_color,
+          borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+          padding:
+          const EdgeInsets.only(left: 0.0, top: 0, bottom: 0, right: 0),
+          child: Obx(() => TextField(
+            controller: userInputController,
+            autocorrect: false,
+            obscureText: signUpPageController.isObscurePassword.value,
+            obscuringCharacter: "*",
+            enableSuggestions: false,
+            autofocus: false,
+            cursorColor: Colors.white,
+            style: TextStyle(
+                color: Colors.white
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+
+              suffixIcon:Padding(
+                padding: EdgeInsets.only(right: 5),
+                child:  IconButton(
+                    color:  levelTextColorWhite,
+                    icon:
+                    Icon(signUpPageController.isObscurePassword.value ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      signUpPageController.updateIsObscurePassword(!signUpPageController.isObscurePassword.value);
+                    }),
+              ),
+              contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: 1),
+              ),
+              labelText:hintTitle,
+              labelStyle: const TextStyle(
+                color:levelTextColor,
+              ),
+            ),
+            keyboardType: keyboardType,
+          ),)
+      ),
+    );
+  }
+
+  Widget userInputConfirmPassword(TextEditingController userInputController, String hintTitle,
+      TextInputType keyboardType) {
+    return Container(
+      height: 50,
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+          color: input_box_back_ground_color,
+          borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+          padding:
+          const EdgeInsets.only(left: 0.0, top: 0, bottom: 0, right: 0),
+          child: Obx(() => TextField(
+            controller: userInputController,
+            autocorrect: false,
+            obscureText: signUpPageController.isObscureConfirmPassword.value,
+            obscuringCharacter: "*",
+            enableSuggestions: false,
+            autofocus: false,
+            cursorColor: Colors.white,
+            style: TextStyle(
+                color: Colors.white
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+
+              suffixIcon:Padding(
+                padding: EdgeInsets.only(right: 5),
+                child:IconButton(
+                    color:  levelTextColorWhite,
+                    icon:
+                    Icon(signUpPageController.isObscureConfirmPassword.value ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      signUpPageController.updateIsObscureConfirmPassword(!signUpPageController.isObscureConfirmPassword.value);
+                    }),
+              ),
+              contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: 1),
+              ),
+              labelText:hintTitle,
+              labelStyle: const TextStyle(
+                color:levelTextColor,
+              ),
+            ),
+            keyboardType: keyboardType,
+          ),)
+      ),
+    );
+  }
+
+
+  Widget userGradeSelect() {
+    return Column(
+      children: [
+        Container(
+          // height: 50,
+            alignment: Alignment.center,
+            // margin: const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20,),
+            decoration: BoxDecoration(
+                color:input_box_back_ground_color,
+                border: Border.all(
+                    color: input_box_OutlineInputBorder_active_color,
+                    width: 1
+
+                ),
+                borderRadius: BorderRadius.circular(5)),
+            child: Obx(()=>DropdownButton2(
+              //  buttonHeight: 40,
+              //   menuMaxHeight:55,
+              itemPadding: EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 0),
+              dropdownDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(2),
+                color: bg_top_color,
+
+
+              ),
+              iconSize: 30,
+
+              icon:Padding(padding: EdgeInsets.only(right: 10),child:  Icon(Icons.keyboard_arrow_down_outlined,color: Colors.white,),),
+              value: signUpPageController.selectGradeId.value != null &&
+                  signUpPageController.selectGradeId.value.isNotEmpty ?
+              signUpPageController.selectGradeId.value : null,
+              underline:const SizedBox.shrink(),
+              hint:Row(
+                children: const [
+
+                  Expanded(child: Padding(padding: EdgeInsets.only(left: 25),
+                      child:  Text("Select Grade",
+                          style: TextStyle(
+                              color: levelTextColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal))
+                  ))
+                ],
+              ),
+              isExpanded: true,
+              /// icon: SizedBox.shrink(),
+              buttonPadding: const EdgeInsets.only(left: 0, right: 0),
+
+
+              items: signUpPageController.ageGradeList.map((list) {
+                return DropdownMenuItem(
+                  alignment: Alignment.centerLeft,
+
+
+
+                  // value: list["id"].toString(),
+                  value: list.gradeName.toString(),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(child:Padding(
+                        padding: EdgeInsets.only(left: 25),
+                        child:Text(
+                            list.gradeName,
+                            textAlign: TextAlign.left,
+                            style:  const TextStyle(
+                                color: textColorWhiteLogin,
+
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal)),
+
+                      ),),
+
+
+
+
+                    ],
+                  ),
+                );
+
+              },
+              ).toList(),
+              onChanged:(String? value){
+                String data= signUpPageController.selectGradeId(value.toString());
+                //  _showToast("Id ="+checkoutPageController.selectStateId(value.toString()));
+              },
+
+            ))
+        ),
+      ],
+    )
+    ;
+  }
+
+  ///user input birth date select box
+  Widget userInputBirthDay( ) {
+    return InkResponse(
+        onTap: () async {
+          _myDate = (await showDatePicker(
+            context: _context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(1900),
+            lastDate: DateTime.now(),
+          ))!;
+
+          signUpPageController.userBirthDate(_myDate.toString());
+          // _particularBirthDate = DateFormat('yyyy-MM-dd').format(_myDate);
+          signUpPageController.userBirthDate((DateFormat('yyyy-MM-dd').format(_myDate)).toString());
+        },
+        child:Container(
+          height: 50,
+          alignment: Alignment.center,
+          margin: const EdgeInsets.only(bottom: 15),
+          decoration: BoxDecoration(
+              color: input_box_back_ground_color,
+              border: Border.all(
+                  color: input_box_OutlineInputBorder_active_color,
+                  width: 1
+
+              ),
+              borderRadius: BorderRadius.circular(5)),
+          child: Padding(
+            padding:
+            const EdgeInsets.only(left: 15.0, top: 0, bottom: 0, right: 10),
+            child: SizedBox(
+              height: 50,
+
+              child: Padding(
+                padding:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+                child:Obx(() => Flex(direction: Axis.horizontal,
+                  children: [
+                    if(signUpPageController.userBirthDate==signUpPageController.select_your_birth_day)...{
+                      Expanded(child: Obx(() => Text(signUpPageController.userBirthDate.value,
+                          style: const TextStyle(
+                              color: levelTextColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal)
+                      ))),
+                    }
+                    else...{
+                      Expanded(child: Obx(() => Text(signUpPageController.userBirthDate.value,
+                          style: const TextStyle(
+                              color: textColorWhiteLogin,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal)
+                      ))),
+                    },
+
+                    const Icon(
+                      Icons.date_range,
+                      size: 22,
+                      color: levelTextColor,
+                    ),
+
+
+
+                    // Image.asset(
+                    //   "assets/images/icon_birthday.png",
+                    //   width: 18,
+                    //   height: 18,
+                    //   fit: BoxFit.fill,
+                    // ),
+                    // Flag.fromCode(FlagsCode.BD, height: 18, width: 22, fit: BoxFit.fill)
+                  ],
+                )),
+
+              ),
+            ),
+          ),
+        )
+
+    );
+  }
+
+
+  Widget userInput({
+          required TextEditingController userInputController,
+          required String hintTitle,
+          required TextInputType keyboardType,
+          IconData? iconData,
+        }){
+    return Container(
+      height: 50,
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
           color: input_box_back_ground_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding:
-        const EdgeInsets.only(left: 25.0, top: 0, bottom: 0, right: 20),
+        const EdgeInsets.only(left: 0.0, top: 0, bottom: 0, right: 0),
         child: TextField(
           controller: userInputController,
           textInputAction: TextInputAction.next,
@@ -310,9 +634,34 @@ class RegistrationScreen2  extends StatelessWidget {
 
             // suffixIcon: Icon(Icons.email,color: Colors.hint_color,),
             // color: _darkOrLightStatus==1?intello_text_color:intello_bg_color_for_dark,
-            hintText: hintTitle,
-            hintStyle: const TextStyle(
-                fontSize: 16, color: hint_color, fontStyle: FontStyle.normal),
+            // hintText: hintTitle,
+            // hintStyle: const TextStyle(
+            //     fontSize: 16, color: hint_color, fontStyle: FontStyle.normal),
+
+
+            suffixIcon:Padding(
+              padding: EdgeInsets.only(right: 20),
+              child:  Icon(iconData,
+                color:  levelTextColorWhite,
+                size: 18,
+              ),
+            ),
+            contentPadding:  EdgeInsets.only(left: 17, right: 17,top: height/50,bottom:height/50 ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:input_box_OutlineInputBorder_active_color, width: 1),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:input_box_OutlineInputBorder_de_active_color, width: 1),
+            ),
+            labelText:hintTitle,
+            labelStyle: const TextStyle(
+              color:levelTextColor,
+            ),
+
+
+
+
+
 
           ),
 
@@ -323,17 +672,21 @@ class RegistrationScreen2  extends StatelessWidget {
   }
 
 
-
   Widget userCountrySelect() {
     return Column(
       children: [
         Container(
           // height: 50,
+
             alignment: Alignment.center,
             // margin: const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20,),
             decoration: BoxDecoration(
                 color:input_box_back_ground_color,
+                border: Border.all(
+                    color: input_box_OutlineInputBorder_active_color,
+                  width: 1
 
+                ),
                 borderRadius: BorderRadius.circular(5)),
             child: Obx(()=>DropdownButton2(
               //  buttonHeight: 40,
@@ -341,9 +694,8 @@ class RegistrationScreen2  extends StatelessWidget {
               itemPadding: EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 0),
               dropdownDecoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2),
+
                 color: bg_top_color,
-
-
               ),
               iconSize: 30,
               icon:Padding(padding: EdgeInsets.only(right: 10),
@@ -358,7 +710,7 @@ class RegistrationScreen2  extends StatelessWidget {
                   Expanded(child: Padding(padding: EdgeInsets.only(left: 25),
                       child:  Text("Select Country",
                           style: TextStyle(
-                              color: hint_color,
+                              color: levelTextColor,
                               fontSize: 16,
                               fontWeight: FontWeight.normal))
                   ))
@@ -369,21 +721,21 @@ class RegistrationScreen2  extends StatelessWidget {
               buttonPadding: const EdgeInsets.only(left: 0, right: 0),
 
 
-              items: signUpPageController.countryList.map((list) {
+              items: signUpPageController.countryDataList.map((list) {
                 return DropdownMenuItem(
                   alignment: Alignment.centerLeft,
 
 
 
                   // value: list["id"].toString(),
-                  value: list.countryName.toString(),
+                  value: list["name"].toString(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(child:Padding(
                         padding: EdgeInsets.only(left: 25),
                         child:Text(
-                            list.countryName,
+                            list["name"].toString(),
                             textAlign: TextAlign.left,
                             style:  const TextStyle(
                                 color: textColorWhiteLogin,
@@ -420,6 +772,13 @@ class RegistrationScreen2  extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
 
+          String userNameTxt = signUpPageController.userNameController.value.text;
+          String userEmailTxt = signUpPageController.userEmailController.value.text;
+          String userPhoneTxt = signUpPageController.userPhoneController.value.text;
+          String passwordTxt = signUpPageController.passwordController.value.text;
+          String confirmPasswordTxt = signUpPageController.confirmPasswordController.value.text;
+
+
           String userAddressTxt = signUpPageController.userAddressController.value.text;
           String userCityTxt = signUpPageController.userCityController.value.text;
           String userStateTxt = signUpPageController.userStateController.value.text;
@@ -431,12 +790,57 @@ class RegistrationScreen2  extends StatelessWidget {
           String relationWithGuardianTxt = signUpPageController.relationWithGuardianNameController.value.text;
 
           if ( signUpPageController.inputValid(
+              userNameTxt: userNameTxt,
+              userEmailTxt: userEmailTxt,
+              userPhoneTxt: userPhoneTxt,
+              passwordTxt: passwordTxt,
+              confirmPasswordTxt: confirmPasswordTxt,
+              userDateOfBirthTxt: signUpPageController.userBirthDate.value,
+              userAgeGradeTxt: signUpPageController.selectGradeId.value,
               addressTxt: userAddressTxt, cityTxt: userCityTxt,
               stateTxt: userStateTxt, zipCodeTxt: zipCodeTxt,
-              guardianNameTxt:guardianNameTxt, relationWithGuardianTxt: guardianPhoneTxt,
-              guardianPhoneTxt: guardianEmailTxt, guardianEmailTxt: relationWithGuardianTxt,
+              guardianNameTxt:guardianNameTxt, relationWithGuardianTxt: relationWithGuardianTxt,
+              guardianPhoneTxt: guardianPhoneTxt, guardianEmailTxt: guardianEmailTxt,
               selectedCountryTxt: signUpPageController.selectCountryId.value
           )== false) {
+
+
+
+            if(signUpPageController.selectGradeId.value=="above/adult"){
+
+              signUpPageController.userSignUp(
+                  name: userNameTxt,
+                  grade:signUpPageController.selectGradeId.value,
+                  date_of_birth: signUpPageController.userBirthDate.value,
+                  email: userEmailTxt,
+                  phone: userPhoneTxt,
+                  password: confirmPasswordTxt,
+                  address: userAddressTxt, city: userCityTxt,
+                  state: userStateTxt, zip: zipCodeTxt,
+                  country: signUpPageController.selectCountryId.value,
+                  guardian: "",
+                  relationWithGuardian: "", guardianPhone: "",
+                  guardianEmail: "");
+
+            }else{
+
+              signUpPageController.userSignUp(
+                  name: userNameTxt,
+                  grade:signUpPageController.selectGradeId.value,
+                  date_of_birth: signUpPageController.userBirthDate.value,
+                  email: userEmailTxt,
+                  phone: userPhoneTxt,
+                  password: confirmPasswordTxt,
+                  address: userAddressTxt, city: userCityTxt,
+                  state: userStateTxt, zip: zipCodeTxt,
+                  country: signUpPageController.selectCountryId.value, guardian: guardianNameTxt,
+                  relationWithGuardian: relationWithGuardianTxt, guardianPhone: guardianPhoneTxt,
+                  guardianEmail: guardianEmailTxt);
+            }
+
+
+
+
 
           //  LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
 
@@ -456,7 +860,7 @@ class RegistrationScreen2  extends StatelessWidget {
             height: 50,
             alignment: Alignment.center,
             child: const Text(
-              "Next",
+              "Submit",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'PT-Sans',
@@ -470,8 +874,6 @@ class RegistrationScreen2  extends StatelessWidget {
       ),
     );
   }
-
-
 
 }
 

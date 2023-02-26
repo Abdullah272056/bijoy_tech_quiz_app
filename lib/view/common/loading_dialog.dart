@@ -24,8 +24,8 @@ void showLoadingDialog(String message) {
                   width: 10,
                 ),
                 Container(
-                  height:50,
-                  width: 50,
+                  height:45,
+                  width: 45,
                   margin: EdgeInsets.only(top: 10),
                   child: CircularProgressIndicator(
                     backgroundColor: awsStartColor,

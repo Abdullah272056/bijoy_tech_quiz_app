@@ -1,11 +1,15 @@
 
+import 'package:bijoy_tech_quiz_app/view/pdf_view_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import '../../../static/Colors.dart';
-import '../controller/indevidual_quiz_about_page_controller.dart';
-import 'common/toast.dart';
-import 'custom_drawer.dart';
+import '../../../../static/Colors.dart';
+import '../../controller/indevidual_quiz_about_page_controller.dart';
+import '../../controller/pdf_view_page_controller.dart';
+import '../../controller/quiz_start_page_controller.dart';
+import '../../quiz_start_page.dart';
+import '../common/toast.dart';
+import '../custom_drawer.dart';
 
 
 
@@ -350,6 +354,11 @@ class IndividualQuizAboutPageScreen  extends StatelessWidget{
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
+          Get.to(() => QuizStartPageScreen(), arguments: {
+            // "categoriesId": response["id"].toString(),
+            // "categoriesId": response["id"].toString(),
+          })?.then((value) => Get.delete<QuizStartPageScreenController>());
+
 
           // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
         },
@@ -388,8 +397,11 @@ class IndividualQuizAboutPageScreen  extends StatelessWidget{
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
+          // Get.to(() => PdfViewPageScreen(), arguments: {
+          //   // "categoriesId": response["id"].toString(),
+          //   // "categoriesId": response["id"].toString(),
+          // })?.then((value) => Get.delete<PdfViewPageScreenController>());
 
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
         },
 
         child:Container(

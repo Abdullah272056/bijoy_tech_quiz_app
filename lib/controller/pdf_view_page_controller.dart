@@ -13,20 +13,23 @@ import '../../view/common/toast.dart';
 class PdfViewPageScreenController extends GetxController {
 
 
-  var aboutQuizText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been "
-      "the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type "
-      "and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into"
-      " electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of "
-      "Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus "
-      "PageMaker including versions of Lorem IpsumLorem Ipsum is simply dummy text of the printing and typesetting "
-      "industry. ".obs;
 
-  void ref(){
-    onInit();
-  }
+
+  var currentPageNumber=0.obs;
+  var totalPageNumber=0.obs;
+  var defaultPageNumber=10.obs;
+
+  var pdfLink="".obs;
+  var pdfName="".obs;
+  dynamic argumentData = Get.arguments;
+
+
+  // var totalPageNumber=0.obs;
+
   @override
   void onInit() {
-
+    pdfLink(argumentData["pdfLink"].toString());
+    pdfName(argumentData["pdfName"].toString());
 
     super.onInit();
 

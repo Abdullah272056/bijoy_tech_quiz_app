@@ -35,7 +35,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               return Center(child:
               Container(
                 // height: 100,
-                width: 500,
+             //   width: 500,
                 child: _buildBodyDesign(),
                 // color: Colors.amber,
               ),);
@@ -220,10 +220,10 @@ class ForgetPasswordScreen extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           String emailTxt = forgetPasswordPageController.emailController.value.text;
-          if (_inputValid(emailTxt) == false) {
-            _sendEmailForOtp(email: emailTxt);
+          if (forgetPasswordPageController.inputValid(emailTxt) == false) {
+            forgetPasswordPageController.sendEmailForOtp(email: emailTxt);
 
-            Get.to(EmailVerificationScreen());
+           // Get.to(EmailVerificationScreen());
           }
         },
         style: ElevatedButton.styleFrom(
@@ -287,81 +287,8 @@ class ForgetPasswordScreen extends StatelessWidget {
     );
   }
 
-  _inputValid(String email) {
-    if (email.isEmpty) {
-      Fluttertoast.cancel();
-      showToastLong("E-mail can't empty!");
-      return;
-    }
-    if (!RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email)) {
-      Fluttertoast.cancel();
-      showToastLong("Enter valid email!");
-      return;
-    }
-    return false;
-  }
 
-  _sendEmailForOtp({
-    required String email,
-  }) async {
 
-    try {
-      // final result = await InternetAddress.lookup('example.com');
-      // if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      //   try {
-      //
-       //    showLoadingDialog("Checking");
-      //
-      //     var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_RESET_PASSWORD'),
-      //     //var response = await http.post(Uri.parse('http://192.168.68.106/bijoytech_ecomerce/api/reset-password'),
-      //         body: {
-      //           'email': email,
-      //         }
-      //     );
-      //     Get.back();
-      //     // _showToast(response.statusCode.toString());
-      //     if (response.statusCode == 200) {
-      //       showToastLong("success");
-      //       // var data = jsonDecode(response.body);
-      //
-      //
-      //       // Get.to(SignUpScreen());
-      //
-      //       Get.to(() => EmailVerificationScreen(), arguments: [
-      //         {"email": email},
-      //         {"second": 'Second'}
-      //       ]);
-      //
-      //
-      //     }
-      //     else if (response.statusCode == 401) {
-      //
-      //       var data = jsonDecode(response.body);
-      //       showToastLong("User name or password not match!");
-      //     }
-      //     else {
-      //
-      //       var data = jsonDecode(response.body);
-      //      // _showToast(data['message']);
-      //     }
-      //
-      //
-      //   } catch (e) {
-      //     //  Navigator.of(context).pop();
-      //     //print(e.toString());
-      //   } finally {
-      //
-      //
-      //     /// Navigator.of(context).pop();
-      //   }
-      // }
-    } on SocketException catch (_) {
-      Fluttertoast.cancel();
-      showToastLong("No Internet Connection!");
-    }
-  }
 
 
 }

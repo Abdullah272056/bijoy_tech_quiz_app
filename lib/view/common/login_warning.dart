@@ -6,12 +6,15 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../static/Colors.dart';
+import '../auth/log_in_page.dart';
+import '../auth/registration_page.dart';
 
 
 void showLoginWarning( ) {
 
   Get.defaultDialog(
       contentPadding: EdgeInsets.zero,
+      backgroundColor: bottom_bg_color,
       //  title: '',
       titleStyle: TextStyle(fontSize: 0),
       // backgroundColor: Colors.white.withOpacity(.8),
@@ -21,6 +24,7 @@ void showLoginWarning( ) {
           Stack(
             children: [
               Container(
+
 
                   child:   Center(
                     child: Column(
@@ -32,11 +36,11 @@ void showLoginWarning( ) {
                             bottom: 0,
                           ),
                           child:Image.asset(
-                            "assets/images/fnf_logo.png",
+                            "assets/images/app_logo.png",
                             // color: sohojatri_color,
                             // width: 81,
                             height: 40,
-                            width: 90,
+                            width: 120,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -49,7 +53,7 @@ void showLoginWarning( ) {
                               textAlign: TextAlign.center,
 
                               style: TextStyle(
-                                  color: text_color,
+                                  color: Colors.deepOrangeAccent,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -65,7 +69,7 @@ void showLoginWarning( ) {
                               textAlign: TextAlign.center,
 
                               style: TextStyle(
-                                  color: text_color,
+                                  color: smallTextColor,
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal),
                             ),
@@ -77,7 +81,7 @@ void showLoginWarning( ) {
                           child: ElevatedButton(
                             onPressed: () {
                               Get.back();
-                          //    Get.to(SignUpScreen());
+                             Get.to(RegistrationScreen());
 
                               //  Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpScreen()));
 
@@ -119,12 +123,12 @@ void showLoginWarning( ) {
                           child: InkWell(
                             onTap: (){
                               Get.back();
-                             // Get.to(LogInScreen());
+                              Get.to(LogInScreen());
                               //   Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Colors.transparent,
                                   borderRadius: BorderRadius.circular(7.0)
                               ),
                               height: 40,

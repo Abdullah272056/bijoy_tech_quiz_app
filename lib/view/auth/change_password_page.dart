@@ -164,20 +164,20 @@ class ChangePasswordScreen  extends StatelessWidget {
                   SizedBox(height: 30,),
 
 
-                  //password input
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Old Password",
-                        style: TextStyle(
-                            color: levelTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  userInputOldPassword(changePasswordPageController.oldPasswordController.value, 'Old Password',
-                      TextInputType.visiblePassword),
+                  // //old password input
+                  // const Align(
+                  //   alignment: Alignment.topLeft,
+                  //   child: Text("Old Password",
+                  //       style: TextStyle(
+                  //           color: levelTextColor,
+                  //           fontSize: 15,
+                  //           fontWeight: FontWeight.w400)),
+                  // ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                  // userInputOldPassword(changePasswordPageController.oldPasswordController.value, 'Old Password',
+                  //     TextInputType.visiblePassword),
 
 
                   //password input
@@ -269,7 +269,6 @@ class ChangePasswordScreen  extends StatelessWidget {
       ),
     );
   }
-
 
   Widget userInputPassword(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
@@ -368,16 +367,14 @@ class ChangePasswordScreen  extends StatelessWidget {
           String confirmPasswordTxt = changePasswordPageController.confirmPasswordController.value.text;
           String oldPasswordTxt = changePasswordPageController.oldPasswordController.value.text;
 
-
-
-
           if ( changePasswordPageController.inputValid(
                   passwordTxt: passwordTxt,
                   confirmPasswordTxt: confirmPasswordTxt,
-                  oldPassword: oldPasswordTxt,
+                  // oldPassword: oldPasswordTxt,
                )== false){
-            // LogInApiService().userLogIn(email: userEmailTxt, password: passwordTxt);
-            Get.to(RegistrationScreen2());
+            changePasswordPageController.passwordChange(password: passwordTxt,
+                confirmPassword: confirmPasswordTxt, userToken: changePasswordPageController.userToken.value);
+          //  Get.to(RegistrationScreen2());
           }
         },
         style: ElevatedButton.styleFrom(
