@@ -10,6 +10,8 @@ import '../../controller/before_join_quiz/general_indevidual_quiz_about_page_con
 import '../../controller/pdf_view_page_controller.dart';
 import '../../controller/quiz_start_page_controller.dart';
 import '../../quiz_start_page.dart';
+import '../auth/log_in_page.dart';
+import '../auth/registration_page.dart';
 import '../common/toast.dart';
 
 
@@ -126,7 +128,6 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
           ],
         ));
   }
-
 
 
   Widget _buildQuizCardItem({required String language, required double item_marginLeft,required double item_marginRight, required String imageLink,}) {
@@ -382,14 +383,7 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
       child: InkResponse(
         onTap: () {
 
-          Get.to(() => QuizStartPageScreen(), arguments: {
-
-            "quizId": generalIndividualQuizAboutPagePageController.quizId.value,
-            "quizTypeStatus": generalIndividualQuizAboutPagePageController.quizStatus.value,
-            "bookId": "",
-            "language": language,
-
-          })?.then((value) => Get.delete<QuizStartPageScreenController>());
+          showStartQuizWarning(language);
 
         },
 
@@ -422,14 +416,171 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
     );
   }
 
-
-
-
-
   double sizeReturn(int divide){
     return Get.size.height/divide;
   }
 
+
+
+  void showStartQuizWarning(String language) {
+
+    Get.defaultDialog(
+        contentPadding: EdgeInsets.zero,
+        backgroundColor: bottom_bg_color,
+        //  title: '',
+        titleStyle: TextStyle(fontSize: 0),
+        // backgroundColor: Colors.white.withOpacity(.8),
+        content:  Container(
+
+
+            child:   Center(
+              child: Column(
+                children: [
+
+                  Container(
+
+                    margin:EdgeInsets.only(right:00.0,top: 0,left: 00,
+                      bottom: 0,
+                    ),
+                    child:Image.asset(
+                      "assets/images/info_icon.png",
+                      color: Colors.yellow,
+                      // color: sohojatri_color,
+                      // width: 81,
+                      height: 40,
+                      width: 40,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 0, top: 10, right: 0, bottom: 0),
+                    child:  const Align(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Attention Please!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.yellow,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(left: 10, top: 20, right: 10, bottom: 0),
+                    child:  const Align(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "If you start the quiz then you could not go to the previous page. You should first read the Rules and then start the quiz.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: smallTextColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ),
+
+
+                  Row(children: [
+                    Expanded(child: Container(
+                      margin: const EdgeInsets.only(left: 20.0, right: 10.0,top: 20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7))),
+                        child: Ink(
+
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [sohojatri_color, sohojatri_color],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(7.0)
+                          ),
+                          child: Container(
+
+                            height: 40,
+                            alignment: Alignment.center,
+                            child:  Text(
+                              "Cancel",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'PT-Sans',
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),),
+                    Expanded(child: Container(
+                      margin: const EdgeInsets.only(left: 10.0, right: 20.0,top: 20),
+                      child: ElevatedButton(
+                        onPressed: () {
+
+                          Get.back();
+                          Get.to(() => QuizStartPageScreen(), arguments: {
+                            "quizId": generalIndividualQuizAboutPagePageController.quizId.value,
+                            "quizTypeStatus": generalIndividualQuizAboutPagePageController.quizStatus.value,
+                            "bookId": "",
+                            "language": language,
+
+                          })?.then((value) => Get.delete<QuizStartPageScreenController>());
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7))),
+                        child: Ink(
+
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [sohojatri_color, sohojatri_color],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(7.0)
+                          ),
+                          child: Container(
+
+                            height: 40,
+                            alignment: Alignment.center,
+                            child:  const Text(
+                              "Start",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'PT-Sans',
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),),
+
+                  ],)
+
+
+
+                ],
+              ),
+            )
+
+        ),
+        barrierDismissible: false,
+        radius: 10.0);
+  }
 
 }
 

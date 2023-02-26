@@ -6,10 +6,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
 import '../../controller/categories_quiz_details_page_controller.dart';
+import '../../controller/dash_board_page_controller.dart';
 import '../../controller/quiz_about_more.dart';
 import '../../controller/log_in_page_controller.dart';
 import 'categories_quiz_details.dart';
 import '../common/toast.dart';
+import 'dash_board_page.dart';
 
 
 class QuizAboutPageScreen  extends StatelessWidget {
@@ -73,11 +75,20 @@ class QuizAboutPageScreen  extends StatelessWidget {
                     fontWeight: FontWeight.w500),
               )),),
 
-
               SizedBox(width:10,),
+              InkWell(
+                onTap: (){
+
+                  Get.deleteAll();
+                  Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                },
+                child:Icon(Icons.home,size: 22,
+                  color: Colors.white,
+                ) ,
+              ),
+              SizedBox(width:15,),
               InkResponse(
                 onTap: () {
-
                   Get.to(() => CategoriesQuizDetailsPageScreen(), arguments: {
                     "categoriesId": quizAboutPageController.quizId.toString(),
                     "categoriesQuizName": quizAboutPageController.titleName.toString(),
@@ -94,7 +105,7 @@ class QuizAboutPageScreen  extends StatelessWidget {
                   ),
                   alignment: Alignment.center,
                   child:  Wrap(
-                    children:  [
+                    children:  const [
                       Text(
                         "Get Start",
                         textAlign: TextAlign.center,

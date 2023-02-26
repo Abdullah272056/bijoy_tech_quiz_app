@@ -21,6 +21,7 @@ class Assets {
   static const String imagesIconForgot = 'assets/images/icon_forgot.png';
   static const String imagesIconLogInAccount = 'assets/images/icon_log_in_account.png';
   static const String imagesIconLogout = 'assets/images/icon_logout.png';
+  static const String imagesInfoIcon = 'assets/images/info_icon.png';
   static const String imagesLoading = 'assets/images/loading.png';
   static const String imagesMyQuizScore = 'assets/images/my_quiz_score.png';
   static const String imagesNotFound = 'assets/images/not_found.png';

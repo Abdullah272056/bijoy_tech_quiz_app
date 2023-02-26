@@ -1,5 +1,6 @@
 
 import 'package:bijoy_tech_quiz_app/view/common/toast.dart';
+import 'package:bijoy_tech_quiz_app/view/home_page/quiz_about_more.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,13 +10,16 @@ import '../../controller/before_join_quiz/reading_indevidual_quiz_about_page_con
 import '../../controller/before_join_quiz/spelling_indevidual_quiz_about_page_controller.dart';
 import '../../controller/before_join_quiz/video_indevidual_quiz_about_page_controller.dart';
 import '../../controller/categories_quiz_details_page_controller.dart';
+import '../../controller/dash_board_page_controller.dart';
 import '../../controller/indevidual_quiz_about_page_controller.dart';
+import '../../controller/quiz_about_more.dart';
 import '../before_join_quiz/general_quiz_about_more.dart';
 import '../before_join_quiz/individual_quiz_about_more.dart';
 import '../before_join_quiz/reading_indevidual_quiz_about_more.dart';
 import '../before_join_quiz/spelling_indevidual_quiz_about_more.dart';
 import '../before_join_quiz/video_indevidual_quiz_about_more.dart';
 import '../common/login_warning.dart';
+import 'dash_board_page.dart';
 
 class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
 
@@ -78,44 +82,33 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
                     fontWeight: FontWeight.w500),
               )),),
 
-              // InkWell(
-              //   onTap: (){},
-              //   child:Icon(Icons.info_outline,size: 22,
-              //     color: Colors.white,
-              //   ) ,
-              // ),
-              // SizedBox(width:15,),
-              // InkResponse(
-              //   onTap: () {
-              //
-              //     // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
-              //   },
-              //
-              //   child:Container(
-              //     padding: EdgeInsets.only(left: 7,right: 7,top: 5,bottom: 5),
-              //     decoration: BoxDecoration(
-              //         color: buttonBgColor,
-              //
-              //         borderRadius: BorderRadius.circular(4.0)
-              //     ),
-              //     alignment: Alignment.center,
-              //     child:  Wrap(
-              //       children:  [
-              //         Text(
-              //           "Get Start",
-              //           textAlign: TextAlign.center,
-              //           style: TextStyle(
-              //             fontFamily: 'PT-Sans',
-              //             fontSize:14,
-              //             fontWeight: FontWeight.normal,
-              //             color: Colors.white,
-              //           ),
-              //         ),
-              //
-              //       ],
-              //     ),
-              //   ),
-              // ),
+
+              SizedBox(width:10,),
+              InkWell(
+                onTap: (){
+
+                  Get.deleteAll();
+                  Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                },
+                child:Icon(Icons.home,size: 22,
+                  color: Colors.white,
+                ) ,
+              ),
+              SizedBox(width:15,),
+              InkWell(
+                onTap: (){
+
+                  Get.to(() => QuizAboutPageScreen(), arguments: {
+                    "categoriesId": categoriesQuizDetailsPageController.quizId.toString(),
+                    "categoriesQuizName": categoriesQuizDetailsPageController.titleName.toString(),
+                    "categoriesImg":  categoriesQuizDetailsPageController.imageUrl.toString(),
+                  })?.then((value) => Get.delete<QuizAboutPageController>());
+
+                },
+                child:Icon(Icons.info_outline,size: 22,
+                  color: Colors.white,
+                ) ,
+              ),
               SizedBox(width: 20,),
             ],
             )
@@ -147,6 +140,7 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
             const EdgeInsets.only(left: 10, top: 15, right: 10, bottom: 10),
             child:SingleChildScrollView(
               child: Obx(() => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
 
                   // Container(
@@ -247,22 +241,52 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
 
 
                   if(categoriesQuizDetailsPageController.onGoingQuizList.length>0)...{
-                    Padding(padding: EdgeInsets.only(left: 0,top: 10),
-                      child:  Row(
-                        children: [
-                          Text(
-                            'ONGOING QUIZ',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color:recentTextColor,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600),
-                            softWrap: false,
-                            maxLines:1,
+
+                    Row(
+                      children: [
+                        Expanded(child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(padding: EdgeInsets.only(left: 0,top: 10),
+                            child:  Row(
+                              children: [
+                                Text(
+                                  'ONGOING QUIZ',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color:recentTextColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
+                                  softWrap: false,
+                                  maxLines:1,
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
+                        ),),
+
+
+                        Container(
+                          margin:  const EdgeInsets.only(left: 10.0, right: 5.0,top: 5,),
+                          child: InkResponse(
+                            onTap: (){
+
+
+
+                            },
+                            child: Image.asset(
+                              "assets/images/arrow_right.png",
+                              color: levelTextColorWhite,
+                              width: 27,
+                              height: 27,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+
+                        )
+                      ],
                     ),
+
+
 
                     Container(
                         margin: const EdgeInsets.only(top: 10),
@@ -270,31 +294,24 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
                         height:317,
 
                         // child: _buildRecentlyAddedCourseItem(),
-                        child: Obx(() => ListView.builder(
-                          padding: EdgeInsets.only(left: 0,top: 0,bottom: 0),
-                          scrollDirection: Axis.horizontal,
-                          //  shrinkWrap: true,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          // itemCount:homeController.homeDataList[index]["sub_categories"][index1]["products"].isNotEmpty||
-                          //     homeController.homeDataList[index]["sub_categories"][index1]["products"].length>0?
-                          // homeController.homeDataList[index]["sub_categories"][index1]["products"].length:0,
-                          itemCount:categoriesQuizDetailsPageController.onGoingQuizList.length,
-                          itemBuilder: (context, index) {
-                            if(index!=categoriesQuizDetailsPageController.onGoingQuizList.length-1){
-                              return _buildOnGoingQuizItem(response: categoriesQuizDetailsPageController.onGoingQuizList[index], height: 00, width: Get.size.width, marginLeft: 0, marginRight: 20, );
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Obx(() => ListView.builder(
+                            padding: EdgeInsets.only(left: 0,top: 0,bottom: 0),
+                            scrollDirection: Axis.horizontal,
+                            itemCount:categoriesQuizDetailsPageController.onGoingQuizList.length,
+                            itemBuilder: (context, index) {
+                              if(index!=categoriesQuizDetailsPageController.onGoingQuizList.length-1){
+                                return _buildOnGoingQuizItem(response: categoriesQuizDetailsPageController.onGoingQuizList[index], height: 00, width: Get.size.width, marginLeft: 0, marginRight: 20, );
+                              }else{
+                                return _buildOnGoingQuizItem(response: categoriesQuizDetailsPageController.onGoingQuizList[index], height: 00, width: Get.size.width, marginLeft: 0, marginRight: 20, );
+                              }
+                            },
 
-                            }else{
-                              return _buildOnGoingQuizItem(response: categoriesQuizDetailsPageController.onGoingQuizList[index], height: 00, width: Get.size.width, marginLeft: 0, marginRight: 20, );
-                            }
-
-
-
-
-
-                          },
-
-                        ))
+                          )),
+                        )
                     ),
+
 
                   },
 
@@ -302,16 +319,46 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
                     Padding(padding: EdgeInsets.only(left: 0,top: 20),
                       child:  Row(
                         children: [
-                          Text(
-                            'RECENTLY FINISHED QUIZ',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color:recentTextColor,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600),
-                            softWrap: false,
-                            maxLines:1,
-                          ),
+                          Expanded(child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(padding: EdgeInsets.only(left: 0,top: 10),
+                              child:  Row(
+                                children: [
+                                  Text(
+                                    'RECENTLY FINISHED QUIZ',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color:recentTextColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
+                                    softWrap: false,
+                                    maxLines:1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),),
+
+
+                          Container(
+                            margin:  const EdgeInsets.only(left: 10.0, right: 5.0,top: 5,),
+                            child: InkResponse(
+                              onTap: (){
+
+
+
+                              },
+                              child: Image.asset(
+                                "assets/images/arrow_right.png",
+                                color: levelTextColorWhite,
+                                width: 27,
+                                height: 27,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+
+                          )
+
                         ],
                       ),
                     ),

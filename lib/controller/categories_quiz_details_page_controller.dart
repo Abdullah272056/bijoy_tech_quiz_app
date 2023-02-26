@@ -23,6 +23,7 @@ class CategoriesQuizDetailsPageController extends GetxController {
 
    var quizName="".obs;
    var titleName="".obs;
+  var quizId="".obs;
 
   var quizAboutText="".obs;
   var onGoingQuizList= [].obs;
@@ -40,6 +41,7 @@ class CategoriesQuizDetailsPageController extends GetxController {
     // showToastShort(argumentData["categoriesId"].toString());
     titleName(argumentData["categoriesQuizName"].toString());
     imageUrl(argumentData["categoriesImg"].toString());
+    quizId(argumentData["categoriesId"].toString());
     loadUserIdFromSharePref();
     getQuizCategoriesDetailsDataList(argumentData["categoriesId"].toString() );
 

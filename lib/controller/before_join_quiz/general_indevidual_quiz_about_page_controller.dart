@@ -16,10 +16,6 @@ import '../../view/common/toast.dart';
 
 class GeneralIndividualQuizAboutPagePageController extends GetxController {
 
-
-
-
-
   var userName="".obs;
   var userToken="".obs;
 
@@ -27,8 +23,6 @@ class GeneralIndividualQuizAboutPagePageController extends GetxController {
 
   var quizTitle="".obs;
   var quizDescription="".obs;
-
-
 
   var totalQuestion="".obs;
   var everyQuestionMark="".obs;
