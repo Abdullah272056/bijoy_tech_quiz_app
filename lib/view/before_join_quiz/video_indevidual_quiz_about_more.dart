@@ -11,8 +11,10 @@ import '../../controller/before_join_quiz/general_indevidual_quiz_about_page_con
 import '../../controller/before_join_quiz/video_indevidual_quiz_about_page_controller.dart';
 import '../../controller/pdf_view_page_controller.dart';
 import '../../controller/quiz_start_page_controller.dart';
+import '../../controller/video_player_page_controller.dart';
 import '../../quiz_start_page.dart';
 import '../common/toast.dart';
+import '../video_player.dart';
 
 
 
@@ -461,12 +463,10 @@ class VideoIndividualQuizAboutPageScreen  extends StatelessWidget{
       child: InkResponse(
         onTap: () {
 
-          _launchUrl(activeVideoResponse["video"].toString());
-          // _launchUrl('https://flutter.dev');
-          // Get.to(() => PdfViewPageScreen(), arguments: {
-          //   // "categoriesId": response["id"].toString(),
-          //   // "categoriesId": response["id"].toString(),
-          // })?.then((value) => Get.delete<PdfViewPageScreenController>());
+          final uri = Uri.parse(activeVideoResponse["video"].toString());
+          Get.to(() => VideoPlayerPageScreen(), arguments: {
+            "videoId": uri.queryParameters['v'].toString(),
+          })?.then((value) => Get.delete<VideoPlayerPageController>());
 
         },
 

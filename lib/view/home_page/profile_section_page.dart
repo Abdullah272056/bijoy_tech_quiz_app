@@ -464,16 +464,8 @@ class ProfileSectionPage extends StatelessWidget {
 
         if(onClick==5){
 
-          if(profileSectionPageController.userToken.isNotEmpty &&
-              profileSectionPageController.userToken.value!=null&&profileSectionPageController.userToken.value!="null"){
+          profileSectionPageController.getUserAccountLogOut(profileSectionPageController.userToken.value);
 
-
-            profileSectionPageController.getUserAccountLogOut(profileSectionPageController.userToken.value);
-
-          }else{
-            showLoginWarning();
-
-          }
 
 
 

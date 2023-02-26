@@ -129,11 +129,18 @@ class CustomDrawerController extends GetxController {
 
           }
           else {
-            // Fluttertoast.cancel();
-            //  _showToast("failed try again!");
+            saveUserInfoRemove(
+                userName:"",
+                userToken:"");
+            Get.deleteAll();
+            Get.offAll(LogInScreen());
           }
         } catch (e) {
-          // Fluttertoast.cancel();
+          saveUserInfoRemove(
+              userName:"",
+              userToken:"");
+          Get.deleteAll();
+          Get.offAll(LogInScreen());
         }
       }
     } on SocketException {

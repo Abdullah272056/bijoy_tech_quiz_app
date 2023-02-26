@@ -52,6 +52,7 @@ dependencies:
   url_launcher: ^6.1.9
 
   image_picker: ^0.8.4+11
+  youtube_player_flutter: ^8.1.2
 
 #  syncfusion_flutter_pdfviewer: ^20.4.49
 

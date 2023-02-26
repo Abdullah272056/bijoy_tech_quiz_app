@@ -80,7 +80,11 @@ class ProfileSectionPageController extends GetxController {
             //  _showToast("failed try again!");
           }
         } catch (e) {
-          // Fluttertoast.cancel();
+          saveUserInfoRemove(
+              userName:"",
+              userToken:"");
+          Get.deleteAll();
+          Get.offAll(LogInScreen());
         }
       }
     } on SocketException {
