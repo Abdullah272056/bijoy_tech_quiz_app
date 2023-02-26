@@ -65,7 +65,7 @@ class TermsOfUsePage extends StatelessWidget {
                     ),
                   ),
                   Expanded(child:Text(
-                    "TERMS OF USE",
+                    "TERMS AND CONDITIONS",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:Colors.white,

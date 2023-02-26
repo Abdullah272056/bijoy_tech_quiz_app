@@ -29,8 +29,6 @@ class PrivacyPolicyController extends GetxController {
 
   }
 
-
-
   ///get data api call
   void getPrivacyPolicyData() async{
     try {
@@ -46,8 +44,8 @@ class PrivacyPolicyController extends GetxController {
           if (response.statusCode == 200) {
             var responseData = jsonDecode(response.body);
 
-            privacyDataText(responseData["data"]["description"]);
-            privacyDataTitle(responseData["data"]["title"]);
+            privacyDataText(responseData["data"]["policy"][0]["privacy_policy"].toString());
+          //  privacyDataTitle(responseData["data"]["title"]);
             // _showToast(categoriesList.length.toString());
           }
           else {

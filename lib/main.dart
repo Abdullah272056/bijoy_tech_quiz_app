@@ -3,6 +3,7 @@ import 'package:bijoy_tech_quiz_app/view/auth/log_in_page.dart';
 import 'package:bijoy_tech_quiz_app/view/auth/registration_page.dart';
 import 'package:bijoy_tech_quiz_app/view/drawer/about_us.dart';
 import 'package:bijoy_tech_quiz_app/view/drawer/faq.dart';
+import 'package:bijoy_tech_quiz_app/view/drawer/privacy_policy.dart';
 import 'package:bijoy_tech_quiz_app/view/drawer/terms_of_use.dart';
 import 'package:bijoy_tech_quiz_app/view/home_page/profile_section_page.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
 
      // home: DashBoardPageScreen()
-     home: TermsOfUsePage()
+     home: PrivacyPolicyPage()
    // home: RegistrationScreen()
    //   home: ProfileSectionPage()
 
