@@ -126,7 +126,8 @@ class MyProfilePageController extends GetxController {
         required String userAgeGradeTxt,
         required String addressTxt, required String cityTxt,
         required String stateTxt, required String zipCodeTxt,
-        required String guardianNameTxt, required String relationWithGuardianTxt,
+        required String guardianNameTxt,
+        required String relationWithGuardianTxt,
         required String guardianPhoneTxt,
         required String guardianEmailTxt,
         required String selectedCountryTxt,
@@ -197,28 +198,50 @@ class MyProfilePageController extends GetxController {
       return;
     }
 
-    if (guardianNameTxt.isEmpty) {
-      Fluttertoast.cancel();
-      showToastLong("Guardian name can't empty!");
-      return;
+
+
+
+
+    if(userAgeGradeTxt!="above/adult".toString()){
+
+      if (guardianNameTxt.isEmpty) {
+        Fluttertoast.cancel();
+        showToastLong("Guardian name can't empty!");
+        return;
+      }
+
+      if (relationWithGuardianTxt.isEmpty) {
+        Fluttertoast.cancel();
+        showToastLong("Guardian relation can't empty!");
+        return;
+      }
+
+      if (guardianPhoneTxt.isEmpty) {
+        Fluttertoast.cancel();
+        showToastLong("Guardian phone can't empty!");
+        return;
+      }
+      // if (guardianEmailTxt.isEmpty) {
+      //   Fluttertoast.cancel();
+      //   showToastLong("Guardian email can't empty!");
+      //   return;
+      // }
+      //
+      // if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
+      //   //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
+      // ).hasMatch(guardianEmailTxt)) {
+      //   Fluttertoast.cancel();
+      //   showToastLong("Enter valid email!");
+      //   return;
+      // }
+
     }
 
-    if (relationWithGuardianTxt.isEmpty) {
-      Fluttertoast.cancel();
-      showToastLong("Guardian phone can't empty!");
-      return;
-    }
 
-    if (guardianPhoneTxt.isEmpty) {
-      Fluttertoast.cancel();
-      showToastLong("Guardian phone can't empty!");
-      return;
-    }
-    if (guardianEmailTxt.isEmpty) {
-      Fluttertoast.cancel();
-      showToastLong("Guardian email can't empty!");
-      return;
-    }
+
+
+
+
 
     // if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
     //   //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
@@ -311,7 +334,7 @@ class MyProfilePageController extends GetxController {
 
 
             if(addressResponseData["data"][0]["country"].toString()!="null"){
-              selectCountryId(addressResponseData["data"][0]["country"].toString());
+              selectCountryId(addressResponseData["data"][0]["country"].toString().toUpperCase());
             }
             if(addressResponseData["data"][0]["grade"].toString()!="null"){
               selectGradeId(addressResponseData["data"][0]["grade"].toString());

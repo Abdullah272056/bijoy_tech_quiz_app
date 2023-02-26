@@ -12,7 +12,7 @@ import 'auth/change_password_page.dart';
 import 'auth/fotget_password_page.dart';
 import 'auth/log_in_page.dart';
 import 'auth/registration_page.dart';
-import 'categories_quiz_details.dart';
+import 'home_page/categories_quiz_details.dart';
 import 'home_page/MyQuizScorePage.dart';
 import 'home_page/dash_board_page.dart';
 

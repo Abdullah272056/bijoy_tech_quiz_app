@@ -3,19 +3,19 @@ import 'package:bijoy_tech_quiz_app/view/common/toast.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../static/Colors.dart';
-import '../controller/before_join_quiz/general_indevidual_quiz_about_page_controller.dart';
-import '../controller/before_join_quiz/reading_indevidual_quiz_about_page_controller.dart';
-import '../controller/before_join_quiz/spelling_indevidual_quiz_about_page_controller.dart';
-import '../controller/before_join_quiz/video_indevidual_quiz_about_page_controller.dart';
-import '../controller/categories_quiz_details_page_controller.dart';
-import '../controller/indevidual_quiz_about_page_controller.dart';
-import 'before_join_quiz/general_quiz_about_more.dart';
-import 'before_join_quiz/individual_quiz_about_more.dart';
-import 'before_join_quiz/reading_indevidual_quiz_about_more.dart';
-import 'before_join_quiz/spelling_indevidual_quiz_about_more.dart';
-import 'before_join_quiz/video_indevidual_quiz_about_more.dart';
-import 'common/login_warning.dart';
+import '../../../../static/Colors.dart';
+import '../../controller/before_join_quiz/general_indevidual_quiz_about_page_controller.dart';
+import '../../controller/before_join_quiz/reading_indevidual_quiz_about_page_controller.dart';
+import '../../controller/before_join_quiz/spelling_indevidual_quiz_about_page_controller.dart';
+import '../../controller/before_join_quiz/video_indevidual_quiz_about_page_controller.dart';
+import '../../controller/categories_quiz_details_page_controller.dart';
+import '../../controller/indevidual_quiz_about_page_controller.dart';
+import '../before_join_quiz/general_quiz_about_more.dart';
+import '../before_join_quiz/individual_quiz_about_more.dart';
+import '../before_join_quiz/reading_indevidual_quiz_about_more.dart';
+import '../before_join_quiz/spelling_indevidual_quiz_about_more.dart';
+import '../before_join_quiz/video_indevidual_quiz_about_more.dart';
+import '../common/login_warning.dart';
 
 class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
 
@@ -149,34 +149,6 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
               child: Obx(() => Column(
                 children:  [
 
-                  Container(
-                    margin: EdgeInsets.only(left: 10,right: 10),
-                    width: double.infinity,
-                    height: Get.size.height * 0.21,
-
-                    decoration:  BoxDecoration(
-
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    child:  ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Container(
-                          height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
-                          color:Colors.white,
-                          child:  Obx(() => FadeInImage.assetNetwork(
-                            fit: BoxFit.cover,
-                            placeholder: 'assets/images/empty.png',
-                            image:categoriesQuizDetailsPageController.imageUrl.value,
-                            imageErrorBuilder: (context, url, error) =>
-                                Image.asset(
-                                  "assets/images/empty.png",
-
-                                  fit: BoxFit.fill,
-                                ),
-                          ))),
-
-                    ),
-                  ),
                   // Container(
                   //   margin: EdgeInsets.only(left: 10,right: 10),
                   //   width: double.infinity,
@@ -191,75 +163,91 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
                   //     child: Container(
                   //         height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
                   //         color:Colors.white,
-                  //         child:  FadeInImage.assetNetwork(
+                  //         child:  Obx(() => FadeInImage.assetNetwork(
                   //           fit: BoxFit.cover,
                   //           placeholder: 'assets/images/empty.png',
-                  //           image:"https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80",
+                  //           image:categoriesQuizDetailsPageController.imageUrl.value,
                   //           imageErrorBuilder: (context, url, error) =>
                   //               Image.asset(
                   //                 "assets/images/empty.png",
                   //
                   //                 fit: BoxFit.fill,
                   //               ),
-                  //         )),
+                  //         ))),
                   //
                   //   ),
                   // ),
-                  SizedBox(height: 10,),
-
-                  Row(
-                    children: [
-                      Expanded(child: Obx(()=> Text(
-                        categoriesQuizDetailsPageController.quizName.value,
-                        // 'General Quiz Competition',
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                        maxLines: 2,
-                        style: TextStyle(
-                            color:forgottenPasswordTextColor,
-                            fontSize: 20,
-                            decoration: TextDecoration.none,
-                            fontWeight: FontWeight.w700),
-                      )))
-                    ],
-                  ),
-
-                  SizedBox(height: 10,),
-                  Obx(() => ExpandableText(
-                      categoriesQuizDetailsPageController.quizAboutText.value,
-                    expandText: '  show more',
-                    collapseText: '  show less',
-                    maxLines: 7,
-                    linkColor: Colors.blue,
-                    animation: true,
-                    linkStyle : const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13
-                    ),
-                    style: const TextStyle(
-                        color:textColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.normal),
-                  ),
-
-
-                  //     Text(
-                  //   categoriesQuizDetailsPageController.quizAboutText.value,
+                  // // Container(
+                  // //   margin: EdgeInsets.only(left: 10,right: 10),
+                  // //   width: double.infinity,
+                  // //   height: Get.size.height * 0.21,
+                  // //
+                  // //   decoration:  BoxDecoration(
+                  // //
+                  // //     borderRadius: BorderRadius.circular(18),
+                  // //   ),
+                  // //   child:  ClipRRect(
+                  // //     borderRadius: BorderRadius.circular(10.0),
+                  // //     child: Container(
+                  // //         height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
+                  // //         color:Colors.white,
+                  // //         child:  FadeInImage.assetNetwork(
+                  // //           fit: BoxFit.cover,
+                  // //           placeholder: 'assets/images/empty.png',
+                  // //           image:"https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80",
+                  // //           imageErrorBuilder: (context, url, error) =>
+                  // //               Image.asset(
+                  // //                 "assets/images/empty.png",
+                  // //
+                  // //                 fit: BoxFit.fill,
+                  // //               ),
+                  // //         )),
+                  // //
+                  // //   ),
+                  // // ),
+                  // SizedBox(height: 10,),
                   //
-                  //   style: TextStyle(
+                  // Row(
+                  //   children: [
+                  //     Expanded(child: Obx(()=> Text(
+                  //       categoriesQuizDetailsPageController.quizName.value,
+                  //       // 'General Quiz Competition',
+                  //       textAlign: TextAlign.center,
+                  //       overflow: TextOverflow.ellipsis,
+                  //       softWrap: false,
+                  //       maxLines: 2,
+                  //       style: TextStyle(
+                  //           color:forgottenPasswordTextColor,
+                  //           fontSize: 20,
+                  //           decoration: TextDecoration.none,
+                  //           fontWeight: FontWeight.w700),
+                  //     )))
+                  //   ],
+                  // ),
+                  //
+                  // SizedBox(height: 10,),
+                  // Obx(() => ExpandableText(
+                  //     categoriesQuizDetailsPageController.quizAboutText.value,
+                  //   expandText: '  show more',
+                  //   collapseText: '  show less',
+                  //   maxLines: 7,
+                  //   linkColor: Colors.blue,
+                  //   animation: true,
+                  //   linkStyle : const TextStyle(
+                  //       fontWeight: FontWeight.w500,
+                  //       fontSize: 13
+                  //   ),
+                  //   style: const TextStyle(
                   //       color:textColor,
                   //       fontSize: 15,
-                  //       decoration: TextDecoration.none,
                   //       fontWeight: FontWeight.normal),
-                  // ),
+                  // ),),
+                  //
+                  //
 
-
-
-                  ),
 
                   if(categoriesQuizDetailsPageController.onGoingQuizList.length>0)...{
-                    Padding(padding: EdgeInsets.only(left: 0,top: 20),
+                    Padding(padding: EdgeInsets.only(left: 0,top: 10),
                       child:  Row(
                         children: [
                           Text(

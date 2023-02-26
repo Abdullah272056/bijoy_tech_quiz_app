@@ -884,9 +884,10 @@ class MyProfileScreen extends StatelessWidget{
                   stateTxt: userStateTxt,
                   zipCodeTxt: zipCodeTxt,
                   guardianNameTxt: guardianNameTxt,
-                  relationWithGuardianTxt: guardianPhoneTxt,
-                  guardianPhoneTxt: guardianEmailTxt,
-                  guardianEmailTxt: relationWithGuardianTxt,
+                  relationWithGuardianTxt: relationWithGuardianTxt,
+
+                  guardianPhoneTxt: guardianPhoneTxt,
+                  guardianEmailTxt: guardianEmailTxt,
                   selectedCountryTxt:
                       myProfilePageController.selectCountryId.value) ==
               false) {

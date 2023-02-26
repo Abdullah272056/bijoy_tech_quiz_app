@@ -5,17 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
-import '../../controller/general_quiz_details_page_controller.dart';
+import '../../controller/categories_quiz_details_page_controller.dart';
+import '../../controller/quiz_about_more.dart';
 import '../../controller/log_in_page_controller.dart';
+import 'categories_quiz_details.dart';
 import '../common/toast.dart';
 
 
+class QuizAboutPageScreen  extends StatelessWidget {
 
-
-
-class GeneralQuizDetailsPageScreen  extends StatelessWidget {
-
-  final generalQuizDetailsPageController = Get.put(GeneralQuizDetailsPageController());
+  final quizAboutPageController = Get.put(QuizAboutPageController());
   var width;
   var height;
 
@@ -34,10 +33,6 @@ class GeneralQuizDetailsPageScreen  extends StatelessWidget {
       ),
     );
   }
-
-
-
-
 
   Widget _buildBodyDesign() {
     return Container(
@@ -65,30 +60,29 @@ class GeneralQuizDetailsPageScreen  extends StatelessWidget {
                 },
               ),
               SizedBox(width: 20,),
-              Expanded(child: Text(
-                'General Quiz ',
+              Expanded(child:Obx(() =>  Text(
+                quizAboutPageController.titleName.value,
                 textAlign: TextAlign.left,
                 overflow: TextOverflow.ellipsis,
                 softWrap: false,
                 maxLines: 1,
                 style: TextStyle(
                     color:textColor,
-                    fontSize: 18,
+                    fontSize: 17,
                     decoration: TextDecoration.none,
                     fontWeight: FontWeight.w500),
-              ),),
+              )),),
 
-              InkWell(
-                onTap: (){},
-                child:Icon(Icons.info_outline,size: 22,
-                  color: Colors.white,
-                ) ,
-              ),
-              SizedBox(width:15,),
+
+              SizedBox(width:10,),
               InkResponse(
                 onTap: () {
 
-                  // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+                  Get.to(() => CategoriesQuizDetailsPageScreen(), arguments: {
+                    "categoriesId": quizAboutPageController.quizId.toString(),
+                    "categoriesQuizName": quizAboutPageController.titleName.toString(),
+                    "categoriesImg":  quizAboutPageController.imageUrl.toString(),
+                  })?.then((value) => Get.delete<CategoriesQuizDetailsPageController>());
                 },
 
                 child:Container(
@@ -155,66 +149,85 @@ class GeneralQuizDetailsPageScreen  extends StatelessWidget {
                     width: double.infinity,
                     height: Get.size.height * 0.21,
 
-                    decoration: new BoxDecoration(
+                    decoration:  BoxDecoration(
 
                       borderRadius: BorderRadius.circular(18),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(child:
+                    child:  ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Container(
+                          height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
+                          color:Colors.white,
+                          child:  Obx(() => FadeInImage.assetNetwork(
+                            fit: BoxFit.cover,
+                            placeholder: 'assets/images/empty.png',
+                            image:quizAboutPageController.imageUrl.value,
+                            imageErrorBuilder: (context, url, error) =>
+                                Image.asset(
+                                  "assets/images/empty.png",
 
-                    ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-              child: Container(
-                  height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
-                  color:Colors.white,
-                  child:  FadeInImage.assetNetwork(
-                    fit: BoxFit.cover,
-                    placeholder: 'assets/images/general_quiz.jpg',
-                    image:"image".toString(),
-                    imageErrorBuilder: (context, url, error) =>
-                        Image.asset(
-                          "assets/images/general_quiz.jpg".toString()
-                          ,
+                                  fit: BoxFit.fill,
+                                ),
+                          ))),
 
-                          fit: BoxFit.fill,
-                        ),
-                  )),
-
-            )
-
-                       )
-
-                      ],
                     ),
                   ),
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 10,right: 10),
+                  //   width: double.infinity,
+                  //   height: Get.size.height * 0.21,
+                  //
+                  //   decoration:  BoxDecoration(
+                  //
+                  //     borderRadius: BorderRadius.circular(18),
+                  //   ),
+                  //   child:  ClipRRect(
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //     child: Container(
+                  //         height:Get.size.width<550?Get.size.width/2.7 :Get.size.width/2.7 ,
+                  //         color:Colors.white,
+                  //         child:  FadeInImage.assetNetwork(
+                  //           fit: BoxFit.cover,
+                  //           placeholder: 'assets/images/empty.png',
+                  //           image:"https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80",
+                  //           imageErrorBuilder: (context, url, error) =>
+                  //               Image.asset(
+                  //                 "assets/images/empty.png",
+                  //
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //         )),
+                  //
+                  //   ),
+                  // ),
                   SizedBox(height: 10,),
 
                   Row(
-                    children: const [
-                     Expanded(child:  Text(
-                       'General Quiz Competition',
-                       textAlign: TextAlign.center,
-                       overflow: TextOverflow.ellipsis,
-                       softWrap: false,
-                       maxLines: 2,
-                       style: TextStyle(
-                           color:forgottenPasswordTextColor,
-                           fontSize: 20,
-                           decoration: TextDecoration.none,
-                           fontWeight: FontWeight.w700),
-                     ))
+                    children: [
+                      Expanded(child: Obx(()=> Text(
+                        quizAboutPageController.quizName.value,
+                        // 'General Quiz Competition',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        maxLines: 2,
+                        style: TextStyle(
+                            color:forgottenPasswordTextColor,
+                            fontSize: 20,
+                            decoration: TextDecoration.none,
+                            fontWeight: FontWeight.w700),
+                      )))
                     ],
                   ),
                   SizedBox(height: 10,),
-                  Text(
-                    "${generalQuizDetailsPageController.textValue.value}\n\n\n${generalQuizDetailsPageController.textValue.value}\n\n\n${generalQuizDetailsPageController.textValue.value}\n\n\n${generalQuizDetailsPageController.textValue.value}\n\n\n${generalQuizDetailsPageController.textValue.value}\n\n${generalQuizDetailsPageController.textValue.value}",
+                  Obx(() => Text(
+                    "${quizAboutPageController.quizAboutText.value}",
                     style: TextStyle(
                         color:textColor,
                         fontSize: 15,
                         decoration: TextDecoration.none,
                         fontWeight: FontWeight.normal),
-                  )
+                  ))
 
 
 
@@ -224,7 +237,6 @@ class GeneralQuizDetailsPageScreen  extends StatelessWidget {
 
         ));
   }
-
 
   Widget _sliderCardDesign() {
     // Size size = MediaQuery.of(context).size;

@@ -8,15 +8,14 @@ import '../../../static/Colors.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/categories_list_page_controller.dart';
 import '../../controller/categories_quiz_details_page_controller.dart';
+import '../../controller/quiz_about_more.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/log_in_page_controller.dart';
-import '../categories_quiz_details.dart';
+import 'categories_quiz_details.dart';
 import '../common/toast.dart';
 import '../custom_drawer.dart';
 import 'categories_wise_quiz_list_page.dart';
-import 'general_quiz_details.dart';
-
-
+import 'quiz_about_more.dart';
 
 class QuizCategoriesScreen  extends StatelessWidget{
 
@@ -66,7 +65,6 @@ class QuizCategoriesScreen  extends StatelessWidget{
                   margin: const EdgeInsets.only(left: 25,right: 20),
                   child: InkResponse(
                     onTap: () {
-
                       if (_drawerKey.currentState!.isDrawerOpen) {
                         categoriesListPageController.isDrawerOpen(false);
                         _drawerKey.currentState!.openEndDrawer();
@@ -90,10 +88,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
                 ),
               ],
             )
-
-
           ),
-
           Expanded(
             child: _buildBottomDesign(),
           ),
@@ -163,21 +158,8 @@ class QuizCategoriesScreen  extends StatelessWidget{
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             return _buildHomeCardItem(categoriesListPageController.quizCategoriesDataList[index] );
-
-
                           }),),
                       SizedBox(height: 15,)
-
-
-                      // Row(children: [
-                      //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg')),
-                      //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,   nameText: 'Reading Quiz', imageLink: 'assets/images/reading_quiz.jpg')),
-                      // ],),
-                      //
-                      // Row(children: [
-                      //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,  nameText: 'Video Quiz', imageLink: 'assets/images/video_quiz.png')),
-                      //   Expanded(child: _buildHomeCardItem1(item_marginLeft: 10, item_marginRight: 10,   nameText: 'Spelling Quiz', imageLink: 'assets/images/spelling.png')),
-                      // ],)
 
                     ],
                   ),
@@ -199,13 +181,11 @@ class QuizCategoriesScreen  extends StatelessWidget{
         child: Wrap(
           children: [
             Container(
-
               // width: 180,
               decoration: BoxDecoration(
                 color:home_item_bg_color,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: const [BoxShadow(
-
                   color:bg_top_color,
                   //  blurRadius: 20.0, // soften the shadow
                   blurRadius:0, // soften the shadow
@@ -248,7 +228,6 @@ class QuizCategoriesScreen  extends StatelessWidget{
                                 )),
 
                           )
-
                           )
                         ],
                       ),
@@ -257,13 +236,15 @@ class QuizCategoriesScreen  extends StatelessWidget{
                           Expanded(child:Align(alignment: Alignment.topRight,
                             child: InkWell(
                               onTap: (){
-                                showToastShort("more details");
 
-                                Get.to(GeneralQuizDetailsPageScreen());
+                                Get.to(() => QuizAboutPageScreen(), arguments: {
+                                  "categoriesId": response["id"].toString(),
+                                  "categoriesQuizName": response["title"].toString(),
+                                  "categoriesImg": BASE_URL_HOME_IMAGE+response["img"].toString(),
+                                })?.then((value) => Get.delete<QuizAboutPageController>());
 
                               },
                               child: Container(
-
                                 decoration:  BoxDecoration(
                                     borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(5.0),
@@ -310,7 +291,6 @@ class QuizCategoriesScreen  extends StatelessWidget{
                       child: _buildGetStartButton(response),
                     )
 
-
                   ],
                 ),
               ) ,
@@ -327,7 +307,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
       margin: const EdgeInsets.only(left: 0.0, right: 0.0),
       child: InkResponse(
         onTap: () {
-          // Get.to(CategoriesQuizDetailsPageScreen());
+
           Get.to(() => CategoriesQuizDetailsPageScreen(), arguments: {
             "categoriesId": response["id"].toString(),
             "categoriesQuizName": response["title"].toString(),
