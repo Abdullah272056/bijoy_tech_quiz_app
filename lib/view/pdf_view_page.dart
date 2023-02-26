@@ -41,9 +41,6 @@ class PdfViewPageScreen  extends StatelessWidget{
            return _buildBodyDesign();
           },),
 
-
-
-
       ),
     );
 

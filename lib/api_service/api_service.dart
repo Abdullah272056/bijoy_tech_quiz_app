@@ -48,8 +48,9 @@ String SUB_URL_API_GET_ABOUT_US= "api/page/about-us";
 
 
 
-String SUB_URL_API_GET_TERMS_OF_USE= "api/terms-of-use";
-String SUB_URL_API_GET_REFUND_POLICY= "api/refund-policy";
+String SUB_URL_API_GET_TERMS_OF_USE= "api/page/terms-conditon";
+
+
 String SUB_URL_API_GET_PRIVACY_POLICY= "api/privacy-policy";
 String SUB_URL_API_GET_FAQ= "api/faq";
 String SUB_URL_API_CONTACT_US= "api/contact-us";
