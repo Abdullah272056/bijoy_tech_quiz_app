@@ -41,7 +41,7 @@ class AboutUsController extends GetxController {
           var response = await get(
               Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_ABOUT_US}'),
           );
-        showToastShort("status = ${response.statusCode}");
+       // showToastShort("status = ${response.statusCode}");
            Get.back();
           if (response.statusCode == 200) {
             var responseData = jsonDecode(response.body);

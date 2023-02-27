@@ -61,7 +61,7 @@ class ContactUsController extends GetxController {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_CONTACT_US}'),
           );
-           showToastShort("status = ${response.statusCode}");
+          // showToastShort("status = ${response.statusCode}");
           Get.back();
           if (response.statusCode == 200) {
             var responseData = jsonDecode(response.body);

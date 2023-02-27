@@ -45,7 +45,7 @@ class FaqController extends GetxController {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_FAQ}'),
           );
-           showToastShort("status = ${response.statusCode}");
+         //  showToastShort("status = ${response.statusCode}");
           Get.back();
           if (response.statusCode == 200) {
             var responseData = jsonDecode(response.body);
@@ -57,7 +57,7 @@ class FaqController extends GetxController {
 
             faqList(responseData["data"]["qnas"]);
 
-            showToastShort(faqList.length.toString());
+           // showToastShort(faqList.length.toString());
             var n = List.generate(faqList.length+1, (index) => 0);
             faqListExpandedStatusList(n);
 

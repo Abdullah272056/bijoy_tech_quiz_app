@@ -7,11 +7,21 @@ import '../../static/Colors.dart';
 import '../api_service/api_service.dart';
 import '../controller/custom_drawer_controller.dart';
 import '../controller/dash_board_page_controller.dart';
+import '../controller/drawer_controller/about_us_controller.dart';
+import '../controller/drawer_controller/contact_us_controller.dart';
+import '../controller/drawer_controller/faq_controller.dart';
+import '../controller/drawer_controller/privacy_policy_controller.dart';
+import '../controller/drawer_controller/terms_of_use_controller.dart';
 import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import 'auth/change_password_page.dart';
 import 'auth/fotget_password_page.dart';
 import 'auth/log_in_page.dart';
 import 'auth/registration_page.dart';
+import 'drawer/about_us.dart';
+import 'drawer/contact_us.dart';
+import 'drawer/faq.dart';
+import 'drawer/privacy_policy.dart';
+import 'drawer/terms_of_use.dart';
 import 'home_page/categories_quiz_details.dart';
 import 'home_page/MyQuizScorePage.dart';
 import 'home_page/dash_board_page.dart';
@@ -179,6 +189,62 @@ class CustomDrawer extends StatelessWidget {
                           ),
 
                           ListTile(
+                            leading: drawerItemIconDesign(Icons.info_outline,
+                            ),
+                            title: drawerItemDesign("About Us"),
+                            onTap: (){
+
+                              Get.to(AboutUsPage())?.then((value) => Get.delete<AboutUsController>());
+                              // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
+                            },
+                          ),
+
+                          ListTile(
+                            leading: drawerItemIconDesign(Icons.contact_page,
+
+                            ),
+                            title: drawerItemDesign("Contact Us"),
+                            onTap: (){
+
+                              Get.to(ContactUsPage())?.then((value) => Get.delete<ContactUsController>());
+                              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                            },
+                          ),
+
+                          ListTile(
+                            leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
+
+                            ),
+                            title: drawerItemDesign("FAQ"),
+                            onTap: (){
+                              Get.to(FaqPage())?.then((value) => Get.delete<FaqController>());
+                              // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
+                            },
+                          ),
+
+                          ListTile(
+                            leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
+
+                            ),
+                            title: drawerItemDesign("Privacy Policy"),
+                            onTap: (){
+                              Get.to(PrivacyPolicyPage())?.then((value) => Get.delete<PrivacyPolicyController>());
+                              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                            },
+                          ),
+
+                          ListTile(
+                            leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
+
+                            ),
+                            title: drawerItemDesign("Terms of Use"),
+                            onTap: (){
+                              Get.to(TermsOfUsePage())?.then((value) => Get.delete<TermsOfUseController>());
+                              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                            },
+                          ),
+
+                          ListTile(
                             leading: drawerItemIconDesign(Icons.logout),
                             title: drawerItemDesign("Log Out"),
                             onTap: () {
@@ -252,6 +318,61 @@ class CustomDrawer extends StatelessWidget {
                               removeUserInfo();
                               Get.deleteAll();
                               Get.offAll(LogInScreen());
+                            },
+                          ),
+                          ListTile(
+                            leading: drawerItemIconDesign(Icons.info_outline,
+                            ),
+                            title: drawerItemDesign("About Us"),
+                            onTap: (){
+
+                              Get.to(AboutUsPage())?.then((value) => Get.delete<AboutUsController>());
+                              // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
+                            },
+                          ),
+
+                          ListTile(
+                            leading: drawerItemIconDesign(Icons.contact_page,
+
+                            ),
+                            title: drawerItemDesign("Contact Us"),
+                            onTap: (){
+
+                              Get.to(ContactUsPage())?.then((value) => Get.delete<ContactUsController>());
+                              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                            },
+                          ),
+
+                          ListTile(
+                            leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
+
+                            ),
+                            title: drawerItemDesign("FAQ"),
+                            onTap: (){
+                              Get.to(FaqPage())?.then((value) => Get.delete<FaqController>());
+                              // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
+                            },
+                          ),
+
+                          ListTile(
+                            leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
+
+                            ),
+                            title: drawerItemDesign("Privacy Policy"),
+                            onTap: (){
+                              Get.to(PrivacyPolicyPage())?.then((value) => Get.delete<PrivacyPolicyController>());
+                              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                            },
+                          ),
+
+                          ListTile(
+                            leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
+
+                            ),
+                            title: drawerItemDesign("Terms of Use"),
+                            onTap: (){
+                              Get.to(TermsOfUsePage())?.then((value) => Get.delete<TermsOfUseController>());
+                              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                             },
                           ),
 

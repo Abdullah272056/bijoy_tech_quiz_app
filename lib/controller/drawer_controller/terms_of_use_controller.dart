@@ -41,7 +41,7 @@ class TermsOfUseController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
-          showLoadingDialog("Loading...");
+         // showLoadingDialog("Loading...");
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_TERMS_OF_USE}'),
           );
