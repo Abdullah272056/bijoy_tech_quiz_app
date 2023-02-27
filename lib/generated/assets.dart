@@ -9,6 +9,7 @@ class Assets {
   static const String imagesClose1 = 'assets/images/close1.png';
   static const String imagesEmail = 'assets/images/email.png';
   static const String imagesEmpty = 'assets/images/empty.png';
+  static const String imagesFacebook = 'assets/images/facebook.png';
   static const String imagesFax = 'assets/images/fax.png';
   static const String imagesFnfLogo = 'assets/images/fnf_logo.png';
   static const String imagesGeneralQuiz = 'assets/images/general_quiz.jpg';
@@ -22,6 +23,7 @@ class Assets {
   static const String imagesIconLogInAccount = 'assets/images/icon_log_in_account.png';
   static const String imagesIconLogout = 'assets/images/icon_logout.png';
   static const String imagesInfoIcon = 'assets/images/info_icon.png';
+  static const String imagesInstagram = 'assets/images/instagram.png';
   static const String imagesLoading = 'assets/images/loading.png';
   static const String imagesMyQuizScore = 'assets/images/my_quiz_score.png';
   static const String imagesNotFound = 'assets/images/not_found.png';
@@ -35,8 +37,10 @@ class Assets {
   static const String imagesSliderImage = 'assets/images/slider_image.jpg';
   static const String imagesSpelling = 'assets/images/spelling.png';
   static const String imagesSubmitIcon = 'assets/images/submit_icon.png';
+  static const String imagesTwitter = 'assets/images/twitter.png';
   static const String imagesVerified = 'assets/images/verified.png';
   static const String imagesVideoQuiz = 'assets/images/video_quiz.png';
+  static const String imagesYoutube = 'assets/images/youtube.png';
   static const String imagesYoutubeIcon = 'assets/images/youtube_icon.png';
 
 }

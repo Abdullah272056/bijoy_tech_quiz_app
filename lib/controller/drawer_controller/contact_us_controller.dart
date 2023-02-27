@@ -18,45 +18,38 @@ import '../../view/common/toast.dart';
 
 class ContactUsController extends GetxController {
 
+  ///input box controller
+  final userNameController = TextEditingController().obs;
+  final userPhoneController = TextEditingController().obs;
+  final userEmailController = TextEditingController().obs;
+
+  final subjectController = TextEditingController().obs;
+  final messageController = TextEditingController().obs;
+
+
+  var userEmailLevelTextColor = hint_color.obs;
   var userName="".obs;
   var userToken="".obs;
 
-
-  var contactInfoMessage="".obs;
-
-  var faqList=[].obs;
-  var faqListExpandedStatusList=[].obs;
-
-  var phoneNumber="".obs;
+  var companyName="".obs;
+  var telephone="".obs;
   var emailAddress="".obs;
-  var faxNumber="".obs;
+  var cellphone="".obs;
   var address="".obs;
 
+  var faceBookLink="".obs;
+  var youtubeLink="".obs;
+  var instagramLink="".obs;
+  var twitterLink="".obs;
 
-  ///input box controller
-  final userNameController = TextEditingController().obs;
-  final userEmailController = TextEditingController().obs;
-  final messageController = TextEditingController().obs;
 
-  final  userNameControllerFocusNode = FocusNode().obs;
-  final  userEmailControllerFocusNode = FocusNode().obs;
-  final  messageControllerFocusNode = FocusNode().obs;
-  var userEmailLevelTextColor = hint_color.obs;
 
 
   @override
   void onInit() {
     super.onInit();
-    loadUserIdFromSharePref();
-    retriveUserInfo();
-   // getPrivacyPolicyData();
     getContactData();
-
   }
-
-
-
-
 
   ///get data api call
   void getContactData() async{
@@ -68,22 +61,23 @@ class ContactUsController extends GetxController {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_CONTACT_US}'),
           );
-         //  _showToast("status = ${response.statusCode}");
+           showToastShort("status = ${response.statusCode}");
           Get.back();
           if (response.statusCode == 200) {
             var responseData = jsonDecode(response.body);
 
+            companyName(responseData["data"]["contact"][0]["company_name"].toString());
+            telephone(responseData["data"]["contact"][0]["telephone"].toString());
+            emailAddress(responseData["data"]["contact"][0]["email"].toString());
+            cellphone(responseData["data"]["contact"][0]["cellphone"].toString());
+            address(responseData["data"]["contact"][0]["address"].toString());
 
-             phoneNumber(responseData["data"]["contact_info"]["phone_number"].toString());
-             emailAddress(responseData["data"]["contact_info"]["email"].toString());
-             faxNumber(responseData["data"]["contact_info"]["fax"].toString());
-             address(responseData["data"]["contact_info"]["address"].toString());
-            contactInfoMessage(responseData["data"]["contact_info"]["title"].toString());
 
-            faqList(responseData["data"]["faq"]);
+            faceBookLink(responseData["data"]["contact"][0]["fb"].toString());
+            youtubeLink(responseData["data"]["contact"][0]["yt"].toString());
+            instagramLink(responseData["data"]["contact"][0]["ins"].toString());
+            twitterLink(responseData["data"]["contact"][0]["tw"].toString());
 
-            var n = List.generate(faqList.length+1, (index) => 0);
-            faqListExpandedStatusList(n);
 
           }
           else {
@@ -100,35 +94,6 @@ class ContactUsController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
-
-
-
-  ///get data from share pref
-  void loadUserIdFromSharePref() async {
-    try {
-      var storage =GetStorage();
-      userName(storage.read(pref_user_name));
-      userToken(storage.read(pref_user_token));
-      // _showToast("qwer "+userToken.toString());
-    } catch (e) {
-
-    }
-
-  }
-
-  ///get user data from share pref
-  void retriveUserInfo() async {
-    try {
-      var storage =GetStorage();
-      userName(storage.read(pref_user_name).toString());
-      userToken(storage.read(pref_user_token).toString());
-      //  _showToast("Tokenqw = "+storage.read(pref_user_token).toString());
-    }catch(e){
-
-    }
-
-  }
-
 
   contactUsMessageSend({
     required String name,

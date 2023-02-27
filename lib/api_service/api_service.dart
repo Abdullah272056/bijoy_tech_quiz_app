@@ -52,5 +52,5 @@ String SUB_URL_API_GET_PRIVACY_POLICY= "api/page/privacy-policy";
 String SUB_URL_API_GET_FAQ= "api/page/faq";
 
 
-String SUB_URL_API_CONTACT_US= "api/contact-us";
-String SUB_URL_API_GET_CONTACT_US= "api/contact-us";
+String SUB_URL_API_CONTACT_US= "api/page/contact-us";
+String SUB_URL_API_GET_CONTACT_US= "api/page/contact-us";
