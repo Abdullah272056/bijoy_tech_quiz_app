@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return  GetMaterialApp(
-     home: FaqPage()
+     home: AboutUsPage()
        //  home: AboutUsPage()
        // home: RegistrationScreen()
        //   home: ProfileSectionPage()

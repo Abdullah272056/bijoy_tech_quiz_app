@@ -46,7 +46,7 @@ class AboutUsController extends GetxController {
           if (response.statusCode == 200) {
             var responseData = jsonDecode(response.body);
 
-            aboutUsDataText(responseData["data"]["about"][""]);
+            aboutUsDataText(responseData["data"]["about"][0]["desc"]);
             aboutUsDataTitle(responseData["data"]["title"]);
            // _showToast(categoriesList.length.toString());
           }
