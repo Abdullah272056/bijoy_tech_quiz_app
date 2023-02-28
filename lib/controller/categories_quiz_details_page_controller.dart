@@ -14,24 +14,16 @@ class CategoriesQuizDetailsPageController extends GetxController {
 
   var categoriesId="3".obs;
   var imageUrl="".obs;
-
   var categoriesDataResponse;
-
-
-   var quizTypeStatus="".obs;
-
-
-   var quizName="".obs;
-   var titleName="".obs;
+  var quizTypeStatus="".obs;
+  var quizName="".obs;
+  var titleName="".obs;
   var quizId="".obs;
-
   var quizAboutText="".obs;
   var onGoingQuizList= [].obs;
   var recentlyFinishedQuizList= [].obs;
-
   var userName="".obs;
   var userToken="".obs;
-
   dynamic argumentData = Get.arguments;
 
 
@@ -44,9 +36,6 @@ class CategoriesQuizDetailsPageController extends GetxController {
     quizId(argumentData["categoriesId"].toString());
     loadUserIdFromSharePref();
     getQuizCategoriesDetailsDataList(argumentData["categoriesId"].toString() );
-
-
-
     super.onInit();
 
   }

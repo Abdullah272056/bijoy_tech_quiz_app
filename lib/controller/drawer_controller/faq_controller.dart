@@ -1,16 +1,12 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
-
-import '../../static/Colors.dart';
 import '../../view/common/loading_dialog.dart';
 import '../../view/common/toast.dart';
 
@@ -18,6 +14,10 @@ class FaqController extends GetxController {
 
   var userName="".obs;
   var userToken="".obs;
+
+  var faqText="".obs;
+  var faqTextTitle="".obs;
+
 
   var faqList=[].obs;
   var faqListExpandedStatusList=[].obs;
@@ -28,9 +28,7 @@ class FaqController extends GetxController {
     loadUserIdFromSharePref();
     retriveUserInfo();
     getPrivacyPolicyData();
-
   }
-
   ///get data api call
   void getPrivacyPolicyData() async{
     try {
@@ -41,15 +39,23 @@ class FaqController extends GetxController {
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_FAQ}'),
           );
-          // _showToast("status = ${response.statusCode}");
+         //  showToastShort("status = ${response.statusCode}");
           Get.back();
           if (response.statusCode == 200) {
             var responseData = jsonDecode(response.body);
 
-            faqList(responseData["data"]);
 
+            faqText(responseData["data"]["faq"][0]["desc"]);
+            faqTextTitle(responseData["data"]["faq"][0]["title"]);
+
+
+            faqList(responseData["data"]["qnas"]);
+
+           // showToastShort(faqList.length.toString());
             var n = List.generate(faqList.length+1, (index) => 0);
             faqListExpandedStatusList(n);
+
+
            // privacyDataTitle(responseData["data"]["title"]);
            // _showToast("len= "+faqListExpandedStatusList.length.toString());
           }
@@ -67,10 +73,6 @@ class FaqController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
-
-
-
-
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {

@@ -1,31 +1,22 @@
 
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart';
 
-import '../../static/Colors.dart';
+import 'package:http/http.dart';
 import '../../view/common/toast.dart';
 import '../api_service/api_service.dart';
 import '../view/common/loading_dialog.dart';
 
 class CategoriesListPageController extends GetxController {
-
-
   var isDrawerOpen = false.obs;
   var quizCategoriesDataList = [].obs;
 
-
   @override
   void onInit() {
-
     getQuizCategoriesDataList();
     super.onInit();
-
   }
 
   void getQuizCategoriesDataList() async{

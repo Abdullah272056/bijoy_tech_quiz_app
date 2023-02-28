@@ -291,7 +291,7 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
                     Container(
                         margin: const EdgeInsets.only(top: 10),
                         // height:Get.size.width<450?255:260,
-                        height:317,
+                        height:Get.size.width>450?360:317,
 
                         // child: _buildRecentlyAddedCourseItem(),
                         child: Align(
@@ -365,7 +365,9 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
                     Container(
                         margin: const EdgeInsets.only(top: 10),
                         // height:Get.size.width<450?255:260,
-                        height:285,
+                        height:Get.size.width>450?300:285,
+
+
 
                         // child: _buildRecentlyAddedCourseItem(),
                         child: Obx(() => ListView.builder(
@@ -651,8 +653,6 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
         onTap: () {
 
          // showToastShort(categoriesQuizDetailsPageController.userToken.value);
-
-
           if(categoriesQuizDetailsPageController.userToken.value.isNotEmpty &&
               categoriesQuizDetailsPageController.userToken.value!=null &&
               categoriesQuizDetailsPageController.userToken.value!="null"
@@ -701,9 +701,6 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
           }else{
             showLoginWarning();
           }
-
-
-
 
         },
 
@@ -767,7 +764,6 @@ class CategoriesQuizDetailsPageScreen  extends StatelessWidget {
 
 
   double sizeReturn(int devide){
-
     return Get.size.height/devide;
   }
 

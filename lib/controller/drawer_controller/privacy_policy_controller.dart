@@ -1,17 +1,12 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import '../../api_service/api_service.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
-
-import '../../static/Colors.dart';
-import '../../view/common/loading_dialog.dart';
 import '../../view/common/toast.dart';
 
 class PrivacyPolicyController extends GetxController {
@@ -35,7 +30,7 @@ class PrivacyPolicyController extends GetxController {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         try {
-          showLoadingDialog("Loading...");
+      //    showLoadingDialog("Loading...");
           var response = await get(
             Uri.parse('${BASE_URL_API}${SUB_URL_API_GET_PRIVACY_POLICY}'),
           );
@@ -62,9 +57,6 @@ class PrivacyPolicyController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
-
-
-
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {
