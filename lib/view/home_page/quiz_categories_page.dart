@@ -154,7 +154,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
                               mainAxisSpacing: 10.0,
 
                               // mainAxisExtent:Get.size.width>550? 320:250
-                              mainAxisExtent:Get.size.width>550? 320:Get.size.height/3.1
+                              mainAxisExtent:Get.size.width>550? 450:Get.size.height/3.1
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             return _buildHomeCardItem(categoriesListPageController.quizCategoriesDataList[index] );

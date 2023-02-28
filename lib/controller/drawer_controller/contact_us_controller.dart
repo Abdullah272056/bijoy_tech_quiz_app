@@ -5,17 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import '../../api_service/api_service.dart';
-import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
-
 import '../../static/Colors.dart';
 import 'package:http/http.dart' as http;
-
 import '../../view/common/loading_dialog.dart';
 import '../../view/common/toast.dart';
-
 class ContactUsController extends GetxController {
 
   ///input box controller

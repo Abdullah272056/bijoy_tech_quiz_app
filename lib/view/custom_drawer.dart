@@ -1,12 +1,10 @@
 import 'package:bijoy_tech_quiz_app/view/payment_request_page.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../static/Colors.dart';
 import '../api_service/api_service.dart';
 import '../controller/custom_drawer_controller.dart';
-import '../controller/dash_board_page_controller.dart';
 import '../controller/drawer_controller/about_us_controller.dart';
 import '../controller/drawer_controller/contact_us_controller.dart';
 import '../controller/drawer_controller/faq_controller.dart';
@@ -22,9 +20,8 @@ import 'drawer/contact_us.dart';
 import 'drawer/faq.dart';
 import 'drawer/privacy_policy.dart';
 import 'drawer/terms_of_use.dart';
-import 'home_page/categories_quiz_details.dart';
 import 'home_page/MyQuizScorePage.dart';
-import 'home_page/dash_board_page.dart';
+
 
 class CustomDrawer extends StatelessWidget {
   final customDrawerController = Get.put(CustomDrawerController());
