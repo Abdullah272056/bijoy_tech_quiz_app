@@ -7,9 +7,11 @@ import 'package:get/get.dart';
 
 import '../../../static/Colors.dart';
 
+import '../../controller/dash_board_page_controller.dart';
 import '../../controller/forget_password_page_controller.dart';
 import '../common/loading_dialog.dart';
 import '../common/toast.dart';
+import '../home_page/dash_board_page.dart';
 import 'email_verification.dart';
 import 'log_in_page.dart';
 
@@ -19,6 +21,7 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   var width;
   var height;
+
   @override
   Widget build(BuildContext context) {
 
@@ -48,7 +51,6 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   }
 
-
   Widget _buildBodyDesign() {
     return Container(
       color:bg_top_color,
@@ -56,12 +58,31 @@ class ForgetPasswordScreen extends StatelessWidget {
         direction: Axis.vertical,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 25.0, bottom: 25.0),
-            child: Image.asset(
-              "assets/images/app_logo.png",
-              //width: 80,
-              height: 80,
-              fit: BoxFit.fill,
+            margin: const EdgeInsets.only(top: 20.0, bottom: 20.0,left: 20,right: 20),
+            child: Row(
+              children: [
+                Image.asset(
+                  "assets/images/app_logo.png",
+                  //width: 80,
+                  height: 65,
+                  fit: BoxFit.fill,
+                ),
+                Expanded(child: Container()),
+                Container(
+                  margin: EdgeInsets.only(top: 0,left: 10),
+                  child: InkWell(
+                      onTap: (){
+                        Get.deleteAll();
+                        Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                      },
+                      child: Icon(
+                        Icons.home,
+                        size: 30,
+                        color: Colors.white,
+                      )
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -166,8 +187,7 @@ class ForgetPasswordScreen extends StatelessWidget {
         ));
   }
 
-  Widget userInputEmail(TextEditingController userInput, String hintTitle,
-      TextInputType keyboardType) {
+  Widget userInputEmail(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
       alignment: Alignment.center,
@@ -252,6 +272,7 @@ class ForgetPasswordScreen extends StatelessWidget {
       ),
     );
   }
+
 //join now asking
   Widget _buildSignUpQuestion() {
     return Row(
@@ -286,9 +307,5 @@ class ForgetPasswordScreen extends StatelessWidget {
       ],
     );
   }
-
-
-
-
 
 }

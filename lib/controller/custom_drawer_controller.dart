@@ -5,18 +5,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
-
 import '../api_service/api_service.dart';
 import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../view/auth/log_in_page.dart';
 import '../view/common/loading_dialog.dart';
 
-
-
 class CustomDrawerController extends GetxController {
   var drawerSelectedTab = 1.obs;
   var categoriesList=[].obs;
-  var userName="xxxxxx".obs;
+  var userName="------".obs;
   var userToken="".obs;
 
   var amount="0.00".obs;

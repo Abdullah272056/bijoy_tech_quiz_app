@@ -3,8 +3,10 @@ import 'package:bijoy_tech_quiz_app/view/auth/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../static/Colors.dart';
+import '../../controller/dash_board_page_controller.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../common/toast.dart';
+import '../home_page/dash_board_page.dart';
 import 'fotget_password_page.dart';
 
 class LogInScreen  extends StatelessWidget {
@@ -53,12 +55,31 @@ class LogInScreen  extends StatelessWidget {
         direction: Axis.vertical,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 25.0, bottom: 25.0),
-            child: Image.asset(
-              "assets/images/app_logo.png",
-              //width: 80,
-              height: 80,
-              fit: BoxFit.fill,
+            margin: const EdgeInsets.only(top: 20.0, bottom: 20.0,left: 20,right: 20),
+            child: Row(
+              children: [
+                Image.asset(
+                  "assets/images/app_logo.png",
+                  //width: 80,
+                  height: 65,
+                  fit: BoxFit.fill,
+                ),
+                Expanded(child: Container()),
+                Container(
+                  margin: EdgeInsets.only(top: 0,left: 10),
+                  child: InkWell(
+                      onTap: (){
+                        Get.deleteAll();
+                        Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                      },
+                      child: Icon(
+                        Icons.home,
+                        size: 30,
+                        color: Colors.white,
+                      )
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -93,7 +114,7 @@ class LogInScreen  extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text("Login",
                         style: TextStyle(
-                            color: levelTextColorWhite,
+                            color: textColor,
                             fontSize: 25,
                             fontWeight: FontWeight.w900)),
                   ),

@@ -105,7 +105,6 @@ class CustomDrawer extends StatelessWidget {
                             GetStorage().read(pref_user_token).toString().isNotEmpty)
                           ...{
 
-
                           //if login
                           ListTile(
                             leading: drawerItemIconDesign(Icons.score),
