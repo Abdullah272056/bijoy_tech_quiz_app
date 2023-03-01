@@ -12,7 +12,7 @@ import '../../controller/home_controller2.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../../controller/my_quiz_score_controller.dart';
 import '../common/toast.dart';
-import '../custom_drawer.dart';
+import '../drawer/custom_drawer.dart';
 
 class MyQuizScorePageScreen  extends StatelessWidget{
 

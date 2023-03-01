@@ -11,7 +11,7 @@ import '../../controller/home_controller1.dart';
 import '../../controller/home_controller2.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../common/toast.dart';
-import '../custom_drawer.dart';
+import '../drawer/custom_drawer.dart';
 import '../before_join_quiz/individual_quiz_about_more.dart';
 
 class CategoriesWiseQuizListPageScreen  extends StatelessWidget{

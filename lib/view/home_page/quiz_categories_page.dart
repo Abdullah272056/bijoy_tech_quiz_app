@@ -13,7 +13,7 @@ import '../../controller/home_controller.dart';
 import '../../controller/log_in_page_controller.dart';
 import 'categories_quiz_details.dart';
 import '../common/toast.dart';
-import '../custom_drawer.dart';
+import '../drawer/custom_drawer.dart';
 import 'categories_wise_quiz_list_page.dart';
 import 'quiz_about_more.dart';
 

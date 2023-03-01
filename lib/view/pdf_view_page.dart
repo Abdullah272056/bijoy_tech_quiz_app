@@ -12,7 +12,7 @@ import '../api_service/api_service.dart';
 import '../controller/indevidual_quiz_about_page_controller.dart';
 import '../controller/pdf_view_page_controller.dart';
 import 'common/toast.dart';
-import 'custom_drawer.dart';
+import 'drawer/custom_drawer.dart';
 
 
 

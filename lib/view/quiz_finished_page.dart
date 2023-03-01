@@ -10,7 +10,7 @@ import '../controller/indevidual_quiz_about_page_controller.dart';
 import '../controller/pdf_view_page_controller.dart';
 import '../controller/quiz_finished_page_controller.dart';
 import 'common/toast.dart';
-import 'custom_drawer.dart';
+import 'drawer/custom_drawer.dart';
 import 'home_page/dash_board_page.dart';
 
 

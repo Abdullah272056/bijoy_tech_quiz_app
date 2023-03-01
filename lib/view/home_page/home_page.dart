@@ -23,7 +23,7 @@ import '../before_join_quiz/spelling_indevidual_quiz_about_more.dart';
 import '../before_join_quiz/video_indevidual_quiz_about_more.dart';
 import '../common/login_warning.dart';
 import '../common/toast.dart';
-import '../custom_drawer.dart';
+import '../drawer/custom_drawer.dart';
 import '../before_join_quiz/individual_quiz_about_more.dart';
 
 class HomePageScreen  extends StatelessWidget{
