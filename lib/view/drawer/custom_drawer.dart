@@ -332,6 +332,7 @@ class CustomDrawer extends StatelessWidget {
                               Get.to(ForgetPasswordScreen());
                             },
                           ),
+
                           ListTile(
                             leading: drawerItemIconDesign(Icons.list_alt),
                             title: drawerItemDesign("On Going Quizzes"),
@@ -346,6 +347,7 @@ class CustomDrawer extends StatelessWidget {
                               //  Get.to(ForgetPasswordScreen());
                             },
                           ),
+
                           ListTile(
                             leading: drawerItemIconDesign(Icons.lock_reset_outlined),
                             title: drawerItemDesign("Forget Your Password"),

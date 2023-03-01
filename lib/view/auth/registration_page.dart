@@ -484,7 +484,7 @@ class RegistrationScreen  extends StatelessWidget {
               hint:Row(
                 children: const [
 
-                  Expanded(child: Padding(padding: EdgeInsets.only(left: 25),
+                  Expanded(child: Padding(padding: EdgeInsets.only(left: 17),
                       child:  Text("Select Grade",
                           style: TextStyle(
                               color: levelTextColor,
@@ -577,7 +577,7 @@ class RegistrationScreen  extends StatelessWidget {
               height: 50,
 
               child: Padding(
-                padding:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+                padding:  const EdgeInsets.only(left: 2.0, top: 0,bottom: 0, right: 5),
                 child:Obx(() => Flex(direction: Axis.horizontal,
                   children: [
                     if(signUpPageController.userBirthDate==signUpPageController.select_your_birth_day)...{
@@ -737,7 +737,7 @@ class RegistrationScreen  extends StatelessWidget {
               hint:Row(
                 children: const [
 
-                  Expanded(child: Padding(padding: EdgeInsets.only(left: 25),
+                  Expanded(child: Padding(padding: EdgeInsets.only(left: 17),
                       child:  Text("Select Country",
                           style: TextStyle(
                               color: levelTextColor,

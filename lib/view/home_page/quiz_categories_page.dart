@@ -119,7 +119,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
 
                       SizedBox(height: 5,),
                       SizedBox(
-                        height: Get.size.height * 0.20,
+                        height: Get.size.height * 0.15,
                         child: Swiper(
                           itemCount: 3,
                           itemBuilder: (ctx, index) {
@@ -151,7 +151,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
                           gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount:Get.size.width>550? 3:2,
                               crossAxisSpacing:10.0,
-                              mainAxisSpacing: 10.0,
+                              mainAxisSpacing: 7.0,
 
                               // mainAxisExtent:Get.size.width>550? 320:250
                               mainAxisExtent:Get.size.width>550? 450:Get.size.height/3.1

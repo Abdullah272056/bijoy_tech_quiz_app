@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -144,15 +145,31 @@ Widget _buildBottomDesign() {
                           )
                         ],
                       ),
-                      SizedBox(height: 10,),
-                      Obx(() =>   Text(
-                        aboutUsController.aboutUsDataText.value,
-                        style: TextStyle(
-                            color:textColor,
-                            fontSize: 15,
-                            decoration: TextDecoration.none,
-                            fontWeight: FontWeight.normal),
-                      ))
+
+
+                      Obx(() =>   Html(
+                          data: "<div style='color:#FFF'>"+
+                              aboutUsController.allData.value+
+                              "</div>"
+                        ,
+
+                        // examPageController.instructionMessageHtmlData.value,
+                      ),),
+
+                      // Obx(() =>   Text(
+                      //   aboutUsController.aboutUsDataText.value,
+                      //   style: TextStyle(
+                      //       color:textColor,
+                      //       fontSize: 15,
+                      //       decoration: TextDecoration.none,
+                      //       fontWeight: FontWeight.normal),
+                      // )),
+
+
+
+
+
+
                     ],
                   )
               )

@@ -29,8 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return  GetMaterialApp(
-     // home: DashBoardPageScreen()
-     home: LogInScreen()
+     home: DashBoardPageScreen()
        //  home: AboutUsPage()
        // home: RegistrationScreen()
        //   home: ProfileSectionPage()

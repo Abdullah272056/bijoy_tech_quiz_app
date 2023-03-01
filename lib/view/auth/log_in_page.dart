@@ -95,9 +95,9 @@ class LogInScreen  extends StatelessWidget {
   Widget _buildBottomDesign() {
     return Container(
         width: Get.size.width,
-        decoration:  BoxDecoration(
+        decoration:  const BoxDecoration(
           color: bottom_bg_color,
-          borderRadius: const BorderRadius.only(
+          borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.0),
             topRight: Radius.circular(30.0),
           ),

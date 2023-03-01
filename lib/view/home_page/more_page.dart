@@ -70,11 +70,13 @@ class MorePage extends StatelessWidget {
                           height: 8,
                         ),
                         Obx(() =>  Text(
-                          customDrawerController.userName.value,
-                          style: TextStyle(
+                          customDrawerController.userName.value!=""?customDrawerController.userName.value:"--------",
+                          style: const TextStyle(
                               color: textColor,
                               fontSize: 18,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.w500
+                          ),
+
                         ),),
                         const SizedBox(
                           height: 4,
@@ -103,10 +105,7 @@ class MorePage extends StatelessWidget {
                       children: [
                         if (GetStorage().read(pref_user_token) != null &&
                             GetStorage().read(pref_user_token) != "null" &&
-                            GetStorage()
-                                .read(pref_user_token)
-                                .toString()
-                                .isNotEmpty) ...{
+                            GetStorage().read(pref_user_token).toString().isNotEmpty) ...{
                           // ListTile(
                           //   leading: drawerItemIconDesign(Icons.home),
                           //   title: drawerItemDesign("Home"),
@@ -162,28 +161,44 @@ class MorePage extends StatelessWidget {
                           //
                           // ),
 
+                          // ListTile(
+                          //   leading: drawerItemIconDesign(Icons.score),
+                          //   title: drawerItemDesign("My Quiz Scores"),
+                          //   onTap: () {
+                          //     Get.to(MyQuizScorePageScreen());
+                          //   },
+                          // ),
+                          //
+                          // ListTile(
+                          //   leading:
+                          //       drawerItemIconDesign(Icons.wallet_outlined),
+                          //   title: drawerItemDesign("Payment Request"),
+                          //   onTap: () {
+                          //     Get.to(PaymentRequestScreen());
+                          //   },
+                          // ),
+                          //
+                          // ListTile(
+                          //   leading: drawerItemIconDesign(Icons.password),
+                          //   title: drawerItemDesign("Change Password"),
+                          //   onTap: () {
+                          //     Get.to(ChangePasswordScreen());
+                          //   },
+                          // ),
+
                           ListTile(
-                            leading: drawerItemIconDesign(Icons.score),
-                            title: drawerItemDesign("My Quiz Scores"),
+                            leading: drawerItemIconDesign(Icons.list_alt),
+                            title: drawerItemDesign("On Going Quizzes"),
                             onTap: () {
-                              Get.to(MyQuizScorePageScreen());
+                              //  Get.to(ForgetPasswordScreen());
                             },
                           ),
 
                           ListTile(
-                            leading:
-                                drawerItemIconDesign(Icons.wallet_outlined),
-                            title: drawerItemDesign("Payment Request"),
+                            leading: drawerItemIconDesign(Icons.list_alt),
+                            title: drawerItemDesign("Up Coming Quizzes"),
                             onTap: () {
-                              Get.to(PaymentRequestScreen());
-                            },
-                          ),
-
-                          ListTile(
-                            leading: drawerItemIconDesign(Icons.password),
-                            title: drawerItemDesign("Change Password"),
-                            onTap: () {
-                              Get.to(ChangePasswordScreen());
+                              //  Get.to(ForgetPasswordScreen());
                             },
                           ),
 
@@ -236,20 +251,20 @@ class MorePage extends StatelessWidget {
                             leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
 
                             ),
-                            title: drawerItemDesign("Terms of Use"),
+                            title: drawerItemDesign("TERMS AND CONDITIONS"),
                             onTap: (){
                               Get.to(TermsOfUsePage())?.then((value) => Get.delete<TermsOfUseController>());
                               //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                             },
                           ),
 
-                          ListTile(
-                            leading: drawerItemIconDesign(Icons.logout),
-                            title: drawerItemDesign("Log Out"),
-                            onTap: () {
-                              customDrawerController.getUserAccountLogOut(GetStorage().read(pref_user_token));
-                            },
-                          ),
+                          // ListTile(
+                          //   leading: drawerItemIconDesign(Icons.logout),
+                          //   title: drawerItemDesign("Log Out"),
+                          //   onTap: () {
+                          //     customDrawerController.getUserAccountLogOut(GetStorage().read(pref_user_token));
+                          //   },
+                          // ),
 
                           //
                           // ExpansionTile(
@@ -288,37 +303,25 @@ class MorePage extends StatelessWidget {
                           //
                           //
                           // ),
-                        } else ...{
+                        }
+                        else ...{
 
                           ListTile(
-                            leading:
-                            drawerItemIconDesign(Icons.app_registration),
-                            title: drawerItemDesign("Create Account"),
+                            leading: drawerItemIconDesign(Icons.list_alt),
+                            title: drawerItemDesign("On Going Quizzes"),
                             onTap: () {
-                              Navigator.pop(context);
-                              Get.to(RegistrationScreen());
+                              //  Get.to(ForgetPasswordScreen());
                             },
                           ),
 
                           ListTile(
-                            leading: drawerItemIconDesign(Icons.lock_reset_outlined),
-                            title: drawerItemDesign("Forget Your Password"),
+                            leading: drawerItemIconDesign(Icons.list_alt),
+                            title: drawerItemDesign("Up Coming Quizzes"),
                             onTap: () {
-                              Get.to(ForgetPasswordScreen());
+                              //  Get.to(ForgetPasswordScreen());
                             },
                           ),
 
-                          ListTile(
-                            leading: drawerItemIconDesign(Icons.login),
-                            title: drawerItemDesign("Log In"),
-                            onTap: () {
-                              Navigator.pop(context);
-
-                              removeUserInfo();
-                              Get.deleteAll();
-                              Get.offAll(LogInScreen());
-                            },
-                          ),
                           ListTile(
                             leading: drawerItemIconDesign(Icons.info_outline,
                             ),
@@ -368,12 +371,110 @@ class MorePage extends StatelessWidget {
                             leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
 
                             ),
-                            title: drawerItemDesign("Terms of Use"),
+                            title: drawerItemDesign("Terms And Condition"),
                             onTap: (){
                               Get.to(TermsOfUsePage())?.then((value) => Get.delete<TermsOfUseController>());
                               //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
                             },
                           ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          // ListTile(
+                          //   leading:
+                          //   drawerItemIconDesign(Icons.app_registration),
+                          //   title: drawerItemDesign("Create Account"),
+                          //   onTap: () {
+                          //     Navigator.pop(context);
+                          //     Get.to(RegistrationScreen());
+                          //   },
+                          // ),
+                          //
+                          // ListTile(
+                          //   leading: drawerItemIconDesign(Icons.lock_reset_outlined),
+                          //   title: drawerItemDesign("Forget Your Password"),
+                          //   onTap: () {
+                          //     Get.to(ForgetPasswordScreen());
+                          //   },
+                          // ),
+                          //
+                          // ListTile(
+                          //   leading: drawerItemIconDesign(Icons.login),
+                          //   title: drawerItemDesign("Log In"),
+                          //   onTap: () {
+                          //     Navigator.pop(context);
+                          //
+                          //     removeUserInfo();
+                          //     Get.deleteAll();
+                          //     Get.offAll(LogInScreen());
+                          //   },
+                          // ),
+                          //
+                          // ListTile(
+                          //   leading: drawerItemIconDesign(Icons.info_outline,
+                          //   ),
+                          //   title: drawerItemDesign("About Us"),
+                          //   onTap: (){
+                          //
+                          //     Get.to(AboutUsPage())?.then((value) => Get.delete<AboutUsController>());
+                          //     // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
+                          //   },
+                          // ),
+                          //
+                          // ListTile(
+                          //   leading: drawerItemIconDesign(Icons.contact_page,
+                          //
+                          //   ),
+                          //   title: drawerItemDesign("Contact Us"),
+                          //   onTap: (){
+                          //
+                          //     Get.to(ContactUsPage())?.then((value) => Get.delete<ContactUsController>());
+                          //     //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                          //   },
+                          // ),
+                          //
+                          // ListTile(
+                          //   leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
+                          //
+                          //   ),
+                          //   title: drawerItemDesign("FAQ"),
+                          //   onTap: (){
+                          //     Get.to(FaqPage())?.then((value) => Get.delete<FaqController>());
+                          //     // Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferRide()));
+                          //   },
+                          // ),
+                          //
+                          // ListTile(
+                          //   leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
+                          //
+                          //   ),
+                          //   title: drawerItemDesign("Privacy Policy"),
+                          //   onTap: (){
+                          //     Get.to(PrivacyPolicyPage())?.then((value) => Get.delete<PrivacyPolicyController>());
+                          //     //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                          //   },
+                          // ),
+                          //
+                          // ListTile(
+                          //   leading: drawerItemIconDesign(Icons.privacy_tip_outlined,
+                          //
+                          //   ),
+                          //   title: drawerItemDesign("Terms of Use"),
+                          //   onTap: (){
+                          //     Get.to(TermsOfUsePage())?.then((value) => Get.delete<TermsOfUseController>());
+                          //     //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveRideScreen()));
+                          //   },
+                          // ),
 
                         },
                         SizedBox(

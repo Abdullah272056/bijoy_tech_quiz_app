@@ -16,6 +16,11 @@ class AboutUsController extends GetxController {
   var userToken="".obs;
   var aboutUsDataText="".obs;
   var aboutUsDataTitle="".obs;
+
+
+  var allData="".obs;
+
+
   @override
   void onInit() {
     super.onInit();
@@ -43,6 +48,7 @@ class AboutUsController extends GetxController {
 
             aboutUsDataText(responseData["data"]["about"][0]["desc"]);
             aboutUsDataTitle(responseData["data"]["title"]);
+            allData(responseData["data"]["about"][0]["desc"]);
            // _showToast(categoriesList.length.toString());
           }
           else {
