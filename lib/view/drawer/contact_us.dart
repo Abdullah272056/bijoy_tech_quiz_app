@@ -459,7 +459,7 @@ class ContactUsPage extends StatelessWidget {
                         SizedBox(height: 25,),
                         _buildSendMessageButton(),
 
-
+                        SizedBox(height: 15,),
 
 
                       ],
@@ -559,8 +559,16 @@ class ContactUsPage extends StatelessWidget {
         String userEmailTxt = contactUsController.userEmailController.value.text;
         String messageTxt = contactUsController.messageController.value.text;
 
+        String subjectTxt = contactUsController.subjectController.value.text;
+        String phoneTxt = contactUsController.userPhoneController.value.text;
+
         if(userNameTxt.isEmpty){
           showToastShort("Name can't Empty!");
+          return;
+
+        }
+        if(phoneTxt.isEmpty){
+          showToastShort("Phone can't Empty!");
           return;
 
         }
@@ -577,13 +585,18 @@ class ContactUsPage extends StatelessWidget {
           showToastShort("Enter valid email!");
           return;
         }
+        if(subjectTxt.isEmpty){
+          showToastShort("Subject can't Empty!");
+          return;
+
+        }
         if(messageTxt.isEmpty){
           showToastShort("Message can't Empty!");
           return;
 
         }
 
-        contactUsController. contactUsMessageSend(name: userNameTxt, email: userEmailTxt, message: messageTxt);
+        contactUsController. contactUsMessageSend(name: userNameTxt, email: userEmailTxt, message: messageTxt, subject: subjectTxt, phone: phoneTxt);
 
 
 

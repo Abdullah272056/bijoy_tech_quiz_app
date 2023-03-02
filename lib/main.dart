@@ -1,5 +1,6 @@
 
 
+import 'package:bijoy_tech_quiz_app/view/drawer/contact_us.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return  GetMaterialApp(
-     home: DashBoardPageScreen()
+     home: ContactUsPage()
        // home: AboutUsPage()
        // home: RegistrationScreen()
        // home: ProfileSectionPage()

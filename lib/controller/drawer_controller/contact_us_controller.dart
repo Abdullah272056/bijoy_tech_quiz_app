@@ -94,6 +94,8 @@ class ContactUsController extends GetxController {
     required String name,
     required String email,
     required String message,
+    required String subject,
+    required String phone,
   }) async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -105,9 +107,13 @@ class ContactUsController extends GetxController {
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_CONTACT_US'),
 
               body: {
+
                 'name': name,
+                "phone":phone,
                 'email': email,
-                'message': message
+                "subject":subject,
+                'message': message,
+
               }
           );
           Get.back();
@@ -118,6 +124,9 @@ class ContactUsController extends GetxController {
                userNameController.value.text=""  ;
                userEmailController.value.text=""  ;
            messageController.value.text=""  ;
+
+           subjectController.value.text=""  ;
+           userPhoneController.value.text=""  ;
           //  var data = jsonDecode(response.body);
 
 
