@@ -49,7 +49,7 @@ void showLoginWarning( ) {
                           child:  Align(
                             alignment: Alignment.topCenter,
                             child:   Text(
-                              "This section is Locked",
+                              "Login Required to Access this section!",
                               textAlign: TextAlign.center,
 
                               style: TextStyle(
@@ -65,7 +65,7 @@ void showLoginWarning( ) {
                           child:  Align(
                             alignment: Alignment.topCenter,
                             child: Text(
-                              "Go to login or Sign Up screen \nand try again ",
+                              "Please Go to login or Sign Up screen",
                               textAlign: TextAlign.center,
 
                               style: TextStyle(

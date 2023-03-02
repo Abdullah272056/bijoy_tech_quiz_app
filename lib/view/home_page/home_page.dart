@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import '../../../static/Colors.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/before_join_quiz/general_indevidual_quiz_about_page_controller.dart';
 import '../../controller/before_join_quiz/reading_indevidual_quiz_about_page_controller.dart';
 import '../../controller/before_join_quiz/spelling_indevidual_quiz_about_page_controller.dart';
 import '../../controller/before_join_quiz/video_indevidual_quiz_about_page_controller.dart';
+import '../../controller/dash_board_page_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/home_controller1.dart';
 import '../../controller/home_controller2.dart';
@@ -23,8 +25,9 @@ import '../before_join_quiz/spelling_indevidual_quiz_about_more.dart';
 import '../before_join_quiz/video_indevidual_quiz_about_more.dart';
 import '../common/login_warning.dart';
 import '../common/toast.dart';
-import '../custom_drawer.dart';
+import '../drawer/custom_drawer.dart';
 import '../before_join_quiz/individual_quiz_about_more.dart';
+import 'dash_board_page.dart';
 
 class HomePageScreen  extends StatelessWidget{
 
@@ -37,16 +40,29 @@ class HomePageScreen  extends StatelessWidget{
   Widget build(BuildContext context) {
     width =MediaQuery.of(context).size.width;
     height =MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor:  backGroundColor,
-          key: _drawerKey,
-          drawer: CustomDrawer(),
-          body: LayoutBuilder(builder: (context,constraints){
-            return _buildBodyDesign();
-          },)
+    return WillPopScope(
+      onWillPop: () async {
+
+        Get.deleteAll();
+        Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+        return true;
+
+      },
+      child: SafeArea(
+        child: Scaffold(
+            backgroundColor:  backGroundColor,
+            key: _drawerKey,
+            drawer: CustomDrawer(),
+            body: LayoutBuilder(builder: (context,constraints){
+              return _buildBodyDesign();
+            },)
+        ),
       ),
     );
+
+
+
+
   }
 
   Widget _buildBodyDesign() {
@@ -116,205 +132,261 @@ class HomePageScreen  extends StatelessWidget{
             const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
             child:Obx(() => Column(
               children: [
-                if(
-                    homeController.userToken.value!=""&&
-                    homeController.userToken.value!="null"&&
-                    homeController.userToken.value!=null
-                )...{
 
-                  if(homeController.quizDataList.isNotEmpty)...{
+                if(homeController.quizDataList.isNotEmpty)...{
+                  Expanded(child:SingleChildScrollView(
+                    child: Column(
+                      children:  [
 
-                    Expanded(child:  SingleChildScrollView(
-                      child: Column(
-                        children:  [
+                        Obx(() =>  ListView.builder(
+                            itemCount:homeController.quizDataList.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                            //     crossAxisCount:2,
+                            //     // crossAxisCount:Get.size.width>550? 2:1,
+                            //     crossAxisSpacing: 0.0,
+                            //
+                            //     mainAxisSpacing: 10.0,
+                            //    mainAxisExtent:Get.size.width>550? 350:260
+                            // ),
+                            itemBuilder: (BuildContext context, int index) {
+                              if(homeController.quizDataList[index]["status"].toString()=="1" ||
+                                  homeController.quizDataList[index]["status"].toString()=="2"){
 
-                          Obx(() =>  ListView.builder(
-                              itemCount:homeController.quizDataList.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                              //     crossAxisCount:2,
-                              //     // crossAxisCount:Get.size.width>550? 2:1,
-                              //     crossAxisSpacing: 0.0,
-                              //
-                              //     mainAxisSpacing: 10.0,
-                              //    mainAxisExtent:Get.size.width>550? 350:260
-                              // ),
-                              itemBuilder: (BuildContext context, int index) {
-                                if(homeController.quizDataList[index]["status"].toString()=="1" ||
-                                    homeController.quizDataList[index]["status"].toString()=="2"){
-
-                                  if(homeController.quizDataList[index]["active_bangla"].toString()=="1" ||
-                                      homeController.quizDataList[index]["active_english"].toString()=="1"){
-
-                                    return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
-                                        nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
-                                        response: homeController.quizDataList[index]);
-
-                                  }
-
-                                  else{
-                                    return Container();
-                                  }
+                                if(homeController.quizDataList[index]["active_bangla"].toString()=="1" ||
+                                    homeController.quizDataList[index]["active_english"].toString()=="1"){
+                                  return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                                      //  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                                      response: homeController.quizDataList[index]);
                                 }
                                 else{
-
-                                  return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
-                                      nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
-                                      response: homeController.quizDataList[index]);
-
+                                  return Container();
                                 }
+                              }
+                              else{
 
-                              }))
+                                return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                                    //   nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                                    response: homeController.quizDataList[index]);
 
-                        ],
-                      ),
-                    ))
-                  }
-                  else...{
-                    Expanded(child:  Center(
-                      child:Text(
-                        "Quiz Not Found!",
-                        style: TextStyle(
-                          color: textColor,
-                          fontSize: 16
-                        ),
-                      ),
-                    ))
+                              }
 
-                  }
+                            }))
 
-
-                }
-                else...{
-
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-
-                      children: [
-
-                        Container(
-
-                          margin:EdgeInsets.only(right:00.0,top: 0,left: 00,
-                            bottom: 0,
-                          ),
-                          child:Image.asset(
-                            "assets/images/app_logo.png",
-                            // color: sohojatri_color,
-                            // width: 81,
-                            height: 40,
-                            width: 120,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 0),
-                          child:  Align(
-                            alignment: Alignment.topCenter,
-                            child:   Text(
-                              "This section is Locked",
-                              textAlign: TextAlign.center,
-
-                              style: TextStyle(
-                                  color: Colors.deepOrangeAccent,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-
-                        Container(
-                          margin: EdgeInsets.only(left: 0, top: 10, right: 0, bottom: 0),
-                          child:  Align(
-                            alignment: Alignment.topCenter,
-                            child: Text(
-                              "Go to login or Sign Up screen \nand try again ",
-                              textAlign: TextAlign.center,
-
-                              style: TextStyle(
-                                  color: smallTextColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                          ),
-                        ),
-
-                        Container(
-                          margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 30),
-                          child: ElevatedButton(
-                            onPressed: () {
-
-                              Get.to(RegistrationScreen());
-
-                              //  Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpScreen()));
-
-                            },
-                            style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(7))),
-                            child: Ink(
-
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [sohojatri_color, sohojatri_color],
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                  ),
-                                  borderRadius: BorderRadius.circular(7.0)
-                              ),
-                              child: Container(
-
-                                height: 40,
-                                alignment: Alignment.center,
-                                child:  Text(
-                                  "SIGN UP",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'PT-Sans',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        Container(
-                          margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 0),
-                          child: InkWell(
-                            onTap: (){
-
-                              Get.to(LogInScreen());
-                              //   Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(7.0)
-                              ),
-                              height: 40,
-                              alignment: Alignment.center,
-                              child:  Text(
-                                "LOG IN",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'PT-Sans',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: sohojatri_color,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
                       ],
                     ),
-                  )
+                  ))
                 }
+                else...{
+                  Expanded(child:  Center(
+                    child:Text(
+                      "Quiz Not Found!",
+                      style: TextStyle(
+                          color: textColor,
+                          fontSize: 16
+                      ),
+                    ),
+                  ))
+
+                }
+
+                // if(
+                //     homeController.userToken.value!=""&&
+                //     homeController.userToken.value!="null"&&
+                //     homeController.userToken.value!=null
+                // )...{
+                //   if(homeController.quizDataList.isNotEmpty)...{
+                //     Expanded(child:  SingleChildScrollView(
+                //       child: Column(
+                //         children:  [
+                //
+                //           Obx(() =>  ListView.builder(
+                //               itemCount:homeController.quizDataList.length,
+                //               shrinkWrap: true,
+                //               physics: const NeverScrollableScrollPhysics(),
+                //               // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                //               //     crossAxisCount:2,
+                //               //     // crossAxisCount:Get.size.width>550? 2:1,
+                //               //     crossAxisSpacing: 0.0,
+                //               //
+                //               //     mainAxisSpacing: 10.0,
+                //               //    mainAxisExtent:Get.size.width>550? 350:260
+                //               // ),
+                //               itemBuilder: (BuildContext context, int index) {
+                //                 if(homeController.quizDataList[index]["status"].toString()=="1" ||
+                //                     homeController.quizDataList[index]["status"].toString()=="2"){
+                //
+                //                   if(homeController.quizDataList[index]["active_bangla"].toString()=="1" ||
+                //                       homeController.quizDataList[index]["active_english"].toString()=="1"){
+                //
+                //                     return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                //                       //  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                //                         response: homeController.quizDataList[index]);
+                //
+                //                   }
+                //
+                //                   else{
+                //                     return Container();
+                //                   }
+                //                 }
+                //                 else{
+                //
+                //                   return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                //                    //   nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                //                       response: homeController.quizDataList[index]);
+                //
+                //                 }
+                //
+                //               }))
+                //
+                //         ],
+                //       ),
+                //     ))
+                //   }
+                //   else...{
+                //     Expanded(child:  Center(
+                //       child:Text(
+                //         "Quiz Not Found!",
+                //         style: TextStyle(
+                //           color: textColor,
+                //           fontSize: 16
+                //         ),
+                //       ),
+                //     ))
+                //
+                //   }
+                //
+                // }
+                // else...{
+                //
+                //   Expanded(
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //
+                //       children: [
+                //
+                //         Container(
+                //
+                //           margin:EdgeInsets.only(right:00.0,top: 0,left: 00,
+                //             bottom: 0,
+                //           ),
+                //           child:Image.asset(
+                //             "assets/images/app_logo.png",
+                //             // color: sohojatri_color,
+                //             // width: 81,
+                //             height: 40,
+                //             width: 120,
+                //             fit: BoxFit.fill,
+                //           ),
+                //         ),
+                //         Container(
+                //           margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 0),
+                //           child:  Align(
+                //             alignment: Alignment.topCenter,
+                //             child:   Text(
+                //               "This section is Locked",
+                //               textAlign: TextAlign.center,
+                //
+                //               style: TextStyle(
+                //                   color: Colors.deepOrangeAccent,
+                //                   fontSize: 20,
+                //                   fontWeight: FontWeight.bold),
+                //             ),
+                //           ),
+                //         ),
+                //
+                //         Container(
+                //           margin: EdgeInsets.only(left: 0, top: 10, right: 0, bottom: 0),
+                //           child:  Align(
+                //             alignment: Alignment.topCenter,
+                //             child: Text(
+                //               "Go to login or Sign Up screen \nand try again ",
+                //               textAlign: TextAlign.center,
+                //
+                //               style: TextStyle(
+                //                   color: smallTextColor,
+                //                   fontSize: 14,
+                //                   fontWeight: FontWeight.normal),
+                //             ),
+                //           ),
+                //         ),
+                //
+                //         Container(
+                //           margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 30),
+                //           child: ElevatedButton(
+                //             onPressed: () {
+                //
+                //               Get.to(RegistrationScreen());
+                //
+                //               //  Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpScreen()));
+                //
+                //             },
+                //             style: ElevatedButton.styleFrom(
+                //                 padding: EdgeInsets.zero,
+                //                 shape: RoundedRectangleBorder(
+                //                     borderRadius: BorderRadius.circular(7))),
+                //             child: Ink(
+                //
+                //               decoration: BoxDecoration(
+                //                   gradient: LinearGradient(colors: [sohojatri_color, sohojatri_color],
+                //                     begin: Alignment.centerLeft,
+                //                     end: Alignment.centerRight,
+                //                   ),
+                //                   borderRadius: BorderRadius.circular(7.0)
+                //               ),
+                //               child: Container(
+                //
+                //                 height: 40,
+                //                 alignment: Alignment.center,
+                //                 child:  Text(
+                //                   "SIGN UP",
+                //                   textAlign: TextAlign.center,
+                //                   style: TextStyle(
+                //                     fontFamily: 'PT-Sans',
+                //                     fontSize: 14,
+                //                     fontWeight: FontWeight.normal,
+                //                     color: Colors.white,
+                //                   ),
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //
+                //         Container(
+                //           margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 0),
+                //           child: InkWell(
+                //             onTap: (){
+                //
+                //               Get.to(LogInScreen());
+                //               //   Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
+                //             },
+                //             child: Container(
+                //               decoration: BoxDecoration(
+                //                   color: Colors.transparent,
+                //                   borderRadius: BorderRadius.circular(7.0)
+                //               ),
+                //               height: 40,
+                //               alignment: Alignment.center,
+                //               child:  Text(
+                //                 "LOG IN",
+                //                 textAlign: TextAlign.center,
+                //                 style: TextStyle(
+                //                   fontFamily: 'PT-Sans',
+                //                   fontSize: 14,
+                //                   fontWeight: FontWeight.w500,
+                //                   color: sohojatri_color,
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //         )
+                //       ],
+                //     ),
+                //   )
+                // }
 
               ],
             ))
@@ -322,7 +394,140 @@ class HomePageScreen  extends StatelessWidget{
         ));
   }
 
-  Widget _buildHomeCardItem({required var response,required double item_marginLeft,required double item_marginRight, required String nameText, required String imageLink, }) {
+
+  Widget _buildHomeCardItem({required var response,required double item_marginLeft,required double item_marginRight,  }) {
+    return InkResponse(
+      onTap: (){
+        // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
+      },
+      child: Container(
+        margin:  EdgeInsets.only(left: item_marginLeft, right: item_marginRight,bottom: 10,top: 10),
+        // width: 180,
+        decoration: BoxDecoration(
+          color:home_item_bg_color,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [BoxShadow(
+
+            color:bg_top_color,
+            //  blurRadius: 20.0, // soften the shadow
+            blurRadius:0, // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset:
+            Offset(
+              0.0, // Move to right 10  horizontally
+              0.0, // Move to bottom 10 Vertically
+            ),
+          )],
+        ),
+        //   height: 150,
+        child: Container(
+          margin: const EdgeInsets.only(right: 00.0,top: 0,bottom: 0,left: 00),
+          // height: double.infinity,
+          // width: double.infinity,
+
+          child: Center(
+            child: Column(
+              children: [
+
+                Stack(children: [
+                  Row(
+                    children: [
+                      Expanded(child:   ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Container(
+                            height:Get.size.width<550?Get.size.width/3.2 :Get.size.width/3.2 ,
+                            color:Colors.white,
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.cover,
+                              placeholder: 'assets/images/empty.png',
+                              image:BASE_URL_HOME_IMAGE+response["home_content"]["img"].toString(),
+
+                              imageErrorBuilder: (context, url, error) =>
+                                  Image.asset(
+                                    'assets/images/empty.png',
+                                    fit: BoxFit.fill,
+                                  ),
+                            )),
+
+                      )
+
+                      )
+                    ],
+                  ),
+
+                ]),
+                SizedBox(height: 10,),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    response["title"].toString(),
+                    // nameText.toString(),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color:Colors.white,
+                        fontSize: sizeReturn(40),
+                        fontWeight: FontWeight.bold),
+                    softWrap: false,
+                    maxLines:1,
+                  ),
+                ),
+                const SizedBox(height: 10,),
+
+
+                Padding(padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+                  child: Column(
+                    children: [
+
+
+
+                      _buildQuizItemBottomText(name: 'Quiz Start Time:', value: dateFormat(response["start_date"].toString()),),
+                      _buildQuizItemBottomText(name: 'Quiz End Time:', value: dateFormat(response["end_date"].toString())+" "+
+                          response["end_time"].toString(),),
+                      _buildQuizItemBottomText(name: 'Price Money:', value: '\$'+response["price"].toString()),
+                      _buildQuizItemBottomText(name: 'Total Winner:', value: response["person"].toString()),
+
+
+
+                      _buildQuizItemBottomText(name: '1st Top Scorer Will Get:',
+                          value: response["first_top_money"].toString()!="null"?"\$"+response["first_top_money"].toString():"\$"+"0.00"
+                      ),
+
+                      _buildQuizItemBottomText(name: '2nd Top Scorer Will Get:',
+                          value: response["second_top_money"].toString()!="null"?"\$"+response["second_top_money"].toString():"\$"+"0.00"
+                      ),
+
+                      _buildQuizItemBottomText(name: '3rd Top Scorer Will Get:',
+                          value: response["third_top_money"].toString()!="null"?"\$"+response["third_top_money"].toString():"\$"+"0.00"
+                      ),
+
+                      _buildQuizItemBottomText(name: 'Total Question:', value: response["total_quistion"].toString()),
+                      _buildQuizItemBottomText(name: 'Every Question Mark:', value: response["mark"].toString()),
+
+
+                      // _buildQuizItemBottomText(name: 'Price Money:', value: '\$'+response["price"].toString()),
+                      // _buildQuizItemBottomText(name: 'Price Money Will Get:', value: response["person"].toString()),
+                      // // _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$20.00'),
+                      // _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$'+response["each_person_get"].toString()),
+
+
+                    ],
+                  ),
+                ),
+
+                _buildJoinQuizButton(response)
+
+
+              ],
+            ),
+          ),
+        ) ,
+      ),
+
+    );
+  }
+
+
+  Widget _buildHomeCardItem1({required var response,required double item_marginLeft,required double item_marginRight, required String nameText, required String imageLink, }) {
     return InkResponse(
       onTap: (){
         // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
@@ -418,7 +623,7 @@ class HomePageScreen  extends StatelessWidget{
                 Align(
                   alignment: Alignment.topCenter,
                   child: Text(
-                      response["title"].toString(),
+                    response["title"].toString(),
                     // nameText.toString(),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -460,6 +665,19 @@ class HomePageScreen  extends StatelessWidget{
       ),
 
     );
+  }
+
+
+  String dateFormat(String dateString){
+
+    DateTime parseDate = DateFormat("yyyy-MM-dd HH:mm:ss").parse(dateString);
+    var inputDate = DateTime.parse(parseDate.toString());
+    var outputFormat = DateFormat('dd-MM-yyyy');
+    // var outputFormat = DateFormat('dd-MMM-yyyy');
+    // var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
+    var outputDate = outputFormat.format(inputDate);
+
+    return outputDate.toString();
   }
 
   Widget _buildQuizItemBottomText({required String name,required String value}) {

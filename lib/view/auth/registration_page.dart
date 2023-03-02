@@ -5,20 +5,21 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../static/Colors.dart';
+import '../../controller/dash_board_page_controller.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../../controller/sign_up_page_controller.dart';
 import '../../controller/sign_up_page_controller2.dart';
 import '../common/toast.dart';
+import '../home_page/dash_board_page.dart';
 import 'fotget_password_page.dart';
 import 'log_in_page.dart';
 
-class RegistrationScreen  extends StatelessWidget {
+class RegistrationScreen  extends StatelessWidget{
 
   final signUpPageController = Get.put(SignUpPageController());
   var width;
   var height;
   late BuildContext _context;
-
   // String _particularBirthDate="Enter Birthday";
   // String select_your_country="Enter Birthday";
   late DateTime _myDate;
@@ -55,14 +56,42 @@ class RegistrationScreen  extends StatelessWidget {
       child: Flex(
         direction: Axis.vertical,
         children: [
+
+
           Container(
-            margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-            child: Image.asset(
-              "assets/images/app_logo.png",
-              //width: 50,
-              height: 35,
-              fit: BoxFit.fill,
-            ),
+            margin: const EdgeInsets.only(top: 10.0, bottom: 10.0,right: 20,left: 20),
+            child: Row(
+              children: [
+
+                Image.asset(
+                  "assets/images/app_logo.png",
+                  //width: 50,
+                  height: 35,
+                  fit: BoxFit.fill,
+                ),
+
+                Expanded(child: Container()),
+
+                Container(
+                  margin: EdgeInsets.only(top: 0,left: 10),
+                  child: InkWell(
+                      onTap: (){
+                        Get.deleteAll();
+                        Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+                      },
+                      child: Icon(
+                        Icons.home,
+                        size: 25,
+                        color: Colors.white,
+                      )
+                  ),
+                ),
+
+              ],
+            )
+
+
+
           ),
 
           Expanded(
@@ -309,7 +338,6 @@ class RegistrationScreen  extends StatelessWidget {
         ));
   }
 
-
   Widget userInputPassword(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
     return Container(
@@ -418,7 +446,6 @@ class RegistrationScreen  extends StatelessWidget {
     );
   }
 
-
   Widget userGradeSelect() {
     return Column(
       children: [
@@ -454,7 +481,7 @@ class RegistrationScreen  extends StatelessWidget {
               hint:Row(
                 children: const [
 
-                  Expanded(child: Padding(padding: EdgeInsets.only(left: 25),
+                  Expanded(child: Padding(padding: EdgeInsets.only(left: 17),
                       child:  Text("Select Grade",
                           style: TextStyle(
                               color: levelTextColor,
@@ -547,7 +574,7 @@ class RegistrationScreen  extends StatelessWidget {
               height: 50,
 
               child: Padding(
-                padding:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+                padding:  const EdgeInsets.only(left: 2.0, top: 0,bottom: 0, right: 5),
                 child:Obx(() => Flex(direction: Axis.horizontal,
                   children: [
                     if(signUpPageController.userBirthDate==signUpPageController.select_your_birth_day)...{
@@ -592,7 +619,6 @@ class RegistrationScreen  extends StatelessWidget {
 
     );
   }
-
 
   Widget userInput({
     required TextEditingController userInputController,
@@ -671,7 +697,6 @@ class RegistrationScreen  extends StatelessWidget {
     );
   }
 
-
   Widget userCountrySelect() {
     return Column(
       children: [
@@ -707,7 +732,7 @@ class RegistrationScreen  extends StatelessWidget {
               hint:Row(
                 children: const [
 
-                  Expanded(child: Padding(padding: EdgeInsets.only(left: 25),
+                  Expanded(child: Padding(padding: EdgeInsets.only(left: 17),
                       child:  Text("Select Country",
                           style: TextStyle(
                               color: levelTextColor,

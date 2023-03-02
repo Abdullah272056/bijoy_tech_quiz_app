@@ -14,9 +14,6 @@ import '../auth/log_in_page.dart';
 import '../auth/registration_page.dart';
 import '../common/toast.dart';
 
-
-
-
 class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
 
   final generalIndividualQuizAboutPagePageController = Get.put(GeneralIndividualQuizAboutPagePageController());
@@ -30,7 +27,6 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
     return SafeArea(
       child: Scaffold(
           backgroundColor:  backGroundColor,
-
           body: LayoutBuilder(builder: (context,constraints){
            return _buildBodyDesign();
           },)
@@ -63,7 +59,7 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
                     ),
                   ),
                   Obx(() =>  Text(
-                    generalIndividualQuizAboutPagePageController.quizName.value,
+                    generalIndividualQuizAboutPagePageController.quizName.value ,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:Colors.white,
@@ -102,33 +98,120 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
             Expanded(child: Padding(
                 padding:
                 const EdgeInsets.only(left: 10, top: 15, right: 10, bottom: 10),
-                child:SingleChildScrollView(
-                  child: Obx(() => Column(
-                    children:  [
+                child:Obx(() => Column(
+                  children: [
+                    if(generalIndividualQuizAboutPagePageController.screenAvailableInfo.value=="1")...{
 
-                      if(generalIndividualQuizAboutPagePageController.activeBangla.value=="1")...{
+                      Expanded(child: SingleChildScrollView(
+                        child: Obx(() => Column(
+                          children:  [
+                            if(generalIndividualQuizAboutPagePageController.activeBangla.value=="1")...{
 
-                        _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
-                            imageLink: 'assets/images/general_quiz.jpg', language: 'Bangla'),
-                      },
+                              _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+                                  imageLink: 'assets/images/general_quiz.jpg', language: 'Bangla'),
+                            },
+                            if(generalIndividualQuizAboutPagePageController.activeEnglish.value=="1")...{
+
+                              _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+                                  imageLink: 'assets/images/general_quiz.jpg', language: 'English'),
+                            },
+
+                          ],
+                        )),
+                      ))
+
+                    }
+
+                    else if(generalIndividualQuizAboutPagePageController.screenAvailableInfo.value=="2")...{
+
+                      const Expanded(child:  Center(
+                        child:Text(
+
+                          "This quiz is not available for your grade!\nThe quiz is coming soon for your grade.\nPlease try again later!",
+                          textAlign: TextAlign.center,
+
+                          style: TextStyle(
+                              color: textColor,
+                              fontSize: 16
+                          ),
+                        ),
+                      ))
+
+                    }
+                    else...{
+
+                        Expanded(child:  Center(
+                          child:Text(
+                            "Quiz Not Found!",
+                            style: TextStyle(
+                                color: textColor,
+                                fontSize: 16
+                            ),
+                          ),
+                        ))
+
+                      }
+
+                  ],
+                ))
 
 
-                      if(generalIndividualQuizAboutPagePageController.activeEnglish.value=="1")...{
 
-                        _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
-                            imageLink: 'assets/images/general_quiz.jpg', language: 'English'),
-                      },
 
-                    ],
-                  )),
-                )
+
+                // Center(
+                //   child:SingleChildScrollView(
+                //     child: Obx(() => Column(
+                //       children:  [
+                //
+                //         if(generalIndividualQuizAboutPagePageController.screenAvailableInfo.value=="1")...{
+                //
+                //           if(generalIndividualQuizAboutPagePageController.activeBangla.value=="1")...{
+                //
+                //             _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+                //                 imageLink: 'assets/images/general_quiz.jpg', language: 'Bangla'),
+                //           },
+                //           if(generalIndividualQuizAboutPagePageController.activeEnglish.value=="1")...{
+                //
+                //             _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+                //                 imageLink: 'assets/images/general_quiz.jpg', language: 'English'),
+                //           },
+                //
+                //         }
+                //         else if(generalIndividualQuizAboutPagePageController.screenAvailableInfo.value=="1")...{
+                //
+                //           if(generalIndividualQuizAboutPagePageController.activeBangla.value=="1")...{
+                //
+                //             _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+                //                 imageLink: 'assets/images/general_quiz.jpg', language: 'Bangla'),
+                //           },
+                //           if(generalIndividualQuizAboutPagePageController.activeEnglish.value=="1")...{
+                //
+                //             _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+                //                 imageLink: 'assets/images/general_quiz.jpg', language: 'English'),
+                //           },
+                //
+                //         }
+                //         else...{
+                //
+                //           Container(
+                //
+                //
+                //           )
+                //
+                //           }
+                //
+                //       ],
+                //     )),
+                //   ),
+                // )
 
             )),
 
           ],
-        ));
+        )
+    );
   }
-
 
   Widget _buildQuizCardItem({required String language, required double item_marginLeft,required double item_marginRight, required String imageLink,}) {
     return Column(
@@ -419,8 +502,6 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
   double sizeReturn(int divide){
     return Get.size.height/divide;
   }
-
-
 
   void showStartQuizWarning(String language) {
 

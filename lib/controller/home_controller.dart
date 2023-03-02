@@ -34,7 +34,7 @@ class HomeController extends GetxController {
 
 
    loadUserIdFromSharePref();
-  // getQuizDataList("");
+  getQuizDataList("");
 
     super.onInit();
 
@@ -50,11 +50,12 @@ class HomeController extends GetxController {
           showLoadingDialog("loading...");
 
           var response = await get(
-            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_HOME_PAGE_ALL_QUIZ'),
-            headers: {
-             'Authorization': 'Bearer '+token,
-              'Accept': 'application/json',
-            },
+            // Uri.parse('$BASE_URL_API$SUB_URL_API_GET_HOME_PAGE_ALL_QUIZ'),
+            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_ONGOING_ALL_QUIZ'),
+            // headers: {
+            //  'Authorization': 'Bearer '+token,
+            //   'Accept': 'application/json',
+            // },
           );
          //    showToastShort("status home= ${response.statusCode}");
           Get.back();
@@ -94,14 +95,14 @@ class HomeController extends GetxController {
       var storage =GetStorage();
       userName(storage.read(pref_user_name));
       userToken(storage.read(pref_user_token));
-      if(
-      userToken.value!=""&&
-      userToken.value!="null"&&
-      userToken.value!=null
-      ){
-        getQuizDataList(userToken.value);
-
-      }
+      // if(
+      // userToken.value!=""&&
+      // userToken.value!="null"&&
+      // userToken.value!=null
+      // ){
+      //   getQuizDataList(userToken.value);
+      //
+      // }
 
 
 

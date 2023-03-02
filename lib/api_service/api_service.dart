@@ -25,10 +25,17 @@ String SUB_URL_API_GET_USER_SCORE_RESULT = "api/user/score-result";
 String SUB_URL_API_GET_ALL_COUNTRY_LIST = "api/country-list";
 
 String SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_LIST = "api/home-category";
+
+
 String SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_DETAILS = "api/content?id=";
+
+String SUB_URL_API_GET_HOME_CATEGORIES_ABOUT_INFO = "api/content?id=";
 
 String SUB_URL_API_GET_HOME_PAGE_ALL_QUIZ = "api/user/quizzes";
 String SUB_URL_API_GET_USER_INFO = "api/user/user-info";
+
+String SUB_URL_API_GET_UPCOMING_ALL_QUIZ = "api/upcoming-quiz";
+String SUB_URL_API_GET_ONGOING_ALL_QUIZ = "api/ongoing-quiz";
 
 //join quiz
 String SUB_URL_API_GET_JOIN_QUIZ = "api/user/join-quiz";
@@ -52,5 +59,5 @@ String SUB_URL_API_GET_PRIVACY_POLICY= "api/page/privacy-policy";
 String SUB_URL_API_GET_FAQ= "api/page/faq";
 
 
-String SUB_URL_API_CONTACT_US= "api/page/contact-us";
+String SUB_URL_API_CONTACT_US= "api/send-message";
 String SUB_URL_API_GET_CONTACT_US= "api/page/contact-us";

@@ -12,7 +12,7 @@ import '../../controller/home_controller2.dart';
 import '../../controller/log_in_page_controller.dart';
 import '../../controller/my_quiz_score_controller.dart';
 import '../common/toast.dart';
-import '../custom_drawer.dart';
+import '../drawer/custom_drawer.dart';
 
 class MyQuizScorePageScreen  extends StatelessWidget{
 
@@ -109,35 +109,258 @@ class MyQuizScorePageScreen  extends StatelessWidget{
         child: Padding(
             padding:
             const EdgeInsets.only(left: 10, top: 15, right: 10, bottom: 10),
-            child:SingleChildScrollView(
-              child: Column(
-                children:  [
+            child:Obx(() => Column(
+              children: [
+
+                if(myQuizScoreController.quizResultList.isNotEmpty)...{
+                  Expanded(child:
+                  SingleChildScrollView(
+                    child: Column(
+                      children:  [
 
 
-               Obx(() => ListView.builder(
-                   itemCount:myQuizScoreController.quizResultList.length,
-                   shrinkWrap: true,
-                   physics: const NeverScrollableScrollPhysics(),
+                        Obx(() => ListView.builder(
+                            itemCount:myQuizScoreController.quizResultList.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
 
-                   // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                   //     crossAxisCount:2,
-                   //     // crossAxisCount:Get.size.width>550? 2:1,
-                   //     crossAxisSpacing: 0.0,
-                   //
-                   //     mainAxisSpacing: 10.0,
-                   //    mainAxisExtent:Get.size.width>550? 350:260
-                   // ),
+                            // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                            //     crossAxisCount:2,
+                            //     // crossAxisCount:Get.size.width>550? 2:1,
+                            //     crossAxisSpacing: 0.0,
+                            //
+                            //     mainAxisSpacing: 10.0,
+                            //    mainAxisExtent:Get.size.width>550? 350:260
+                            // ),
 
 
-                   itemBuilder: (BuildContext context, int index) {
-                     return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
-                         nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
-                         resultResponse: myQuizScoreController.quizResultList[index]);
-                   }))
+                            itemBuilder: (BuildContext context, int index) {
+                              return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                                  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                                  resultResponse: myQuizScoreController.quizResultList[index]);
+                            }))
 
-                ],
-              ),
-            )
+                      ],
+                    ),
+                  )
+
+                  )
+                }
+                else...{
+                  Expanded(child:  Center(
+                    child:Text(
+                      "Quiz Not Found!",
+                      style: TextStyle(
+                          color: textColor,
+                          fontSize: 16
+                      ),
+                    ),
+                  ))
+
+                }
+
+                // if(
+                //     homeController.userToken.value!=""&&
+                //     homeController.userToken.value!="null"&&
+                //     homeController.userToken.value!=null
+                // )...{
+                //   if(homeController.quizDataList.isNotEmpty)...{
+                //     Expanded(child:  SingleChildScrollView(
+                //       child: Column(
+                //         children:  [
+                //
+                //           Obx(() =>  ListView.builder(
+                //               itemCount:homeController.quizDataList.length,
+                //               shrinkWrap: true,
+                //               physics: const NeverScrollableScrollPhysics(),
+                //               // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                //               //     crossAxisCount:2,
+                //               //     // crossAxisCount:Get.size.width>550? 2:1,
+                //               //     crossAxisSpacing: 0.0,
+                //               //
+                //               //     mainAxisSpacing: 10.0,
+                //               //    mainAxisExtent:Get.size.width>550? 350:260
+                //               // ),
+                //               itemBuilder: (BuildContext context, int index) {
+                //                 if(homeController.quizDataList[index]["status"].toString()=="1" ||
+                //                     homeController.quizDataList[index]["status"].toString()=="2"){
+                //
+                //                   if(homeController.quizDataList[index]["active_bangla"].toString()=="1" ||
+                //                       homeController.quizDataList[index]["active_english"].toString()=="1"){
+                //
+                //                     return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                //                       //  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                //                         response: homeController.quizDataList[index]);
+                //
+                //                   }
+                //
+                //                   else{
+                //                     return Container();
+                //                   }
+                //                 }
+                //                 else{
+                //
+                //                   return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                //                    //   nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                //                       response: homeController.quizDataList[index]);
+                //
+                //                 }
+                //
+                //               }))
+                //
+                //         ],
+                //       ),
+                //     ))
+                //   }
+                //   else...{
+                //     Expanded(child:  Center(
+                //       child:Text(
+                //         "Quiz Not Found!",
+                //         style: TextStyle(
+                //           color: textColor,
+                //           fontSize: 16
+                //         ),
+                //       ),
+                //     ))
+                //
+                //   }
+                //
+                // }
+                // else...{
+                //
+                //   Expanded(
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //
+                //       children: [
+                //
+                //         Container(
+                //
+                //           margin:EdgeInsets.only(right:00.0,top: 0,left: 00,
+                //             bottom: 0,
+                //           ),
+                //           child:Image.asset(
+                //             "assets/images/app_logo.png",
+                //             // color: sohojatri_color,
+                //             // width: 81,
+                //             height: 40,
+                //             width: 120,
+                //             fit: BoxFit.fill,
+                //           ),
+                //         ),
+                //         Container(
+                //           margin: EdgeInsets.only(left: 0, top: 20, right: 0, bottom: 0),
+                //           child:  Align(
+                //             alignment: Alignment.topCenter,
+                //             child:   Text(
+                //               "This section is Locked",
+                //               textAlign: TextAlign.center,
+                //
+                //               style: TextStyle(
+                //                   color: Colors.deepOrangeAccent,
+                //                   fontSize: 20,
+                //                   fontWeight: FontWeight.bold),
+                //             ),
+                //           ),
+                //         ),
+                //
+                //         Container(
+                //           margin: EdgeInsets.only(left: 0, top: 10, right: 0, bottom: 0),
+                //           child:  Align(
+                //             alignment: Alignment.topCenter,
+                //             child: Text(
+                //               "Go to login or Sign Up screen \nand try again ",
+                //               textAlign: TextAlign.center,
+                //
+                //               style: TextStyle(
+                //                   color: smallTextColor,
+                //                   fontSize: 14,
+                //                   fontWeight: FontWeight.normal),
+                //             ),
+                //           ),
+                //         ),
+                //
+                //         Container(
+                //           margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 30),
+                //           child: ElevatedButton(
+                //             onPressed: () {
+                //
+                //               Get.to(RegistrationScreen());
+                //
+                //               //  Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpScreen()));
+                //
+                //             },
+                //             style: ElevatedButton.styleFrom(
+                //                 padding: EdgeInsets.zero,
+                //                 shape: RoundedRectangleBorder(
+                //                     borderRadius: BorderRadius.circular(7))),
+                //             child: Ink(
+                //
+                //               decoration: BoxDecoration(
+                //                   gradient: LinearGradient(colors: [sohojatri_color, sohojatri_color],
+                //                     begin: Alignment.centerLeft,
+                //                     end: Alignment.centerRight,
+                //                   ),
+                //                   borderRadius: BorderRadius.circular(7.0)
+                //               ),
+                //               child: Container(
+                //
+                //                 height: 40,
+                //                 alignment: Alignment.center,
+                //                 child:  Text(
+                //                   "SIGN UP",
+                //                   textAlign: TextAlign.center,
+                //                   style: TextStyle(
+                //                     fontFamily: 'PT-Sans',
+                //                     fontSize: 14,
+                //                     fontWeight: FontWeight.normal,
+                //                     color: Colors.white,
+                //                   ),
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //
+                //         Container(
+                //           margin: const EdgeInsets.only(left: 20.0, right: 20.0,top: 0),
+                //           child: InkWell(
+                //             onTap: (){
+                //
+                //               Get.to(LogInScreen());
+                //               //   Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
+                //             },
+                //             child: Container(
+                //               decoration: BoxDecoration(
+                //                   color: Colors.transparent,
+                //                   borderRadius: BorderRadius.circular(7.0)
+                //               ),
+                //               height: 40,
+                //               alignment: Alignment.center,
+                //               child:  Text(
+                //                 "LOG IN",
+                //                 textAlign: TextAlign.center,
+                //                 style: TextStyle(
+                //                   fontFamily: 'PT-Sans',
+                //                   fontSize: 14,
+                //                   fontWeight: FontWeight.w500,
+                //                   color: sohojatri_color,
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //         )
+                //       ],
+                //     ),
+                //   )
+                // }
+
+              ],
+            ))
+
+
+
 
         ));
   }

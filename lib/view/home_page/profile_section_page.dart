@@ -25,12 +25,11 @@ import '../auth/log_in_page.dart';
 import '../auth/registration_page.dart';
 import '../common/login_warning.dart';
 
-import '../custom_drawer.dart';
+import '../drawer/custom_drawer.dart';
 import '../payment_request_page.dart';
 import 'MyQuizScorePage.dart';
 import 'dash_board_page.dart';
 import 'my_profile_page.dart';
-
 
 
 class ProfileSectionPage extends StatelessWidget {
@@ -39,6 +38,7 @@ class ProfileSectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return WillPopScope(
       onWillPop: () async {
 
@@ -59,7 +59,6 @@ class ProfileSectionPage extends StatelessWidget {
               },
             )),
       ),
-
 
       // Scaffold(
       //     body:Container(
@@ -220,9 +219,6 @@ class ProfileSectionPage extends StatelessWidget {
       // ),
     );
 
-
-
-
   }
 
   Widget _buildBodyDesign() {
@@ -286,111 +282,113 @@ class ProfileSectionPage extends StatelessWidget {
         child: Padding(
           padding:
           const EdgeInsets.only(left: 0, top: 5, right: 0, bottom: 00),
-          child: Obx(() => Column(
-            children: [
-              SizedBox(height: 10,),
+          child: SingleChildScrollView(
+            child: Obx(() => Column(
+              children: [
+                SizedBox(height: 10,),
 
-              if(
-              profileSectionPageController.userToken.isNotEmpty &&
-                  profileSectionPageController.userToken.value!=null&&
-                  profileSectionPageController.userToken.value!="null"
-              )...{
-
-
-
-                Row(
-                  children: [
-                    _buildCardItem(
-                      item_marginLeft: 20,
-                      item_marginRight: 10,
-                      name: "MY PROFILE",
-                      imageLink: 'assets/images/icon_account.png',
-                      onClick: 1,),
-                    _buildCardItem(
-                      item_marginLeft: 10,
-                      item_marginRight: 20,
-                      name: "MY QUIZ SCORE",
-                      imageLink: 'assets/images/my_quiz_score.png',
-                      onClick: 2,),
-
-                  ],
-                ),
-                Row(
-                  children: [
-                    _buildCardItem(
-                      item_marginLeft: 20,
-                      item_marginRight: 10,
-                      name: "PAYMENT REQUEST",
-                      imageLink: 'assets/images/payment_request.png',
-                      onClick: 3,),
-                    _buildCardItem(
-                      item_marginLeft: 10,
-                      item_marginRight: 20,
-                      name: "CHANGE PASSWORD",
-                      imageLink: 'assets/images/change_password.png',
-                      onClick: 4,),
+                if(
+                profileSectionPageController.userToken.isNotEmpty &&
+                    profileSectionPageController.userToken.value!=null&&
+                    profileSectionPageController.userToken.value!="null"
+                )...{
 
 
 
+                  Row(
+                    children: [
+                      _buildCardItem(
+                        item_marginLeft: 20,
+                        item_marginRight: 10,
+                        name: "MY PROFILE",
+                        imageLink: 'assets/images/icon_account.png',
+                        onClick: 1,),
+                      _buildCardItem(
+                        item_marginLeft: 10,
+                        item_marginRight: 20,
+                        name: "MY QUIZ SCORE",
+                        imageLink: 'assets/images/my_quiz_score.png',
+                        onClick: 2,),
 
-
-                  ],
-                ),
-                Row(
-                  children: [
-                    _buildCardItem(
-                      item_marginLeft: 20,
-                      item_marginRight: 10,
-                      name: "LOGOUT",
-                      imageLink: 'assets/images/icon_logout.png',
-                      onClick: 5,),
-
-
-
-                  ],
-                )
-
-
-              }
-              else...{
-
-                Row(
-                  children: [
-                    _buildCardItem(
-                      item_marginLeft: 20,
-                      item_marginRight: 10,
-                      name: "SIGN IN",
-                      imageLink: 'assets/images/icon_log_in_account.png',
-                      onClick: 11,),
-
-                    _buildCardItem(
-                      item_marginLeft: 10,
-                      item_marginRight: 20,
-                      name: "CREATE ACCOUNT",
-                      imageLink: 'assets/images/icon_create_account.png',
-                      onClick: 12,),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      _buildCardItem(
+                        item_marginLeft: 20,
+                        item_marginRight: 10,
+                        name: "PAYMENT REQUEST",
+                        imageLink: 'assets/images/payment_request.png',
+                        onClick: 3,),
+                      _buildCardItem(
+                        item_marginLeft: 10,
+                        item_marginRight: 20,
+                        name: "CHANGE PASSWORD",
+                        imageLink: 'assets/images/change_password.png',
+                        onClick: 4,),
 
 
 
-                  ],
-                ),
-
-                Row(
-                  children: [
-                    _buildCardItem(
-                      item_marginLeft: 20,
-                      item_marginRight: 10,
-                      name: "FORGET YOUR PASSWORD",
-                      imageLink: 'assets/images/change_password.png',
-                      onClick: 13,),
 
 
-                  ],
-                )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      _buildCardItem(
+                        item_marginLeft: 20,
+                        item_marginRight: 10,
+                        name: "LOGOUT",
+                        imageLink: 'assets/images/icon_logout.png',
+                        onClick: 5,),
 
-              }
-            ],
-          )),
+
+
+                    ],
+                  )
+
+
+                }
+                else...{
+
+                  Row(
+                    children: [
+                      _buildCardItem(
+                        item_marginLeft: 20,
+                        item_marginRight: 10,
+                        name: "SIGN IN",
+                        imageLink: 'assets/images/icon_log_in_account.png',
+                        onClick: 11,),
+
+                      _buildCardItem(
+                        item_marginLeft: 10,
+                        item_marginRight: 20,
+                        name: "CREATE ACCOUNT",
+                        imageLink: 'assets/images/icon_create_account.png',
+                        onClick: 12,),
+
+
+
+                    ],
+                  ),
+
+                  Row(
+                    children: [
+                      _buildCardItem(
+                        item_marginLeft: 20,
+                        item_marginRight: 10,
+                        name: "FORGET YOUR PASSWORD",
+                        imageLink: 'assets/images/change_password.png',
+                        onClick: 13,),
+
+
+                    ],
+                  )
+
+                }
+              ],
+            )),
+          ),
         ));
   }
 
@@ -567,8 +565,6 @@ class ProfileSectionPage extends StatelessWidget {
 
     );
   }
-
-
 
 
 

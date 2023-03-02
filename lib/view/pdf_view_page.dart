@@ -12,7 +12,7 @@ import '../api_service/api_service.dart';
 import '../controller/indevidual_quiz_about_page_controller.dart';
 import '../controller/pdf_view_page_controller.dart';
 import 'common/toast.dart';
-import 'custom_drawer.dart';
+import 'drawer/custom_drawer.dart';
 
 
 
@@ -312,7 +312,26 @@ class PdfViewPageScreen  extends StatelessWidget{
 
 
                     ),
-                    errorWidget: (dynamic error) => Center(child: Text(error.toString())),
+                    errorWidget: (dynamic error) => const Center(child:
+
+                    Text(
+                      'Pdf not found at this time!'
+                          '\nPlease try again later!',
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color:textColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500),
+
+                    ),
+                    // Text(
+                    //
+                    //
+                    //     error.toString()
+                    //
+                    // )
+                    ),
 
                   ))
 

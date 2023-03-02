@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/dash_board_page_controller.dart';
 import '../../static/Colors.dart';
-import '../custom_drawer.dart';
+import '../drawer/custom_drawer.dart';
+import 'more_page.dart';
 import 'quiz_categories_page.dart';
 import 'home_page.dart';
 import 'my_profile_page.dart';
@@ -52,7 +53,7 @@ class DashBoardPageScreen extends StatelessWidget {
           }
 
           if(index==3){
-            dashBoardPageController.updateSelectedPage([CustomDrawer()]);
+            dashBoardPageController.updateSelectedPage([MorePage()]);
             // selectedPage= SearchPage( );
             return;
           }
@@ -62,7 +63,7 @@ class DashBoardPageScreen extends StatelessWidget {
 
           _bottomNavigationBarItem(iconData: Icons.home, levelText: 'Home'),
 
-          _bottomNavigationBarItem(iconData: Icons.view_list, levelText: 'Quizzes'),
+          _bottomNavigationBarItem(iconData: Icons.view_list, levelText: 'Live Quizzes'),
 
           _bottomNavigationBarItem(iconData: Icons.person, levelText: 'Account'),
 
