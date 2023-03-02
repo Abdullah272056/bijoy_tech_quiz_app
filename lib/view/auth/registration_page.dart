@@ -14,13 +14,12 @@ import '../home_page/dash_board_page.dart';
 import 'fotget_password_page.dart';
 import 'log_in_page.dart';
 
-class RegistrationScreen  extends StatelessWidget {
+class RegistrationScreen  extends StatelessWidget{
 
   final signUpPageController = Get.put(SignUpPageController());
   var width;
   var height;
   late BuildContext _context;
-
   // String _particularBirthDate="Enter Birthday";
   // String select_your_country="Enter Birthday";
   late DateTime _myDate;
@@ -339,7 +338,6 @@ class RegistrationScreen  extends StatelessWidget {
         ));
   }
 
-
   Widget userInputPassword(TextEditingController userInputController, String hintTitle,
       TextInputType keyboardType) {
     return Container(
@@ -447,7 +445,6 @@ class RegistrationScreen  extends StatelessWidget {
       ),
     );
   }
-
 
   Widget userGradeSelect() {
     return Column(
@@ -623,7 +620,6 @@ class RegistrationScreen  extends StatelessWidget {
     );
   }
 
-
   Widget userInput({
     required TextEditingController userInputController,
     required String hintTitle,
@@ -700,7 +696,6 @@ class RegistrationScreen  extends StatelessWidget {
       ),
     );
   }
-
 
   Widget userCountrySelect() {
     return Column(

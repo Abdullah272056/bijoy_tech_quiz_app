@@ -420,8 +420,6 @@ class GeneralIndividualQuizAboutPageScreen  extends StatelessWidget{
     return Get.size.height/divide;
   }
 
-
-
   void showStartQuizWarning(String language) {
 
     Get.defaultDialog(

@@ -10,6 +10,7 @@ import '../../controller/before_join_quiz/general_indevidual_quiz_about_page_con
 import '../../controller/before_join_quiz/reading_indevidual_quiz_about_page_controller.dart';
 import '../../controller/before_join_quiz/spelling_indevidual_quiz_about_page_controller.dart';
 import '../../controller/before_join_quiz/video_indevidual_quiz_about_page_controller.dart';
+import '../../controller/dash_board_page_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/home_controller1.dart';
 import '../../controller/home_controller2.dart';
@@ -25,6 +26,7 @@ import '../common/login_warning.dart';
 import '../common/toast.dart';
 import '../drawer/custom_drawer.dart';
 import '../before_join_quiz/individual_quiz_about_more.dart';
+import 'dash_board_page.dart';
 
 class HomePageScreen  extends StatelessWidget{
 
@@ -37,16 +39,29 @@ class HomePageScreen  extends StatelessWidget{
   Widget build(BuildContext context) {
     width =MediaQuery.of(context).size.width;
     height =MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor:  backGroundColor,
-          key: _drawerKey,
-          drawer: CustomDrawer(),
-          body: LayoutBuilder(builder: (context,constraints){
-            return _buildBodyDesign();
-          },)
+    return WillPopScope(
+      onWillPop: () async {
+
+        Get.deleteAll();
+        Get.offAll(DashBoardPageScreen())?.then((value) => Get.delete<DashBoardPageController>());
+        return true;
+
+      },
+      child: SafeArea(
+        child: Scaffold(
+            backgroundColor:  backGroundColor,
+            key: _drawerKey,
+            drawer: CustomDrawer(),
+            body: LayoutBuilder(builder: (context,constraints){
+              return _buildBodyDesign();
+            },)
+        ),
       ),
     );
+
+
+
+
   }
 
   Widget _buildBodyDesign() {

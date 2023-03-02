@@ -38,6 +38,7 @@ class ProfileSectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return WillPopScope(
       onWillPop: () async {
 
@@ -217,9 +218,6 @@ class ProfileSectionPage extends StatelessWidget {
       //     )
       // ),
     );
-
-
-
 
   }
 

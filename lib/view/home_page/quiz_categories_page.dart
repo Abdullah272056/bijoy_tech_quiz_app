@@ -11,6 +11,7 @@ import '../../controller/categories_quiz_details_page_controller.dart';
 import '../../controller/quiz_about_more.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/log_in_page_controller.dart';
+import '../common/login_warning.dart';
 import 'categories_quiz_details.dart';
 import '../common/toast.dart';
 import '../drawer/custom_drawer.dart';
@@ -22,7 +23,8 @@ class QuizCategoriesScreen  extends StatelessWidget{
   final categoriesListPageController = Get.put(CategoriesListPageController());
   var width;
   var height;
-  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey();
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
      width =MediaQuery.of(context).size.width;
@@ -33,18 +35,22 @@ class QuizCategoriesScreen  extends StatelessWidget{
           key: _drawerKey,
           drawer: CustomDrawer(),
         body: LayoutBuilder(builder: (context,constraints){
+
+
           if(constraints.maxWidth<600){
             return _buildBodyDesign();
           }
           else{
-            return Center(child:
-            Container(
+            return Center(child: SizedBox(
               // height: 100,
             width: Get.size.width,
             child: _buildBodyDesign(),
             // color: Colors.amber,
             ),);
           }
+
+
+
         },)
       ),
     );
@@ -89,6 +95,7 @@ class QuizCategoriesScreen  extends StatelessWidget{
               ],
             )
           ),
+
           Expanded(
             child: _buildBottomDesign(),
           ),
@@ -308,11 +315,22 @@ class QuizCategoriesScreen  extends StatelessWidget{
       child: InkResponse(
         onTap: () {
 
-          Get.to(() => CategoriesQuizDetailsPageScreen(), arguments: {
-            "categoriesId": response["id"].toString(),
-            "categoriesQuizName": response["title"].toString(),
-            "categoriesImg": BASE_URL_HOME_IMAGE+response["img"].toString(),
-          })?.then((value) => Get.delete<CategoriesQuizDetailsPageController>());
+
+          if(categoriesListPageController.userToken.value.isNotEmpty &&
+              categoriesListPageController.userToken.value!=null &&
+              categoriesListPageController.userToken.value!="null"
+          ){
+            Get.to(() => CategoriesQuizDetailsPageScreen(), arguments: {
+              "categoriesId": response["id"].toString(),
+              "categoriesQuizName": response["title"].toString(),
+              "categoriesImg": BASE_URL_HOME_IMAGE+response["img"].toString(),
+            })?.then((value) => Get.delete<CategoriesQuizDetailsPageController>());
+
+          }else{
+            showLoginWarning();
+          }
+
+
         },
 
         child:Container(
