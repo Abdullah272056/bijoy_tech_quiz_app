@@ -312,7 +312,26 @@ class PdfViewPageScreen  extends StatelessWidget{
 
 
                     ),
-                    errorWidget: (dynamic error) => Center(child: Text(error.toString())),
+                    errorWidget: (dynamic error) => Center(child:
+
+                    Text(
+                      'Pdf not found at this time!'
+                          '\nPlease try again later!',
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color:textColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500),
+
+                    ),
+                    // Text(
+                    //
+                    //
+                    //     error.toString()
+                    //
+                    // )
+                    ),
 
                   ))
 

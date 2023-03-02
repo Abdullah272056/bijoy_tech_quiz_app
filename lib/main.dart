@@ -5,7 +5,6 @@ import 'package:bijoy_tech_quiz_app/view/drawer/about_us.dart';
 import 'package:bijoy_tech_quiz_app/view/drawer/contact_us.dart';
 import 'package:bijoy_tech_quiz_app/view/drawer/faq.dart';
 import 'package:bijoy_tech_quiz_app/view/home_page/profile_section_page.dart';
-import 'package:bijoy_tech_quiz_app/view/up_coming_quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return  GetMaterialApp(
-     home: UpComingQuizPageScreen()
+     home: DashBoardPageScreen()
        //  home: AboutUsPage()
        // home: RegistrationScreen()
        //   home: ProfileSectionPage()

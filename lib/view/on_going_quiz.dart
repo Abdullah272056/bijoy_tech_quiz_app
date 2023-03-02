@@ -1,17 +1,29 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import '../../../static/Colors.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/home_controller.dart';
+import '../controller/before_join_quiz/general_indevidual_quiz_about_page_controller.dart';
+import '../controller/before_join_quiz/reading_indevidual_quiz_about_page_controller.dart';
+import '../controller/before_join_quiz/spelling_indevidual_quiz_about_page_controller.dart';
+import '../controller/before_join_quiz/video_indevidual_quiz_about_page_controller.dart';
+import '../controller/on_going_quiz_controller.dart';
 import '../controller/up_coming_quiz_controller.dart';
+import '../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import 'auth/log_in_page.dart';
 import 'auth/registration_page.dart';
+import 'before_join_quiz/general_quiz_about_more.dart';
+import 'before_join_quiz/reading_indevidual_quiz_about_more.dart';
+import 'before_join_quiz/spelling_indevidual_quiz_about_more.dart';
+import 'before_join_quiz/video_indevidual_quiz_about_more.dart';
+import 'common/login_warning.dart';
 
-class UpComingQuizPageScreen  extends StatelessWidget{
+class OnGongQuizPageScreen  extends StatelessWidget{
 
-  final homeController = Get.put(UpComingQuizController());
+  final homeController = Get.put(OnGoingQuizController());
   var width;
   var height;
 
@@ -58,7 +70,7 @@ class UpComingQuizPageScreen  extends StatelessWidget{
                   ),
 
                   const Text(
-                    "All Upcoming Quizzes",
+                    "All Ongoing Quizzes",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color:textColor,
@@ -121,10 +133,50 @@ class UpComingQuizPageScreen  extends StatelessWidget{
                             //    mainAxisExtent:Get.size.width>550? 350:260
                             // ),
                             itemBuilder: (BuildContext context, int index) {
-                              return _buildHomeCardItem(
-                                  item_marginLeft: 10,item_marginRight: 10,
 
-                                  response: homeController.quizDataList[index]);
+
+
+                              if(homeController.quizDataList[index]["status"].toString()=="1" ||
+                                  homeController.quizDataList[index]["status"].toString()=="2"){
+
+                                if(homeController.quizDataList[index]["active_bangla"].toString()=="1" ||
+                                    homeController.quizDataList[index]["active_english"].toString()=="1"){
+
+                                  // return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                                  //     nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                                  //     response: homeController.quizDataList[index]);
+
+                                  return  _buildHomeCardItem(
+                                      item_marginLeft: 10,item_marginRight: 10,
+                                      response: homeController.quizDataList[index]
+                                  );
+
+                                }
+
+                                else{
+                                  return Container();
+                                }
+                              }
+                              else{
+
+                                return  _buildHomeCardItem(
+                                    item_marginLeft: 10,item_marginRight: 10,
+                                    response: homeController.quizDataList[index]
+                                );
+
+                                  // _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
+                                  //   nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                                  //   response: homeController.quizDataList[index]);
+
+
+
+
+                              }
+
+
+
+
+
 
                             }))
 
@@ -212,38 +264,7 @@ class UpComingQuizPageScreen  extends StatelessWidget{
                       )
                     ],
                   ),
-                  // Row(
-                  //   children: [
-                  //     Expanded(child:Align(alignment: Alignment.topRight,
-                  //       child: InkWell(
-                  //         onTap: (){
-                  //
-                  //           showToastShort("more details");
-                  //
-                  //         },
-                  //         child: Container(
-                  //
-                  //           decoration:  BoxDecoration(
-                  //               borderRadius: BorderRadius.only(
-                  //                 bottomLeft: Radius.circular(5.0),
-                  //               ),
-                  //               color: Colors.black.withOpacity(.25)
-                  //             //    color: buttonBgColor,
-                  //             //    color: buttonBgColor,
-                  //           ),
-                  //           padding: const EdgeInsets.only(left: 3,right: 3,top: 3,bottom: 3),
-                  //           child: Icon(
-                  //             Icons.info_outline,
-                  //             color: Colors.white,
-                  //             size: sizeReturn(40),
-                  //           ),
-                  //
-                  //
-                  //         ),
-                  //       ),
-                  //     )   )
-                  //   ],
-                  // ),
+
                 ]),
                 SizedBox(height: 10,),
                 Align(
@@ -303,7 +324,7 @@ class UpComingQuizPageScreen  extends StatelessWidget{
                   ),
                 ),
 
-
+                _buildJoinQuizButton(response)
 
 
               ],
@@ -312,6 +333,97 @@ class UpComingQuizPageScreen  extends StatelessWidget{
         ) ,
       ),
 
+    );
+  }
+
+  Widget _buildJoinQuizButton(var response) {
+    return Container(
+      margin: const EdgeInsets.only(left: 0.0, right: 0.0),
+      child: InkResponse(
+        onTap: () {
+
+          //showToastShort(GetStorage().read(pref_user_token));
+
+          if(GetStorage().read(pref_user_token).toString().isNotEmpty &&
+              GetStorage().read(pref_user_token)!=null &&
+              GetStorage().read(pref_user_token)!="null"
+          ){
+            if(response["status"].toString()=="1"){
+              Get.to(() => GeneralIndividualQuizAboutPageScreen(), arguments: {
+
+                "quizId": response["id"].toString(),
+                "quizStatus": response["status"].toString(),
+                "quizName": response["title"].toString(),
+
+              })?.
+              then((value) => Get.delete<GeneralIndividualQuizAboutPagePageController>());
+            }
+            if(response["status"].toString()=="2"){
+              Get.to(() => SpellingIndividualQuizAboutPageScreen(), arguments: {
+
+                "quizId": response["id"].toString(),
+                "quizStatus": response["status"].toString(),
+                "quizName": response["title"].toString(),
+
+              })?.
+              then((value) => Get.delete<SpellingIndividualQuizAboutPagePageController>());
+            }
+            if(response["status"].toString()=="3"){
+              Get.to(() => ReadingIndividualQuizAboutPageScreen(), arguments: {
+
+                "quizId": response["id"].toString(),
+                "quizStatus": response["status"].toString(),
+                "quizName": response["title"].toString(),
+
+              })?.
+              then((value) => Get.delete<ReadingIndividualQuizAboutPagePageController>());
+            }
+            if(response["status"].toString()=="4"){
+              Get.to(() => VideoIndividualQuizAboutPageScreen(), arguments: {
+
+                "quizId": response["id"].toString(),
+                "quizStatus": response["status"].toString(),
+                "quizName": response["title"].toString(),
+
+              })?.
+              then((value) => Get.delete<VideoIndividualQuizAboutPagePageController>());
+            }
+
+          }else{
+            showLoginWarning();
+          }
+
+
+          // Get.to(IndividualQuizAboutPageScreen());
+
+        },
+
+        child:Container(
+          decoration: BoxDecoration(
+              color: buttonBgColor,
+
+              borderRadius: BorderRadius.circular(10.0)
+          ),
+          height:Get.size.height/18,
+          // width: 100,
+          alignment: Alignment.center,
+          child:  Wrap(
+            children:  [
+              Text(
+                "Join Quiz",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'PT-Sans',
+                  fontSize:16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
+
+            ],
+          ),
+        ),
+      ),
     );
   }
 

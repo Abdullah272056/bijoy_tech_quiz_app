@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import '../../../static/Colors.dart';
 import '../../api_service/api_service.dart';
 import '../../controller/before_join_quiz/general_indevidual_quiz_about_page_controller.dart';
@@ -163,7 +164,7 @@ class HomePageScreen  extends StatelessWidget{
                                       homeController.quizDataList[index]["active_english"].toString()=="1"){
 
                                     return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
-                                        nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                                      //  nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
                                         response: homeController.quizDataList[index]);
 
                                   }
@@ -175,7 +176,7 @@ class HomePageScreen  extends StatelessWidget{
                                 else{
 
                                   return  _buildHomeCardItem(item_marginLeft: 10, item_marginRight: 10,
-                                      nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                                   //   nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
                                       response: homeController.quizDataList[index]);
 
                                 }
@@ -337,7 +338,140 @@ class HomePageScreen  extends StatelessWidget{
         ));
   }
 
-  Widget _buildHomeCardItem({required var response,required double item_marginLeft,required double item_marginRight, required String nameText, required String imageLink, }) {
+
+  Widget _buildHomeCardItem({required var response,required double item_marginLeft,required double item_marginRight,  }) {
+    return InkResponse(
+      onTap: (){
+        // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
+      },
+      child: Container(
+        margin:  EdgeInsets.only(left: item_marginLeft, right: item_marginRight,bottom: 10,top: 10),
+        // width: 180,
+        decoration: BoxDecoration(
+          color:home_item_bg_color,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [BoxShadow(
+
+            color:bg_top_color,
+            //  blurRadius: 20.0, // soften the shadow
+            blurRadius:0, // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset:
+            Offset(
+              0.0, // Move to right 10  horizontally
+              0.0, // Move to bottom 10 Vertically
+            ),
+          )],
+        ),
+        //   height: 150,
+        child: Container(
+          margin: const EdgeInsets.only(right: 00.0,top: 0,bottom: 0,left: 00),
+          // height: double.infinity,
+          // width: double.infinity,
+
+          child: Center(
+            child: Column(
+              children: [
+
+                Stack(children: [
+                  Row(
+                    children: [
+                      Expanded(child:   ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Container(
+                            height:Get.size.width<550?Get.size.width/3.2 :Get.size.width/3.2 ,
+                            color:Colors.white,
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.cover,
+                              placeholder: 'assets/images/empty.png',
+                              image:BASE_URL_HOME_IMAGE+response["home_content"]["img"].toString(),
+
+                              imageErrorBuilder: (context, url, error) =>
+                                  Image.asset(
+                                    'assets/images/empty.png',
+                                    fit: BoxFit.fill,
+                                  ),
+                            )),
+
+                      )
+
+                      )
+                    ],
+                  ),
+
+                ]),
+                SizedBox(height: 10,),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    response["title"].toString(),
+                    // nameText.toString(),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color:Colors.white,
+                        fontSize: sizeReturn(40),
+                        fontWeight: FontWeight.bold),
+                    softWrap: false,
+                    maxLines:1,
+                  ),
+                ),
+                const SizedBox(height: 10,),
+
+
+                Padding(padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
+                  child: Column(
+                    children: [
+
+
+
+                      _buildQuizItemBottomText(name: 'Quiz Start Time:', value: dateFormat(response["start_date"].toString()),),
+                      _buildQuizItemBottomText(name: 'Quiz End Time:', value: dateFormat(response["end_date"].toString())+" "+
+                          response["end_time"].toString(),),
+                      _buildQuizItemBottomText(name: 'Price Money:', value: '\$'+response["price"].toString()),
+                      _buildQuizItemBottomText(name: 'Total Winner:', value: response["person"].toString()),
+
+
+
+                      _buildQuizItemBottomText(name: '1st Top Scorer Will Get:',
+                          value: response["first_top_money"].toString()!="null"?"\$"+response["first_top_money"].toString():"\$"+"0.00"
+                      ),
+
+                      _buildQuizItemBottomText(name: '2nd Top Scorer Will Get:',
+                          value: response["second_top_money"].toString()!="null"?"\$"+response["second_top_money"].toString():"\$"+"0.00"
+                      ),
+
+                      _buildQuizItemBottomText(name: '3rd Top Scorer Will Get:',
+                          value: response["third_top_money"].toString()!="null"?"\$"+response["third_top_money"].toString():"\$"+"0.00"
+                      ),
+
+                      _buildQuizItemBottomText(name: 'Total Question:', value: response["total_quistion"].toString()),
+                      _buildQuizItemBottomText(name: 'Every Question Mark:', value: response["mark"].toString()),
+
+
+                      // _buildQuizItemBottomText(name: 'Price Money:', value: '\$'+response["price"].toString()),
+                      // _buildQuizItemBottomText(name: 'Price Money Will Get:', value: response["person"].toString()),
+                      // // _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$20.00'),
+                      // _buildQuizItemBottomText(name: 'Top Each Person Will Get:', value: '\$'+response["each_person_get"].toString()),
+
+
+                    ],
+                  ),
+                ),
+
+                _buildJoinQuizButton(response)
+
+
+              ],
+            ),
+          ),
+        ) ,
+      ),
+
+    );
+  }
+
+
+  Widget _buildHomeCardItem1({required var response,required double item_marginLeft,required double item_marginRight, required String nameText, required String imageLink, }) {
     return InkResponse(
       onTap: (){
         // Navigator.push(context,MaterialPageRoute(builder: (context)=>TeacherProfileViewScreen(teacherId: response["id"].toString() ,)));
@@ -433,7 +567,7 @@ class HomePageScreen  extends StatelessWidget{
                 Align(
                   alignment: Alignment.topCenter,
                   child: Text(
-                      response["title"].toString(),
+                    response["title"].toString(),
                     // nameText.toString(),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -475,6 +609,19 @@ class HomePageScreen  extends StatelessWidget{
       ),
 
     );
+  }
+
+
+  String dateFormat(String dateString){
+
+    DateTime parseDate = DateFormat("yyyy-MM-dd HH:mm:ss").parse(dateString);
+    var inputDate = DateTime.parse(parseDate.toString());
+    var outputFormat = DateFormat('dd-MM-yyyy');
+    // var outputFormat = DateFormat('dd-MMM-yyyy');
+    // var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
+    var outputDate = outputFormat.format(inputDate);
+
+    return outputDate.toString();
   }
 
   Widget _buildQuizItemBottomText({required String name,required String value}) {
