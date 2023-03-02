@@ -107,13 +107,11 @@ class ContactUsController extends GetxController {
           var response = await http.post(Uri.parse('$BASE_URL_API$SUB_URL_API_CONTACT_US'),
 
               body: {
-
                 'name': name,
                 "phone":phone,
                 'email': email,
                 "subject":subject,
                 'message': message,
-
               }
           );
           Get.back();
