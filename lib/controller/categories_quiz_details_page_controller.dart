@@ -26,7 +26,6 @@ class CategoriesQuizDetailsPageController extends GetxController {
   var userToken="".obs;
   dynamic argumentData = Get.arguments;
 
-
   @override
   void onInit() {
     // categoriesDataResponse=argumentData['categoriesDataResponse'].toString();
@@ -109,5 +108,6 @@ class CategoriesQuizDetailsPageController extends GetxController {
     }
 
   }
+
 
 }

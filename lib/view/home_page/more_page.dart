@@ -12,6 +12,8 @@ import '../../controller/drawer_controller/faq_controller.dart';
 import '../../controller/drawer_controller/privacy_policy_controller.dart';
 import '../../controller/drawer_controller/terms_of_use_controller.dart';
 import '../../controller/more_page_controller.dart';
+import '../../controller/on_going_quiz_controller.dart';
+import '../../controller/up_coming_quiz_controller.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../auth/change_password_page.dart';
 import '../auth/fotget_password_page.dart';
@@ -24,6 +26,8 @@ import '../drawer/privacy_policy.dart';
 import '../drawer/terms_of_use.dart';
 
 import '../home_page/MyQuizScorePage.dart';
+import '../on_going_quiz.dart';
+import '../up_coming_quiz.dart';
 import 'dash_board_page.dart';
 
 
@@ -200,7 +204,7 @@ class MorePage extends StatelessWidget {
                                       leading: drawerItemIconDesign(Icons.list_alt),
                                       title: drawerItemDesign("On Going Quizzes"),
                                       onTap: () {
-                                        //  Get.to(ForgetPasswordScreen());
+                                        Get.to(() => OnGongQuizPageScreen(),)?.then((value) => Get.delete<OnGoingQuizController>());
                                       },
                                     ),
 
@@ -208,7 +212,8 @@ class MorePage extends StatelessWidget {
                                       leading: drawerItemIconDesign(Icons.list_alt),
                                       title: drawerItemDesign("Up Coming Quizzes"),
                                       onTap: () {
-                                        //  Get.to(ForgetPasswordScreen());
+                                        Get.to(() => UpComingQuizPageScreen(),)?.then((value) => Get.delete<UpComingQuizController>());
+
                                       },
                                     ),
 
@@ -320,7 +325,7 @@ class MorePage extends StatelessWidget {
                                       leading: drawerItemIconDesign(Icons.list_alt),
                                       title: drawerItemDesign("On Going Quizzes"),
                                       onTap: () {
-                                        //  Get.to(ForgetPasswordScreen());
+                                        Get.to(() => OnGongQuizPageScreen(),)?.then((value) => Get.delete<OnGoingQuizController>());
                                       },
                                     ),
 
@@ -328,7 +333,8 @@ class MorePage extends StatelessWidget {
                                       leading: drawerItemIconDesign(Icons.list_alt),
                                       title: drawerItemDesign("Up Coming Quizzes"),
                                       onTap: () {
-                                        //  Get.to(ForgetPasswordScreen());
+                                        Get.to(() => UpComingQuizPageScreen(),)?.then((value) => Get.delete<UpComingQuizController>());
+
                                       },
                                     ),
 

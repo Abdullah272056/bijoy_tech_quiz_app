@@ -312,7 +312,7 @@ class PdfViewPageScreen  extends StatelessWidget{
 
 
                     ),
-                    errorWidget: (dynamic error) => Center(child:
+                    errorWidget: (dynamic error) => const Center(child:
 
                     Text(
                       'Pdf not found at this time!'

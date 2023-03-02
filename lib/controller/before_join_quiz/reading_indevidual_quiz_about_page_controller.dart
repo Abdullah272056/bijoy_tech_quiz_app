@@ -33,6 +33,7 @@ class ReadingIndividualQuizAboutPagePageController extends GetxController {
   var quizId="".obs;
   var quizStatus="".obs;
   var quizName="".obs;
+  var screenAvailableInfo="0".obs;
 
   @override
   void onInit() {
@@ -69,7 +70,7 @@ class ReadingIndividualQuizAboutPagePageController extends GetxController {
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
-
+            screenAvailableInfo("1");
 
            totalQuestion(dataResponse["data"]["quiz"][0]["total_quistion"].toString());
            everyQuestionMark(dataResponse["data"]["quiz"][0]["mark"].toString());
@@ -77,18 +78,13 @@ class ReadingIndividualQuizAboutPagePageController extends GetxController {
            priceMoneyWillGet(dataResponse["data"]["quiz"][0]["person"].toString());
            topEachPersonWillGet(dataResponse["data"]["quiz"][0]["each_person_get"].toString());
 
+           quizImageLink(dataResponse["data"]["quiz_img"]["img"].toString());
 
-            quizImageLink(dataResponse["data"]["quiz_img"]["img"].toString());
+           activeBooksList(dataResponse["data"]["quiz"][0]["active_books"]);
 
-
-
-            activeBooksList(dataResponse["data"]["quiz"][0]["active_books"]);
-
-            // productDetailsDataList(dataResponse);
-          //  quizCategoriesDataList(dataResponse["data"]);
-
-           //   showToastShort(activeBooksList.length.toString());
-
+          }
+          else if(response.statusCode == 403){
+            screenAvailableInfo("2");
           }
           else {
             // Fluttertoast.cancel();

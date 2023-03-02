@@ -34,6 +34,7 @@ class VideoIndividualQuizAboutPagePageController extends GetxController {
   var quizId="".obs;
   var quizStatus="".obs;
   var quizName="".obs;
+  var screenAvailableInfo="0".obs;
 
   @override
   void onInit() {
@@ -70,7 +71,7 @@ class VideoIndividualQuizAboutPagePageController extends GetxController {
           if (response.statusCode == 200) {
 
             var dataResponse = jsonDecode(response.body);
-
+            screenAvailableInfo("1");
 
             totalQuestion(dataResponse["data"]["quiz"][0]["total_quistion"].toString());
             everyQuestionMark(dataResponse["data"]["quiz"][0]["mark"].toString());
@@ -90,6 +91,9 @@ class VideoIndividualQuizAboutPagePageController extends GetxController {
 
            // showToastShort(activeBooksList.length.toString());
 
+          }
+          else if(response.statusCode == 403){
+            screenAvailableInfo("2");
           }
           else {
             // Fluttertoast.cancel();

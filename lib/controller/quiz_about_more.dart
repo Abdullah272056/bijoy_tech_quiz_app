@@ -32,6 +32,7 @@ class QuizAboutPageController extends GetxController {
   var quizId="".obs;
 
   var quizAboutText="".obs;
+  var upComingQuizList= [].obs;
   var onGoingQuizList= [].obs;
   var recentlyFinishedQuizList= [].obs;
 
@@ -39,8 +40,6 @@ class QuizAboutPageController extends GetxController {
   var userToken="".obs;
 
   dynamic argumentData = Get.arguments;
-
-
 
 
   @override
@@ -67,7 +66,7 @@ class QuizAboutPageController extends GetxController {
           showLoadingDialog("loading...");
 
           var response = await get(
-            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_HOME_CATEGORIES_QUIZ_DETAILS$categories_id'),
+            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_HOME_CATEGORIES_ABOUT_INFO$categories_id'),
           );
           //   showToastShort("status = ${response.statusCode}");
           Get.back();
@@ -83,7 +82,8 @@ class QuizAboutPageController extends GetxController {
             textValue(dataResponse["data"]["content"][0]["content"].toString());
             //
             onGoingQuizList(dataResponse["data"]["ongoing"]);
-            recentlyFinishedQuizList(dataResponse["data"]["quizes"]);
+            upComingQuizList(dataResponse["data"]["upcomeing"]);
+            recentlyFinishedQuizList(dataResponse["data"]["recent_finish"]);
 
 
             quizTypeStatus(dataResponse["data"]["content"][0]["status"].toString());
@@ -117,11 +117,6 @@ class QuizAboutPageController extends GetxController {
       // _showToast("No Internet Connection!");
     }
   }
-
-
-
-
-
 
   ///get data from share pref
   void loadUserIdFromSharePref() async {

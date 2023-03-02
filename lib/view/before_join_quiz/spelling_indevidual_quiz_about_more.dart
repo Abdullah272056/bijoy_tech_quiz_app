@@ -96,36 +96,85 @@ class SpellingIndividualQuizAboutPageScreen  extends StatelessWidget{
             topRight: Radius.circular(30.0),
           ),
         ),
-        child:Column(
+        child:
+
+        Column(
           children: [
             Expanded(child: Padding(
                 padding:
                 const EdgeInsets.only(left: 10, top: 15, right: 10, bottom: 10),
-                child:SingleChildScrollView(
-                  child: Obx(() => Column(
-                    children:  [
+                child:Obx(() => Column(
+                  children: [
+                    if(spellingIndividualQuizAboutPagePageController.screenAvailableInfo.value=="1")...{
 
-                      if(spellingIndividualQuizAboutPagePageController.activeBangla.value=="1")...{
+                      Expanded(child: SingleChildScrollView(
+                        child: Obx(() => Column(
+                          children:  [
 
-                        _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
-                            imageLink: 'assets/images/general_quiz.jpg', language: 'Bangla'),
-                      },
+                            if(spellingIndividualQuizAboutPagePageController.activeBangla.value=="1")...{
+
+                              _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+                                  imageLink: 'assets/images/general_quiz.jpg', language: 'Bangla'),
+                            },
 
 
-                      if(spellingIndividualQuizAboutPagePageController.activeEnglish.value=="1")...{
+                            if(spellingIndividualQuizAboutPagePageController.activeEnglish.value=="1")...{
 
-                        _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
-                            imageLink: 'assets/images/general_quiz.jpg', language: 'English'),
-                      },
+                              _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+                                  imageLink: 'assets/images/general_quiz.jpg', language: 'English'),
+                            },
 
-                    ],
-                  )),
-                )
+                          ],
+                        )),
+                      )
+
+                      )
+
+                    }
+
+                    else if(spellingIndividualQuizAboutPagePageController.screenAvailableInfo.value=="2")...{
+
+                      const Expanded(child:  Center(
+                        child:Text(
+
+                          "This quiz is not available for your grade!\nThe quiz is coming soon for your grade.\nPlease try again later!",
+                          textAlign: TextAlign.center,
+
+                          style: TextStyle(
+                              color: textColor,
+                              fontSize: 16
+                          ),
+                        ),
+                      ))
+
+                    }
+                    else...{
+
+                        Expanded(child:  Center(
+                          child:Text(
+                            "Quiz Not Found!",
+                            style: TextStyle(
+                                color: textColor,
+                                fontSize: 16
+                            ),
+                          ),
+                        ))
+
+                      }
+
+                  ],
+                ))
+
+
 
             )),
 
           ],
-        ));
+        ),
+
+
+
+    );
   }
 
   Widget _buildQuizCardItem({required String language, required double item_marginLeft,required double item_marginRight, required String imageLink, }) {

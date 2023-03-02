@@ -10,11 +10,15 @@ import '../../controller/drawer_controller/contact_us_controller.dart';
 import '../../controller/drawer_controller/faq_controller.dart';
 import '../../controller/drawer_controller/privacy_policy_controller.dart';
 import '../../controller/drawer_controller/terms_of_use_controller.dart';
+import '../../controller/on_going_quiz_controller.dart';
+import '../../controller/up_coming_quiz_controller.dart';
 import '../../data_base/share_pref/sharePreferenceDataSaveName.dart';
 import '../auth/change_password_page.dart';
 import '../auth/fotget_password_page.dart';
 import '../auth/log_in_page.dart';
 import '../auth/registration_page.dart';
+import '../on_going_quiz.dart';
+import '../up_coming_quiz.dart';
 import 'about_us.dart';
 import 'contact_us.dart';
 import 'faq.dart';
@@ -135,7 +139,7 @@ class CustomDrawer extends StatelessWidget {
                             leading: drawerItemIconDesign(Icons.list_alt),
                             title: drawerItemDesign("On Going Quizzes"),
                             onTap: () {
-                              //  Get.to(ForgetPasswordScreen());
+                              Get.to(() => OnGongQuizPageScreen(),)?.then((value) => Get.delete<OnGoingQuizController>());
                             },
                           ),
 
@@ -143,7 +147,8 @@ class CustomDrawer extends StatelessWidget {
                             leading: drawerItemIconDesign(Icons.list_alt),
                             title: drawerItemDesign("Up Coming Quizzes"),
                             onTap: () {
-                              //  Get.to(ForgetPasswordScreen());
+                              Get.to(() => UpComingQuizPageScreen(),)?.then((value) => Get.delete<UpComingQuizController>());
+
                             },
                           ),
 
@@ -337,14 +342,17 @@ class CustomDrawer extends StatelessWidget {
                             leading: drawerItemIconDesign(Icons.list_alt),
                             title: drawerItemDesign("On Going Quizzes"),
                             onTap: () {
-                            //  Get.to(ForgetPasswordScreen());
+
+                              Get.to(() => OnGongQuizPageScreen(),)?.then((value) => Get.delete<OnGoingQuizController>());
+
                             },
                           ),
                           ListTile(
                             leading: drawerItemIconDesign(Icons.list_alt),
                             title: drawerItemDesign("Up Coming Quizzes"),
                             onTap: () {
-                              //  Get.to(ForgetPasswordScreen());
+                              Get.to(() => UpComingQuizPageScreen(),)?.then((value) => Get.delete<UpComingQuizController>());
+
                             },
                           ),
 

@@ -96,33 +96,37 @@ class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
             topRight: Radius.circular(30.0),
           ),
         ),
-        child:Column(
+        child: Column(
           children: [
             Expanded(child: Padding(
                 padding:
                 const EdgeInsets.only(left: 10, top: 15, right: 10, bottom: 10),
-                child:SingleChildScrollView(
-                  child: Column(
-                    children:  [
+                child:Obx(() => Column(
+                  children: [
+                    if(readingIndividualQuizAboutPagePage.screenAvailableInfo.value=="1")...{
 
-                      Obx(() =>  ListView.builder(
-                          itemCount:readingIndividualQuizAboutPagePage.activeBooksList.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                          //     crossAxisCount:2,
-                          //     // crossAxisCount:Get.size.width>550? 2:1,
-                          //     crossAxisSpacing: 0.0,
-                          //
-                          //     mainAxisSpacing: 10.0,
-                          //    mainAxisExtent:Get.size.width>550? 350:260
-                          // ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return  quizListItem(
-                                item_marginLeft: 10, item_marginRight: 10,
-                                nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
-                                activeBooksResponse: readingIndividualQuizAboutPagePage.activeBooksList[index]);
-                          })),
+                      Expanded(child: SingleChildScrollView(
+                        child: Column(
+                          children:  [
+
+                            Obx(() =>  ListView.builder(
+                                itemCount:readingIndividualQuizAboutPagePage.activeBooksList.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                                //     crossAxisCount:2,
+                                //     // crossAxisCount:Get.size.width>550? 2:1,
+                                //     crossAxisSpacing: 0.0,
+                                //
+                                //     mainAxisSpacing: 10.0,
+                                //    mainAxisExtent:Get.size.width>550? 350:260
+                                // ),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return  quizListItem(
+                                      item_marginLeft: 10, item_marginRight: 10,
+                                      nameText: 'General Quiz', imageLink: 'assets/images/general_quiz.jpg',
+                                      activeBooksResponse: readingIndividualQuizAboutPagePage.activeBooksList[index]);
+                                })),
 
 
 
@@ -130,14 +134,104 @@ class ReadingIndividualQuizAboutPageScreen  extends StatelessWidget{
 
 
 
-                    ],
-                  ),
-                )
+                          ],
+                        ),
+                      ))
+
+                    }
+
+                    else if(readingIndividualQuizAboutPagePage.screenAvailableInfo.value=="2")...{
+
+                      const Expanded(child:  Center(
+                        child:Text(
+
+                          "This quiz is not available for your grade!\nThe quiz is coming soon for your grade.\nPlease try again later!",
+                          textAlign: TextAlign.center,
+
+                          style: TextStyle(
+                              color: textColor,
+                              fontSize: 16
+                          ),
+                        ),
+                      ))
+
+                    }
+                    else...{
+
+                        Expanded(child:  Center(
+                          child:Text(
+                            "Quiz Not Found!",
+                            style: TextStyle(
+                                color: textColor,
+                                fontSize: 16
+                            ),
+                          ),
+                        ))
+
+                      }
+
+                  ],
+                ))
+
+
+
+
+
+              // Center(
+              //   child:SingleChildScrollView(
+              //     child: Obx(() => Column(
+              //       children:  [
+              //
+              //         if(generalIndividualQuizAboutPagePageController.screenAvailableInfo.value=="1")...{
+              //
+              //           if(generalIndividualQuizAboutPagePageController.activeBangla.value=="1")...{
+              //
+              //             _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+              //                 imageLink: 'assets/images/general_quiz.jpg', language: 'Bangla'),
+              //           },
+              //           if(generalIndividualQuizAboutPagePageController.activeEnglish.value=="1")...{
+              //
+              //             _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+              //                 imageLink: 'assets/images/general_quiz.jpg', language: 'English'),
+              //           },
+              //
+              //         }
+              //         else if(generalIndividualQuizAboutPagePageController.screenAvailableInfo.value=="1")...{
+              //
+              //           if(generalIndividualQuizAboutPagePageController.activeBangla.value=="1")...{
+              //
+              //             _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+              //                 imageLink: 'assets/images/general_quiz.jpg', language: 'Bangla'),
+              //           },
+              //           if(generalIndividualQuizAboutPagePageController.activeEnglish.value=="1")...{
+              //
+              //             _buildQuizCardItem(item_marginLeft: 10, item_marginRight: 10,
+              //                 imageLink: 'assets/images/general_quiz.jpg', language: 'English'),
+              //           },
+              //
+              //         }
+              //         else...{
+              //
+              //           Container(
+              //
+              //
+              //           )
+              //
+              //           }
+              //
+              //       ],
+              //     )),
+              //   ),
+              // )
 
             )),
 
           ],
-        ));
+        ),
+
+
+
+    );
   }
 
   Widget  quizListItem({
